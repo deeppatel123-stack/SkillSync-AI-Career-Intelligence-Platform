@@ -1,0 +1,519 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.header-pill {
+  background: #ebf8ff;
+  border: 1px solid #bee3f8;
+  padding: 10px 16px;
+  border-radius: 50px;
+  color: #2c5282;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-bar {
+  margin-bottom: 32px;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 14px;
+}
+
+.filter-bar select,
+.filter-bar input {
+  padding: 10px 14px;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.filter-bar select:focus,
+.filter-bar input:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.filter-actions button {
+  padding: 10px 24px;
+  background: #4299e1;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-actions button:hover {
+  background: #3182ce;
+  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+}
+
+.opportunity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.opportunity-list-item {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 24px 28px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.opportunity-list-item:hover {
+  border-color: #bee3f8;
+  box-shadow: 0 8px 24px rgba(66, 153, 225, 0.12);
+}
+
+.opportunity-list-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.opportunity-list-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.opportunity-list-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a202c;
+}
+
+.opportunity-list-desc {
+  color: #4a5568;
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 0 0 14px;
+}
+
+.opportunity-list-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  color: #718096;
+  font-size: 14px;
+}
+
+.opportunity-list-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.opportunity-list-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+  min-width: 150px;
+}
+
+.opportunity-btn {
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.opportunity-empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: #718096;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px dashed #cbd5e0;
+}
+
+.opportunity-empty i {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.type-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: none;
+}
+
+.type-badge.internship {
+  background: #d6bcfa;
+  color: #553c9a;
+}
+
+.type-badge.job {
+  background: #90cdf4;
+  color: #1e4e8c;
+}
+
+.type-badge.hackathon {
+  background: #9ae6b4;
+  color: #22543d;
+}
+
+.type-badge.event {
+  background: #fbd38d;
+  color: #7c2d12;
+}
+
+.form-container {
+  max-width: 850px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 14px;
+}
+
+.form-card input,
+.form-card textarea,
+.form-card select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.form-card input:focus,
+.form-card textarea:focus,
+.form-card select:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.post-header {
+  background: #4299e1;
+  color: white;
+  padding: 24px 32px;
+  font-size: 24px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.form-card {
+  background: #ffffff;
+  padding: 32px;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.required {
+  color: #e53e3e;
+  margin-left: 2px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.form-actions .btn-primary-custom {
+  width: auto;
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #007bff;
+}
+
+.form-actions .btn-outline-secondary {
+  width: auto;
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #cbd5e0;
+  color: #4a5568;
+}
+
+.form-actions .btn-outline-secondary:hover {
+  background: #f7fafc;
+  border-color: #a0aec0;
+}
+
+.form-group textarea {
+  min-height: 120px;
+}
+
+@media (max-width: 1200px) {
+  .page-header {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+    align-items: center;
+  }
+
+  .header-pill {
+    margin: 0 auto;
+  }
+
+  .filter-bar {
+    padding: 20px;
+  }
+
+  .opportunity-list-header h3 {
+    font-size: 18px;
+  }
+
+  .type-badge {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 992px) {
+  .page-header {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .header-pill {
+    margin: 0 auto;
+  }
+
+  .filter-bar {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .filter-group label {
+    font-size: 14px;
+  }
+
+  .filter-bar select,
+  .filter-bar input {
+    padding: 11px 16px;
+    font-size: 16px;
+  }
+
+  .filter-actions button {
+    padding: 11px 24px;
+    font-size: 16px;
+  }
+
+  .opportunity-list-item {
+    padding: 20px;
+  }
+
+  .type-badge {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 16px;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .page-subtitle {
+    font-size: 14px;
+  }
+
+  .page-header {
+    padding-bottom: 16px;
+  }
+
+  .filter-bar {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+
+  .filter-bar select,
+  .filter-bar input {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;
+  }
+
+  .filter-actions button {
+    width: 100%;
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+
+  .opportunity-list {
+    gap: 16px;
+  }
+
+  .opportunity-list-item {
+    flex-direction: column;
+    padding: 18px;
+  }
+
+  .opportunity-list-actions {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .opportunity-btn {
+    width: 100%;
+  }
+
+  .form-container {
+    margin: 0;
+    border-radius: 8px;
+  }
+
+  .form-card {
+    padding: 24px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .post-header {
+    padding: 20px 24px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-content {
+    padding: 12px;
+  }
+
+  .page-title {
+    font-size: 21px;
+  }
+
+  .page-subtitle {
+    font-size: 14px;
+  }
+
+  .filter-bar {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .filter-group label {
+    font-size: 13px;
+  }
+
+  .filter-bar select,
+  .filter-bar input {
+    padding: 10px 13px;
+    font-size: 14px;
+  }
+
+  .filter-actions button {
+    padding: 10px 19px;
+    font-size: 14px;
+  }
+
+  .opportunity-list-item {
+    padding: 16px;
+  }
+
+  .opportunity-list-header h3 {
+    font-size: 17px;
+  }
+
+  .opportunity-list-desc {
+    font-size: 14px;
+  }
+
+  .type-badge {
+    padding: 3px 8px;
+    font-size: 10px;
+  }
+
+  .form-card {
+    padding: 20px;
+  }
+
+  .post-header {
+    padding: 16px 20px;
+    font-size: 18px;
+  }
+
+  .form-group label {
+    font-size: 14px;
+  }
+
+  .form-card input,
+  .form-card textarea,
+  .form-card select {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+}

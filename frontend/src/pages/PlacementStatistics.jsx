@@ -30,7 +30,7 @@ export default function PlacementStatistics() {
                 <i className="bi bi-bar-chart-fill" />
                 <div>
                   <h3>Placement Statistics</h3>
-                  <p>Overall placement data from the AI dataset</p>
+                  <p>Real placement data from registered students</p>
                 </div>
               </div>
 
@@ -91,22 +91,22 @@ export default function PlacementStatistics() {
                   <div className="col-md-4">
                     <div className="stat-card">
                       <div className="stat-icon icon-purple">
-                        <i className="bi bi-lightbulb-fill" />
+                        <i className="bi bi-file-text-fill" />
                       </div>
                       <div className="stat-info">
-                        <h3>{stats.avg_aptitude}</h3>
-                        <p>Avg Aptitude Score</p>
+                        <h3>{stats.total_applications}</h3>
+                        <p>Total Applications</p>
                       </div>
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="stat-card">
                       <div className="stat-icon icon-green">
-                        <i className="bi bi-chat-dots-fill" />
+                        <i className="bi bi-star-fill" />
                       </div>
                       <div className="stat-info">
-                        <h3>{stats.avg_communication}</h3>
-                        <p>Avg Communication Score</p>
+                        <h3>{stats.avg_skills_per_student}</h3>
+                        <p>Avg Skills / Student</p>
                       </div>
                     </div>
                   </div>

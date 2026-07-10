@@ -15,11 +15,11 @@ import ProfileSettings from './pages/ProfileSettings';
 // AI Feature Pages
 import PlacementPrediction from './pages/PlacementPrediction';
 import CareerRecommendation from './pages/CareerRecommendation';
-import SkillGapAnalysis from './pages/SkillGapAnalysis';
-import ResumeScore from './pages/ResumeScore';
 import LearningRoadmap from './pages/LearningRoadmap';
-import CandidateRanking from './pages/CandidateRanking';
 import PlacementStatistics from './pages/PlacementStatistics';
+
+// Trending Skills
+import TrendingSkills from './pages/TrendingSkills';
 
 // Student Profile
 import StudentProfile from './pages/StudentProfile';
@@ -43,11 +43,11 @@ export default function App() {
       {/* AI Feature Routes */}
       <Route path="/ai/placement-prediction" element={<PlacementPrediction />} />
       <Route path="/ai/career-recommendation" element={<CareerRecommendation />} />
-      <Route path="/ai/skill-gap" element={<SkillGapAnalysis />} />
-      <Route path="/ai/resume-score" element={<ResumeScore />} />
       <Route path="/ai/learning-roadmap" element={<LearningRoadmap />} />
-      <Route path="/ai/candidate-ranking" element={<CandidateRanking />} />
       <Route path="/ai/placement-statistics" element={<PlacementStatistics />} />
+
+      {/* Trending Skills */}
+      <Route path="/ai/trending-skills" element={<TrendingSkills />} />
 
       {/* Student Profile */}
       <Route path="/student/profile" element={<StudentProfile />} />

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AppLayout from '../components/AppLayout';
 import { demoAdmin } from '../data/mockData';
 import { applicationApi, opportunityApi, userApi } from '../utils/api';
+import { aiApi } from '../utils/aiApi';
 import { getSession, setSession } from '../utils/userSession';
 
 function getStatusBadgeClass(status) {
@@ -183,6 +184,7 @@ export default function AdminDashboard() {
   const [applications, setApplications] = useState([]);
   const [users, setUsers] = useState([]);
   const [platformStats, setPlatformStats] = useState({ totalUsers: 0, totalOpportunities: 0, totalApplications: 0, adminCount: 0 });
+  const [collegeStats, setCollegeStats] = useState(null);
   const [organizerMap, setOrganizerMap] = useState({});
   const [selectedOpportunity, setSelectedOpportunity] = useState(null);
   const [selectedApplication, setSelectedApplication] = useState(null);
@@ -206,16 +208,18 @@ export default function AdminDashboard() {
 
   const loadAllData = async () => {
     try {
-      const [oppRes, appRes, userRes, statsRes] = await Promise.all([
+      const [oppRes, appRes, userRes, statsRes, colRes] = await Promise.all([
         opportunityApi.list(),
         applicationApi.list(),
         userApi.getAll(),
         userApi.getStats(),
+        aiApi.getCollegeStatistics(),
       ]);
       setOpportunities(oppRes.opportunities || []);
       setApplications(appRes.applications || []);
       setUsers(userRes.users || []);
       setPlatformStats(statsRes.stats || {});
+      if (colRes.success) setCollegeStats(colRes.data);
       const map = {};
       (userRes.users || []).forEach((u) => {
         map[u.id] = u.name;
@@ -287,6 +291,69 @@ export default function AdminDashboard() {
           </div>
         </div>
       </div>
+
+      {collegeStats && (
+        <>
+          <div className="row mt-4">
+            <div className="col-12">
+              <h4 className="section-title">
+                <i className="bi bi-mortarboard me-2" />
+                College Insights
+              </h4>
+            </div>
+          </div>
+          <div className="row mt-2 g-4 mb-2">
+            <div className="col-lg-3 col-md-4 col-6">
+              <div className="stat-card">
+                <div className="stat-icon icon-purple"><i className="bi bi-people-fill" /></div>
+                <div className="stat-info"><h3>{collegeStats.totalStudents}</h3><p>Students</p></div>
+              </div>
+            </div>
+            <div className="col-lg-3 col-md-4 col-6">
+              <div className="stat-card">
+                <div className="stat-icon icon-blue"><i className="bi bi-building" /></div>
+                <div className="stat-info"><h3>{collegeStats.totalCompanies}</h3><p>Companies</p></div>
+              </div>
+            </div>
+            <div className="col-lg-3 col-md-4 col-6">
+              <div className="stat-card">
+                <div className="stat-icon icon-orange"><i className="bi bi-briefcase-fill" /></div>
+                <div className="stat-info"><h3>{collegeStats.totalJobs}</h3><p>Jobs</p></div>
+              </div>
+            </div>
+            <div className="col-lg-3 col-md-4 col-6">
+              <div className="stat-card">
+                <div className="stat-icon icon-blue"><i className="bi bi-journal-richtext" /></div>
+                <div className="stat-info"><h3>{collegeStats.totalInternships}</h3><p>Internships</p></div>
+              </div>
+            </div>
+            <div className="col-lg-3 col-md-4 col-6">
+              <div className="stat-card">
+                <div className="stat-icon icon-green"><i className="bi bi-percent" /></div>
+                <div className="stat-info"><h3>{collegeStats.placementRate}%</h3><p>Placement Rate</p></div>
+              </div>
+            </div>
+            <div className="col-lg-3 col-md-4 col-6">
+              <div className="stat-card">
+                <div className="stat-icon icon-green"><i className="bi bi-trophy-fill" /></div>
+                <div className="stat-info"><h3>{collegeStats.acceptedHires}</h3><p>Hired</p></div>
+              </div>
+            </div>
+            <div className="col-lg-3 col-md-4 col-6">
+              <div className="stat-card">
+                <div className="stat-icon icon-orange"><i className="bi bi-cpu" /></div>
+                <div className="stat-info"><h3>{collegeStats.avgCgpa}</h3><p>Avg CGPA</p></div>
+              </div>
+            </div>
+            <div className="col-lg-3 col-md-4 col-6">
+              <div className="stat-card">
+                <div className="stat-icon icon-blue"><i className="bi bi-file-text-fill" /></div>
+                <div className="stat-info"><h3>{collegeStats.totalApplications}</h3><p>Applications</p></div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
 
       <div className="row mt-5">
         <div className="col-12">

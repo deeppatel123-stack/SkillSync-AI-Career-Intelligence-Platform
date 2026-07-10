@@ -10,8 +10,7 @@ const studentLinks = [
   // AI Features
   { to: '/ai/placement-prediction', icon: 'bi-graph-up-arrow', label: 'Placement Prediction' },
   { to: '/ai/career-recommendation', icon: 'bi-compass', label: 'Career Advice' },
-  { to: '/ai/skill-gap', icon: 'bi-clipboard-data', label: 'Skill Gap' },
-  { to: '/ai/resume-score', icon: 'bi-file-earmark-text', label: 'Resume Score' },
+  { to: '/ai/trending-skills', icon: 'bi-graph-up', label: 'Trending Skills' },
   { to: '/ai/learning-roadmap', icon: 'bi-signpost-2', label: 'Roadmap' },
 ];
 
@@ -21,7 +20,7 @@ const organizerLinks = [
   { to: '/opportunities', icon: 'bi-list-ul', label: 'My Opportunities' },
   { to: '/applications', icon: 'bi-file-text-fill', label: 'Review Applications' },
   // AI Features
-  { to: '/ai/candidate-ranking', icon: 'bi-trophy', label: 'Candidate Ranking' },
+
   { to: '/ai/placement-statistics', icon: 'bi-bar-chart-fill', label: 'Placement Stats' },
   { to: '/profile', icon: 'bi-person-fill', label: 'Profile' },
 ];

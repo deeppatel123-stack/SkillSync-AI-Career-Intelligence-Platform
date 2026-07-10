@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom';
 import AppLayout from '../components/AppLayout';
 import { demoOrganizer } from '../data/mockData';
 import { opportunityApi } from '../utils/api';
+import { aiApi } from '../utils/aiApi';
 import { getSession } from '../utils/userSession';
 
 export default function OrganizerDashboard() {
   const session = getSession();
   const currentUser = session || demoOrganizer;
+  const isCompany = currentUser.role === 'company';
   const [stats, setStats] = useState({ activeOpportunities: 0, totalApplications: 0, pendingReview: 0, responseRate: 0 });
+  const [companyStats, setCompanyStats] = useState(null);
   const [recent, setRecent] = useState([]);
 
   useEffect(() => {
@@ -19,6 +22,12 @@ export default function OrganizerDashboard() {
         setRecent(data.recentOpportunities || []);
       })
       .catch(() => {});
+
+    if (isCompany) {
+      aiApi.getCompanyStatistics().then((res) => {
+        if (res.success) setCompanyStats(res.data);
+      }).catch(() => {});
+    }
   }, []);
 
   return (
@@ -84,6 +93,75 @@ export default function OrganizerDashboard() {
             </div>
           </div>
         </div>
+
+        {isCompany && companyStats && (
+          <>
+            <div className="row mt-4">
+              <div className="col-12">
+                <h4 className="section-title">
+                  <i className="bi bi-building me-2" />
+                  My Company Dashboard
+                </h4>
+              </div>
+            </div>
+            <div className="row mt-2 g-4">
+              <div className="col-lg-2 col-md-4 col-6">
+                <div className="stat-card">
+                  <div className="stat-icon icon-blue"><i className="bi bi-briefcase-fill" /></div>
+                  <div className="stat-info">
+                    <h3>{companyStats.jobsPosted}</h3>
+                    <p>Jobs Posted</p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-2 col-md-4 col-6">
+                <div className="stat-card">
+                  <div className="stat-icon icon-blue"><i className="bi bi-journal-richtext" /></div>
+                  <div className="stat-info">
+                    <h3>{companyStats.internshipsPosted}</h3>
+                    <p>Internships Posted</p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-2 col-md-4 col-6">
+                <div className="stat-card">
+                  <div className="stat-icon icon-blue"><i className="bi bi-people-fill" /></div>
+                  <div className="stat-info">
+                    <h3>{companyStats.totalApplicants}</h3>
+                    <p>Total Applicants</p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-2 col-md-4 col-6">
+                <div className="stat-card">
+                  <div className="stat-icon icon-green"><i className="bi bi-check-circle-fill" /></div>
+                  <div className="stat-info">
+                    <h3>{companyStats.shortlisted}</h3>
+                    <p>Shortlisted</p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-2 col-md-4 col-6">
+                <div className="stat-card">
+                  <div className="stat-icon icon-green"><i className="bi bi-trophy-fill" /></div>
+                  <div className="stat-info">
+                    <h3>{companyStats.hired}</h3>
+                    <p>Hired</p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-2 col-md-4 col-6">
+                <div className="stat-card">
+                  <div className="stat-icon icon-orange"><i className="bi bi-layers-fill" /></div>
+                  <div className="stat-info">
+                    <h3>{companyStats.totalOpportunities}</h3>
+                    <p>Total Posts</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
 
         <div className="row mt-5">
           <div className="col-12">
@@ -153,18 +231,6 @@ export default function OrganizerDashboard() {
               <i className="bi bi-robot me-2" />
               AI Hiring Tools
             </h4>
-          </div>
-          <div className="col-lg-4 col-md-6">
-            <Link to="/ai/candidate-ranking" className="action-card">
-              <div className="action-icon icon-purple">
-                <i className="bi bi-trophy" />
-              </div>
-              <div className="action-content">
-                <h5>Candidate Ranking</h5>
-                <p>AI-powered applicant ranking system</p>
-              </div>
-              <i className="bi bi-arrow-right action-arrow" />
-            </Link>
           </div>
           <div className="col-lg-4 col-md-6">
             <Link to="/ai/placement-statistics" className="action-card">

@@ -42,18 +42,11 @@ export default function StudentDashboard() {
       color: 'icon-purple',
     },
     {
-      to: '/ai/resume-score',
-      icon: 'bi-file-earmark-text',
-      title: 'Resume Score',
-      desc: 'Get your resume evaluated by AI',
-      color: 'icon-green',
-    },
-    {
-      to: '/ai/skill-gap',
-      icon: 'bi-clipboard-data',
-      title: 'Skill Gap Analysis',
-      desc: 'Find what skills you need to learn',
-      color: 'icon-orange',
+      to: '/ai/trending-skills',
+      icon: 'bi-graph-up',
+      title: 'Trending Skills',
+      desc: 'See in-demand skills and what to learn next',
+      color: 'icon-blue',
     },
     {
       to: '/ai/learning-roadmap',

@@ -34,30 +34,24 @@ export const aiApi = {
   recommendCareer: (body) =>
     request('/ai/recommend-career', { method: 'POST', body: JSON.stringify(body) }),
 
-  // Similar Students
-  findSimilarStudents: (body) =>
-    request('/ai/similar-students', { method: 'POST', body: JSON.stringify(body) }),
-
-  // Resume Score
-  scoreResume: (body) =>
-    request('/ai/score-resume', { method: 'POST', body: JSON.stringify(body) }),
-
-  // Skill Gap Analysis
-  analyzeSkillGap: (body) =>
-    request('/ai/skill-gap', { method: 'POST', body: JSON.stringify(body) }),
-
   // Learning Roadmap
   generateLearningRoadmap: (body) =>
     request('/ai/learning-roadmap', { method: 'POST', body: JSON.stringify(body) }),
-
-  // Candidate Ranking
-  rankCandidates: (body) =>
-    request('/ai/candidate-ranking', { method: 'POST', body: JSON.stringify(body) }),
 
   // Get Data
   getCareers: () => request('/ai/careers'),
   getPlacementStatistics: () => request('/ai/placement-statistics'),
   getPredictionHistory: () => request('/ai/predictions'),
+
+  // Trending Skills
+  getTrendingSkills: () => request('/trending-skills'),
+  getTrendingCategories: () => request('/trending-categories'),
+  getRecommendedSkills: (body) =>
+    request('/recommended-skills', { method: 'POST', body: JSON.stringify(body) }),
+
+  // Statistics (college/company dashboards)
+  getCollegeStatistics: () => request('/college/statistics'),
+  getCompanyStatistics: () => request('/company/statistics'),
 
   // Student Profile
   getStudentProfile: () => request('/users/profile/student'),

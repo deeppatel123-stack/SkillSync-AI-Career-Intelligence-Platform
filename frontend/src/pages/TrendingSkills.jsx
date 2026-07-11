@@ -79,24 +79,16 @@ export default function TrendingSkills() {
           {trending.length ? (
             trending.slice(0, 8).map((skill) => (
               <div className="col-lg-3 col-md-4 col-sm-6 mt-3" key={skill.name}>
-                <div className="card h-100">
+                <div className="card h-100 border-0 shadow-sm">
                   <div className="card-body text-center">
-                    <h5 className="card-title">{skill.name}</h5>
-                    <div className="mt-2">
-                      <span className="badge bg-primary fs-6">{skill.demand}% demand</span>
-                    </div>
-                    <div className="mt-2">
-                      <span className={`badge ${skill.growth >= 0 ? 'bg-success' : 'bg-danger'} fs-6`}>
-                        {skill.growth >= 0 ? '+' : ''}{skill.growth}% growth
-                      </span>
-                    </div>
+                    <h5 className="card-title mb-0">{skill.name}</h5>
                   </div>
                 </div>
               </div>
             ))
           ) : (
             <div className="col-12 mt-3">
-              <p className="text-muted">No opportunities data available yet.</p>
+              <p className="text-muted">No trending skills data available yet.</p>
             </div>
           )}
         </div>
@@ -142,15 +134,9 @@ export default function TrendingSkills() {
               <div className="row g-3">
                 {recommended.slice(0, 8).map((s) => (
                   <div className="col-lg-3 col-md-4 col-sm-6" key={s.name}>
-                    <div className="card h-100 border-primary">
-                      <div className="card-body">
-                        <h6 className="card-title">
-                          <i className="bi bi-arrow-right-circle text-primary me-1" />
-                          {s.name}
-                        </h6>
-                        <p className="text-muted mb-0 small">
-                          Market demand: {s.demandScore}%
-                        </p>
+                    <div className="card h-100 border-0 shadow-sm bg-light">
+                      <div className="card-body d-flex align-items-center justify-content-center py-4">
+                        <span className="fw-semibold text-dark fs-6">{s.name}</span>
                       </div>
                     </div>
                   </div>
@@ -184,7 +170,7 @@ export default function TrendingSkills() {
                       <div className="d-flex flex-wrap gap-2">
                         {cat.skills.map((s) => (
                           <span key={s.name} className="badge bg-info fs-6 px-3 py-2">
-                            {s.name} <span className="ms-1">({s.demand}%)</span>
+                            {s.name}
                           </span>
                         ))}
                       </div>

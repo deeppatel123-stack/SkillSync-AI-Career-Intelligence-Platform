@@ -152,9 +152,22 @@ export default function ProjectManager({ value = [], onChange, label = 'Projects
       ) : (
         <button
           type="button"
-          className="ai-btn-secondary"
           onClick={() => setShowForm(true)}
-          style={{ padding: '8px 16px', fontSize: 13, marginTop: 4 }}
+          style={{
+            width: '100%',
+            padding: '10px 16px',
+            fontSize: 14,
+            fontWeight: 600,
+            background: '#f7fafc',
+            color: '#4299e1',
+            border: '2px dashed #cbd5e0',
+            borderRadius: 8,
+            cursor: 'pointer',
+            transition: 'all 0.2s',
+            marginTop: 4,
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = '#ebf8ff'; e.currentTarget.style.borderColor = '#90cdf4'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = '#f7fafc'; e.currentTarget.style.borderColor = '#cbd5e0'; }}
         >
           <i className="bi bi-plus-circle me-1" /> Add Project
         </button>

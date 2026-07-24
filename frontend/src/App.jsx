@@ -13,13 +13,16 @@ import Applications from './pages/Applications';
 import ProfileSettings from './pages/ProfileSettings';
 
 // AI Feature Pages
-import PlacementPrediction from './pages/PlacementPrediction';
-import CareerRecommendation from './pages/CareerRecommendation';
+import ResumeAnalysis from './pages/ResumeAnalysis';
+import CareerRoleRecommendation from './pages/CareerRoleRecommendation';
+import SkillGapAnalysis from './pages/SkillGapAnalysis';
 import LearningRoadmap from './pages/LearningRoadmap';
-import PlacementStatistics from './pages/PlacementStatistics';
 
 // Trending Skills
 import TrendingSkills from './pages/TrendingSkills';
+
+// Placement Statistics
+import PlacementStatistics from './pages/PlacementStatistics';
 
 // Student Profile
 import StudentProfile from './pages/StudentProfile';
@@ -41,13 +44,16 @@ export default function App() {
       <Route path="/profile" element={<ProfileSettings />} />
 
       {/* AI Feature Routes */}
-      <Route path="/ai/placement-prediction" element={<PlacementPrediction />} />
-      <Route path="/ai/career-recommendation" element={<CareerRecommendation />} />
-      <Route path="/ai/learning-roadmap" element={<LearningRoadmap />} />
-      <Route path="/ai/placement-statistics" element={<PlacementStatistics />} />
-
-      {/* Trending Skills */}
+      <Route path="/ai/resume-analysis" element={<ResumeAnalysis />} />
+      <Route path="/ai/career-role" element={<CareerRoleRecommendation />} />
+      <Route path="/ai/skill-gap" element={<SkillGapAnalysis />} />
       <Route path="/ai/trending-skills" element={<TrendingSkills />} />
+
+      {/* Learning Hub (separate from AI) */}
+      <Route path="/learning-hub/roadmap" element={<LearningRoadmap />} />
+
+      {/* Placement Statistics */}
+      <Route path="/ai/placement-statistics" element={<PlacementStatistics />} />
 
       {/* Student Profile */}
       <Route path="/student/profile" element={<StudentProfile />} />

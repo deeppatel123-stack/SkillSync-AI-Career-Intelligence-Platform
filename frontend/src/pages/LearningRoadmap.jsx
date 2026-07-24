@@ -56,7 +56,7 @@ export default function LearningRoadmap() {
               <div className="ai-card-header">
                 <i className="bi bi-signpost-2" />
                 <div>
-                  <h3>Learning Roadmap</h3>
+                  <h3>Learning Hub - Roadmap</h3>
                   <p>Get a step-by-step learning plan for your dream career</p>
                 </div>
               </div>

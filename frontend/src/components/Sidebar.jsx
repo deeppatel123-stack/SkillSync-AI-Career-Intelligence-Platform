@@ -8,10 +8,12 @@ const studentLinks = [
   { to: '/opportunities', icon: 'bi-search', label: 'Opportunities' },
   { to: '/applications', icon: 'bi-file-text-fill', label: 'Applications' },
   // AI Features
-  { to: '/ai/placement-prediction', icon: 'bi-graph-up-arrow', label: 'Placement Prediction' },
-  { to: '/ai/career-recommendation', icon: 'bi-compass', label: 'Career Advice' },
+  { to: '/ai/resume-analysis', icon: 'bi-file-earmark-text', label: 'Resume Analysis' },
+  { to: '/ai/career-role', icon: 'bi-briefcase-fill', label: 'Career Recommendation' },
+  { to: '/ai/skill-gap', icon: 'bi-exclamation-triangle', label: 'Skill Gap Analysis' },
   { to: '/ai/trending-skills', icon: 'bi-graph-up', label: 'Trending Skills' },
-  { to: '/ai/learning-roadmap', icon: 'bi-signpost-2', label: 'Roadmap' },
+  // Learning Hub
+  { to: '/learning-hub/roadmap', icon: 'bi-signpost-2', label: 'Learning Hub' },
 ];
 
 const organizerLinks = [
@@ -19,8 +21,6 @@ const organizerLinks = [
   { to: '/opportunities/add', icon: 'bi-plus-circle-fill', label: 'Post Opportunity' },
   { to: '/opportunities', icon: 'bi-list-ul', label: 'My Opportunities' },
   { to: '/applications', icon: 'bi-file-text-fill', label: 'Review Applications' },
-  // AI Features
-
   { to: '/ai/placement-statistics', icon: 'bi-bar-chart-fill', label: 'Placement Stats' },
   { to: '/profile', icon: 'bi-person-fill', label: 'Profile' },
 ];

@@ -25,35 +25,34 @@ export default function StudentDashboard() {
       .catch(() => {});
   }, []);
 
-  // AI feature links for students
   const aiFeatures = [
     {
-      to: '/ai/placement-prediction',
-      icon: 'bi-graph-up-arrow',
-      title: 'Placement Prediction',
-      desc: 'Predict your placement chances using AI',
+      to: '/ai/resume-analysis',
+      icon: 'bi-file-earmark-text',
+      title: 'Resume Analysis',
+      desc: 'Get a professional analysis of your resume',
       color: 'icon-blue',
     },
     {
-      to: '/ai/career-recommendation',
-      icon: 'bi-compass',
+      to: '/ai/career-role',
+      icon: 'bi-briefcase-fill',
       title: 'Career Recommendation',
-      desc: 'Find the best career path for your skills',
+      desc: 'Find the best career role for your skills',
       color: 'icon-purple',
     },
     {
-      to: '/ai/trending-skills',
-      icon: 'bi-graph-up',
-      title: 'Trending Skills',
-      desc: 'See in-demand skills and what to learn next',
-      color: 'icon-blue',
+      to: '/ai/skill-gap',
+      icon: 'bi-exclamation-triangle',
+      title: 'Skill Gap Analysis',
+      desc: 'Discover what skills you need to learn',
+      color: 'icon-orange',
     },
     {
-      to: '/ai/learning-roadmap',
+      to: '/learning-hub/roadmap',
       icon: 'bi-signpost-2',
-      title: 'Learning Roadmap',
-      desc: 'Get a personalized learning plan',
-      color: 'icon-orange',
+      title: 'Learning Hub',
+      desc: 'Get a personalized learning roadmap',
+      color: 'icon-green',
     },
   ];
 
@@ -64,9 +63,9 @@ export default function StudentDashboard() {
           <div className="col-12">
             <div className="welcome-box">
               <div className="welcome-content">
-                <h2>Welcome back, {currentUser.name} 👋</h2>
+                <h2>Welcome back, {currentUser.name}</h2>
                 <p className="text-muted">
-                  Explore opportunities, track applications, and use AI tools
+                  Explore tools to improve your career readiness
                 </p>
               </div>
               <div className="welcome-icon">
@@ -182,18 +181,6 @@ export default function StudentDashboard() {
               <div className="action-content">
                 <h5>Student Profile</h5>
                 <p>Manage skills, projects, internships & more</p>
-              </div>
-              <i className="bi bi-arrow-right action-arrow" />
-            </Link>
-          </div>
-          <div className="col-lg-4 col-md-6 mx-auto">
-            <Link to="/profile" className="action-card">
-              <div className="action-icon icon-blue">
-                <i className="bi bi-gear-fill" />
-              </div>
-              <div className="action-content">
-                <h5>Account Settings</h5>
-                <p>Update your account information</p>
               </div>
               <i className="bi bi-arrow-right action-arrow" />
             </Link>

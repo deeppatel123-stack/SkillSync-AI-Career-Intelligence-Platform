@@ -1,185 +1,112 @@
+"""
+Simple Django Views for ML Predictions
+No DRF, no serializers, no APIView - just plain Django
+"""
+
 import json
-import csv
-import io
-import pandas as pd
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from pathlib import Path
+import sys
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
-from ml_app.ml_models.placement_predictor import predict_placement
-from ml_app.ml_models.career_recommender import recommend_career
+from prediction.predict_resume_analysis import predict as predict_resume
+from prediction.predict_career_role import predict as predict_career
+from prediction.skill_gap_analyzer import analyze as analyze_skill_gap
 from ml_app.ml_models.learning_roadmap import generate_roadmap
 
-from ml_app.serializers import (
-    PlacementPredictionSerializer,
-    CareerRecommendationSerializer,
-    LearningRoadmapSerializer,
-)
-from ml_app.utils.data_cleaner import (
-    generate_skill_distribution,
-    generate_department_report,
-    generate_company_hiring_report,
-)
+
+def health(request):
+    return JsonResponse({'status': 'ok', 'service': 'SkillSync AI'})
 
 
-class HealthCheckAPIView(APIView):
-    def get(self, request):
-        return Response({
-            'status': 'ok',
-            'service': 'SkillSync AI Platform',
-            'version': '1.0.0'
-        })
+def careers(request):
+    careers_list = [
+        'Frontend Developer', 'Backend Developer', 'Full Stack Developer',
+        'Data Analyst', 'Data Scientist', 'AI/ML Engineer',
+        'DevOps Engineer', 'QA Engineer', 'UI/UX Designer',
+        'Cyber Security Analyst'
+    ]
+    return JsonResponse({'careers': careers_list})
 
 
-class PredictPlacementAPIView(APIView):
-    def post(self, request):
-        serializer = PlacementPredictionSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        data = serializer.validated_data
-        result = predict_placement(
-            cgpa=data['cgpa'],
-            skills_count=data['skills_count'],
-            internship_count=data['internship_count'],
-            projects_count=data['projects_count'],
-            certifications_count=data['certifications_count'],
-            aptitude_score=data['aptitude_score'],
-            communication_score=data['communication_score']
+@csrf_exempt
+def resume_analysis(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST required'}, status=405)
+    try:
+        data = json.loads(request.body)
+        result = predict_resume(
+            skills_count=int(data.get('skills_count', 0)),
+            projects_count=int(data.get('projects_count', 0)),
+            internship_count=int(data.get('internship_count', 0)),
+            certification_count=int(data.get('certification_count', 0)),
+            education_level=int(data.get('education_level', 0)),
+            has_portfolio=int(data.get('has_portfolio', 0)),
+            has_github=int(data.get('has_github', 0)),
+            has_linkedin=int(data.get('has_linkedin', 0)),
+            languages_known=int(data.get('languages_known', 1)),
         )
-        return Response(result)
+        return JsonResponse(result)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)
 
 
-class RecommendCareerAPIView(APIView):
-    def post(self, request):
-        serializer = CareerRecommendationSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        result = recommend_career(serializer.validated_data)
-        return Response(result)
-
-
-class GenerateLearningRoadmapAPIView(APIView):
-    def post(self, request):
-        serializer = LearningRoadmapSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        data = serializer.validated_data
-        result = generate_roadmap(data['career'], data.get('skills', []))
-        return Response(result)
-
-
-class GetAnalyticsAPIView(APIView):
-    def get(self, request):
-        dataset_type = request.query_params.get('dataset_type', 'student')
-        datasets_dir = Path(__file__).resolve().parent / 'datasets'
-        dataset_path = datasets_dir / f'{dataset_type}_data.csv'
-
-        if not dataset_path.exists():
-            return Response({
-                'error': f'Dataset {dataset_type}_data.csv not found.'
-            }, status=status.HTTP_404_NOT_FOUND)
-
-        try:
-            df = pd.read_csv(dataset_path)
-            result = {}
-
-            if 'skills' in df.columns:
-                result['skill_distribution'] = generate_skill_distribution(df)
-            if 'career_domain' in df.columns:
-                result['department_report'] = generate_department_report(df)
-            if 'company_joined' in df.columns:
-                result['company_report'] = generate_company_hiring_report(df)
-
-            result['total_records'] = len(df)
-            result['columns'] = list(df.columns)
-            return Response(result)
-
-        except Exception as e:
-            return Response({
-                'error': f'Error processing dataset: {str(e)}'
-            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+@csrf_exempt
+def career_role(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST required'}, status=405)
+    try:
+        data = json.loads(request.body)
+        result = predict_career(
+            python=float(data.get('python', 0)),
+            java=float(data.get('java', 0)),
+            javascript=float(data.get('javascript', 0)),
+            react=float(data.get('react', 0)),
+            node=float(data.get('node', 0)),
+            express=float(data.get('express', 0)),
+            mongodb=float(data.get('mongodb', 0)),
+            sql=float(data.get('sql', 0)),
+            html=float(data.get('html', 0)),
+            css=float(data.get('css', 0)),
+            git=float(data.get('git', 0)),
+            dsa=float(data.get('dsa', 0)),
+            communication=float(data.get('communication', 0)),
+            problem_solving=float(data.get('problem_solving', 0)),
+            projects_count=int(data.get('projects_count', 0)),
+            internship_count=int(data.get('internship_count', 0)),
+            certification_count=int(data.get('certification_count', 0)),
+            interested_domain=int(data.get('interested_domain', 0)),
+        )
+        return JsonResponse(result)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)
 
 
-class UploadDatasetAPIView(APIView):
-    def post(self, request):
-        dataset_type = request.data.get('dataset_type')
-        file = request.FILES.get('file')
-
-        if not dataset_type:
-            return Response({'error': 'dataset_type is required.'}, status=status.HTTP_400_BAD_REQUEST)
-        if not file:
-            return Response({'error': 'file is required.'}, status=status.HTTP_400_BAD_REQUEST)
-        if not file.name.endswith('.csv'):
-            return Response({'error': 'Only CSV files are accepted.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            content = file.read().decode('utf-8')
-            csv_reader = csv.reader(io.StringIO(content))
-            headers = next(csv_reader)
-
-            datasets_dir = Path(__file__).resolve().parent / 'datasets'
-            datasets_dir.mkdir(exist_ok=True)
-
-            file_path = datasets_dir / f'{dataset_type}_data.csv'
-            with open(file_path, 'w', newline='', encoding='utf-8') as f:
-                f.write(content)
-
-            return Response({
-                'success': True,
-                'message': f'{dataset_type} dataset uploaded successfully.',
-                'file_path': str(file_path),
-                'columns': headers,
-                'rows': sum(1 for _ in csv_reader)
-            })
-
-        except Exception as e:
-            return Response({
-                'error': f'Error uploading dataset: {str(e)}'
-            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+@csrf_exempt
+def skill_gap(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST required'}, status=405)
+    try:
+        data = json.loads(request.body)
+        skills = data.get('skills', [])
+        target_role = data.get('target_role', '')
+        result = analyze_skill_gap(skills, target_role)
+        return JsonResponse(result)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)
 
 
-class GetAvailableCareersAPIView(APIView):
-    def get(self, request):
-        careers = [
-            'Frontend Developer', 'Backend Developer', 'Full Stack Developer',
-            'AI Engineer', 'Data Analyst', 'DevOps', 'Cloud Engineer', 'Cyber Security'
-        ]
-        return Response({'careers': careers})
-
-
-class GetAvailableCompaniesAPIView(APIView):
-    def get(self, request):
-        companies = ['Google', 'Microsoft', 'Amazon', 'Infosys', 'TCS', 'Wipro', 'Flipkart', 'Swiggy', 'Zomato', 'Razorpay']
-        return Response({'companies': companies})
-
-
-class GetPlacementStatisticsAPIView(APIView):
-    def get(self, request):
-        datasets_dir = Path(__file__).resolve().parent / 'datasets'
-        dataset_path = datasets_dir / 'placement_data.csv'
-
-        if not dataset_path.exists():
-            return Response({'error': 'Placement dataset not found.'}, status=status.HTTP_404_NOT_FOUND)
-
-        try:
-            df = pd.read_csv(dataset_path)
-            total_students = len(df)
-            placed_students = int(df['placement'].sum())
-
-            return Response({
-                'total_students': total_students,
-                'placed_students': placed_students,
-                'not_placed': total_students - placed_students,
-                'placement_percentage': round((placed_students / total_students) * 100, 2),
-                'avg_cgpa': round(float(df['cgpa'].mean()), 2),
-                'avg_aptitude': round(float(df['aptitude_score'].mean()), 2),
-                'avg_communication': round(float(df['communication_score'].mean()), 2),
-            })
-
-        except Exception as e:
-            return Response({'error': f'Error: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+@csrf_exempt
+def learning_roadmap(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST required'}, status=405)
+    try:
+        data = json.loads(request.body)
+        career_name = data.get('career', '')
+        skills = data.get('skills', [])
+        result = generate_roadmap(career_name, skills)
+        return JsonResponse(result)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)

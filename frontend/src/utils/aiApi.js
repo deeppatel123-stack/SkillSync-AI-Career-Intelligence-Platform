@@ -24,15 +24,18 @@ async function request(path, options = {}) {
   return data;
 }
 
-// AI API functions
 export const aiApi = {
-  // Placement Prediction - accepts arrays, backend converts to counts
-  predictPlacement: (body) =>
-    request('/ai/predict-placement', { method: 'POST', body: JSON.stringify(body) }),
+  // Resume Analysis
+  analyzeResume: (body) =>
+    request('/ai/resume-analysis', { method: 'POST', body: JSON.stringify(body) }),
 
-  // Career Recommendation - accepts skills array, backend maps to ML features
-  recommendCareer: (body) =>
-    request('/ai/recommend-career', { method: 'POST', body: JSON.stringify(body) }),
+  // Career Role Recommendation
+  recommendCareerRole: (body) =>
+    request('/ai/career-role', { method: 'POST', body: JSON.stringify(body) }),
+
+  // Skill Gap Analysis
+  analyzeSkillGap: (body) =>
+    request('/ai/skill-gap', { method: 'POST', body: JSON.stringify(body) }),
 
   // Learning Roadmap
   generateLearningRoadmap: (body) =>
@@ -41,7 +44,6 @@ export const aiApi = {
   // Get Data
   getCareers: () => request('/ai/careers'),
   getPlacementStatistics: () => request('/ai/placement-statistics'),
-  getPredictionHistory: () => request('/ai/predictions'),
 
   // Trending Skills
   getTrendingSkills: () => request('/trending-skills'),
@@ -49,7 +51,7 @@ export const aiApi = {
   getRecommendedSkills: (body) =>
     request('/recommended-skills', { method: 'POST', body: JSON.stringify(body) }),
 
-  // Statistics (college/company dashboards)
+  // Statistics
   getCollegeStatistics: () => request('/college/statistics'),
   getCompanyStatistics: () => request('/company/statistics'),
 

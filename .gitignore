@@ -45,3 +45,9 @@ coverage/
 # Temporary files
 *.tmp
 *.temp
+
+__pycache__/
+*.pyc
+db.sqlite3
+*.txt
+*.zip

@@ -1,131 +1,117 @@
-# SkillSync AI – Career Intelligence Platform
+# 🚀 SkillSync
 
-SkillSync AI is an AI-powered career intelligence and recruitment platform that connects students, companies, and colleges in a single ecosystem. The platform uses Machine Learning to provide smart placement predictions, career recommendations, skill analysis, and recruitment insights.
+SkillSync is a comprehensive **Student Opportunity & Career Development Platform** that connects **Students, Colleges, Companies, and Administrators** on a single platform. It helps students discover internships, jobs, hackathons, workshops, and other career opportunities while providing career-focused tools such as Resume Analysis, Career Role Recommendation, Skill Gap Analysis, and a Learning Hub.
 
-The project combines the MERN stack with Django REST Framework and Machine Learning to create an intelligent career guidance and recruitment system.
-
----
-
-## 🚀 Features
-
-### 👨‍🎓 Student Module
-
-- User registration and authentication
-- Complete profile setup and management
-- Add skills, certifications, projects, and internships
-- Upload resume
-- Apply for jobs and internships
-- Track applications
-- Placement prediction using AI
-- Career recommendations
-- Resume score analysis
-- Skill gap analysis
-- Trending skills suggestions
-- Learning roadmap generation
+The platform is designed to simplify opportunity management and help students prepare for their careers through an intuitive and user-friendly interface.
 
 ---
 
-### 🏢 Company Module
+## ✨ Features
 
-- Company registration and login
-- Create and manage job opportunities
-- Create internship opportunities
-- Review applications
-- Candidate ranking
-- View recruitment statistics
-- Manage company profile
+### 👨‍🎓 Student
 
----
-
-### 🏫 College Module
-
-- College registration and authentication
-- Manage students
-- Organize workshops and events
-- Placement statistics dashboard
-- Track student performance
-- View recruitment analytics
+* Secure Registration & Login
+* Complete Professional Profile
+* Manage Skills, Projects & Certifications
+* Internship & Experience Management
+* Browse Opportunities
+* Apply for Opportunities
+* Track Applications
+* Resume Analysis
+* Career Role Recommendation
+* Skill Gap Analysis
+* Learning Hub
 
 ---
 
-### 👨‍💼 Admin Module
+### 🏫 College
 
-- Manage students, companies, and colleges
-- Verify accounts
-- Manage opportunities
-- Monitor platform analytics
-- Generate reports
+* College Registration & Login
+* Post Workshops
+* Post Hackathons
+* Post Internships
+* Manage Opportunities
+* View Student Applications
+
+---
+
+### 🏢 Company
+
+* Company Registration & Login
+* Create Job Openings
+* Create Internship Opportunities
+* Manage Posted Opportunities
+* Review Student Applications
+
+---
+
+### 👨‍💼 Admin
+
+* Secure Admin Login
+* Manage Students
+* Manage Colleges
+* Manage Companies
+* Manage Opportunities
+* Platform Monitoring
 
 ---
 
 ## 🤖 AI Features
 
-### Placement Prediction
+### Resume Analysis
 
-Predicts placement chances based on:
+Analyzes the student's profile and generates a professional resume assessment including:
 
-- CGPA
-- Skills
-- Internships
-- Projects
-- Certifications
-- Aptitude score
-- Communication score
-
-**Model Used:** Decision Tree
+* Resume Strength
+* Resume Score
+* Strengths
+* Areas for Improvement
+* Personalized Recommendations
+* Suitable Career Areas
 
 ---
 
-### Career Recommendation
+### Career Role Recommendation
 
-Recommends the best career path according to student skills.
+Recommends the most suitable career path based on the student's profile.
 
 Examples:
 
-- Frontend Developer
-- Backend Developer
-- Full Stack Developer
-- AI/ML Engineer
-- Data Analyst
-- Cloud Engineer
-- Cyber Security Engineer
+* Full Stack Developer
+* Backend Developer
+* Frontend Developer
+* Data Analyst
+* AI/ML Engineer
+* DevOps Engineer
+* UI/UX Designer
 
-**Model Used:** Random Forest
+The recommendation includes:
 
----
-
-### Trending Skills Predictor
-
-Analyzes market demand and recommends trending skills based on:
-
-- Student profile
-- Job opportunities
-- Internship opportunities
-- Career domain
-
----
-
-### Resume Score
-
-Analyzes:
-
-- Skills
-- Projects
-- Internships
-- Certifications
-- Resume completeness
+* Primary Career Recommendation
+* Alternative Career Options
+* Matching Skills
+* Recommendation Reasoning
 
 ---
 
 ### Skill Gap Analysis
 
-Identifies missing skills required for a student's target career.
+Compares the student's current skills with the skills required for the selected career role.
+
+Provides:
+
+* Current Readiness
+* Existing Skills
+* Missing Skills
+* Learning Priority
+* Estimated Learning Time
+* Improvement Recommendations
 
 ---
 
-### Learning Roadmap
+### Learning Hub
 
-Generates a personalized roadmap to help students achieve their career goals.
+A dedicated learning section that provides structured learning paths and guidance to help students improve their technical skills. This module is rule-based and separate from the AI features.
 
 ---
 
@@ -133,144 +119,187 @@ Generates a personalized roadmap to help students achieve their career goals.
 
 ### Frontend
 
-- React.js
-- Tailwind CSS
-- Axios
-- React Router
+* React.js
+* Vite
+* Bootstrap
+* Bootstrap Icons
+* React Router DOM
 
 ### Backend
 
-- Node.js
-- Express.js
-- JWT Authentication
-- Multer
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* Express Session
+* Connect Mongo
+* Multer
+* Nodemailer
 
-### Database
+### AI Module
 
-- MongoDB
-
-### AI Backend
-
-- Django
-- Django REST Framework
-- Pandas
-- Scikit-learn
-- Joblib
-
-### Machine Learning Models
-
-- Decision Tree
-- Random Forest
+* Python
+* Django
+* Scikit-learn
+* Pandas
+* NumPy
+* Joblib
 
 ---
 
-## 📂 Project Structure
+## 📁 Project Structure
 
 ```text
-SkillSync-AI/
-
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   └── package.json
+SkillSync/
 │
-├── backend/
-│   ├── config/
-│   ├── controllers/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   ├── utils/
-│   └── server.js
-│
-├── python-ai/
-│   ├── ai_platform/
-│   ├── ml_app/
-│   ├── datasets/
-│   ├── trained_models/
-│   └── manage.py
-│
+├── frontend/          # React Frontend
+├── backend/           # Express Backend
+├── python-ai/         # Django + Machine Learning
 └── README.md
 ```
 
 ---
 
-## ⚙️ Installation
+## 🔄 Workflow
 
-### Clone the repository
+```text
+Student
+
+↓
+
+Register / Login
+
+↓
+
+Complete Profile
+
+↓
+
+Browse Opportunities
+
+↓
+
+Apply for Opportunities
+
+↓
+
+Resume Analysis
+
+↓
+
+Career Role Recommendation
+
+↓
+
+Skill Gap Analysis
+
+↓
+
+Learning Hub
+
+↓
+
+Career Growth
+```
+
+---
+
+## 🔐 Authentication
+
+* Session-based Authentication
+* Password Encryption
+* Role-Based Access Control
+* Protected Routes
+
+---
+
+## 🎯 Key Highlights
+
+* Multi-Role System
+* Professional Student Profiles
+* Opportunity Management
+* Application Tracking
+* Resume Analysis
+* Career Role Recommendation
+* Skill Gap Analysis
+* Learning Hub
+* Responsive User Interface
+* Clean MVC Architecture
+
+---
+
+## 🚀 Installation
+
+### Clone Repository
 
 ```bash
 git clone <repository-url>
 ```
 
-### Frontend Setup
+### Frontend
 
 ```bash
 cd frontend
-
 npm install
-
 npm run dev
 ```
 
----
-
-### Backend Setup
+### Backend
 
 ```bash
 cd backend
-
 npm install
-
 npm run dev
 ```
 
----
-
-### Python AI Setup
+### Python AI Module
 
 ```bash
 cd python-ai
 
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+
+# Windows
+venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
 
+# Run Django server
 python manage.py runserver
 ```
 
 ---
 
-## 🌐 Environment Variables
+## 📌 Future Enhancements
 
-### Backend `.env`
-
-```env
-PORT=5000
-
-MONGODB_URI=your_mongodb_connection_string
-
-JWT_SECRET=your_secret_key
-```
-
----
-
-## 📈 Future Enhancements
-
-- AI resume parsing
-- Interview preparation assistant
-- Salary prediction
-- Real-time notifications
-- Portfolio generation
-- Mobile application
-- Email notifications
+* Real-Time Notifications
+* Email Alerts
+* Advanced Search & Filters
+* Interview Preparation Module
+* Resume Builder
+* Company Analytics
+* Student Performance Insights
+* AI-powered Career Guidance
+* Cloud File Storage
 
 ---
 
-## 👨‍💻 Developed By
+## 🤝 Contributing
 
-Deep Patel
+Contributions are welcome. Feel free to fork the repository, create a new branch, and submit a pull request.
 
 ---
 
 ## 📄 License
 
-This project is created for educational and academic purposes.
+This project is developed for educational and academic purposes.
+
+---
+
+## 👨‍💻 Developed By
+
+**Deep Patel**

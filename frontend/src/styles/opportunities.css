@@ -3,15 +3,15 @@
   justify-content: space-between;
   align-items: flex-start;
   padding-bottom: 24px;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid var(--border-muted);
 }
 
 .header-pill {
-  background: #ebf8ff;
-  border: 1px solid #bee3f8;
+  background: var(--accent-light);
+  border: 1px solid var(--info-border);
   padding: 10px 16px;
   border-radius: 50px;
-  color: #2c5282;
+  color: var(--accent-deeper);
   font-size: 14px;
   font-weight: 600;
   display: flex;
@@ -22,10 +22,11 @@
 .filter-bar {
   margin-bottom: 32px;
   padding: 24px;
-  background: #ffffff;
+  background: var(--bg-card);
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  transition: var(--theme-transition);
 }
 
 .filter-group {
@@ -36,30 +37,36 @@
 
 .filter-group label {
   font-weight: 600;
-  color: #4a5568;
+  color: var(--text-tertiary);
   font-size: 14px;
 }
 
 .filter-bar select,
 .filter-bar input {
   padding: 10px 14px;
-  border: 1px solid #cbd5e0;
+  border: 1px solid var(--input-border);
   border-radius: 8px;
   font-size: 14px;
-  background: #ffffff;
+  background: var(--input-bg);
+  color: var(--input-text);
   transition: all 0.2s ease;
+}
+
+.filter-bar select::placeholder,
+.filter-bar input::placeholder {
+  color: var(--input-placeholder);
 }
 
 .filter-bar select:focus,
 .filter-bar input:focus {
   outline: none;
-  border-color: #4299e1;
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 3px var(--input-focus-shadow);
 }
 
 .filter-actions button {
   padding: 10px 24px;
-  background: #4299e1;
+  background: var(--accent);
   color: #ffffff;
   border: none;
   border-radius: 8px;
@@ -69,8 +76,8 @@
 }
 
 .filter-actions button:hover {
-  background: #3182ce;
-  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+  background: var(--accent-hover);
+  box-shadow: 0 4px 12px var(--accent-shadow);
 }
 
 .opportunity-list {
@@ -80,21 +87,21 @@
 }
 
 .opportunity-list-item {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: 14px;
   padding: 24px 28px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 24px;
-  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+  box-shadow: var(--shadow-sm);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .opportunity-list-item:hover {
-  border-color: #bee3f8;
-  box-shadow: 0 8px 24px rgba(66, 153, 225, 0.12);
+  border-color: var(--table-hover-border);
+  box-shadow: 0 8px 24px var(--accent-shadow);
 }
 
 .opportunity-list-main {
@@ -114,11 +121,11 @@
   margin: 0;
   font-size: 20px;
   font-weight: 700;
-  color: #1a202c;
+  color: var(--text-primary);
 }
 
 .opportunity-list-desc {
-  color: #4a5568;
+  color: var(--text-tertiary);
   font-size: 15px;
   line-height: 1.65;
   margin: 0 0 14px;
@@ -128,7 +135,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 16px 24px;
-  color: #718096;
+  color: var(--text-muted);
   font-size: 14px;
 }
 
@@ -154,10 +161,11 @@
 .opportunity-empty {
   text-align: center;
   padding: 48px 24px;
-  color: #718096;
-  background: #ffffff;
+  color: var(--text-muted);
+  background: var(--bg-card);
   border-radius: 12px;
-  border: 1px dashed #cbd5e0;
+  border: 1px dashed var(--border-strong);
+  transition: var(--theme-transition);
 }
 
 .opportunity-empty i {
@@ -177,23 +185,23 @@
 }
 
 .type-badge.internship {
-  background: #d6bcfa;
-  color: #553c9a;
+  background: var(--badge-purple-bg);
+  color: var(--badge-purple-text);
 }
 
 .type-badge.job {
-  background: #90cdf4;
-  color: #1e4e8c;
+  background: var(--badge-blue-bg);
+  color: var(--badge-blue-text);
 }
 
 .type-badge.hackathon {
-  background: #9ae6b4;
-  color: #22543d;
+  background: var(--badge-green-bg);
+  color: var(--badge-green-text);
 }
 
 .type-badge.event {
-  background: #fbd38d;
-  color: #7c2d12;
+  background: var(--badge-orange-bg);
+  color: var(--badge-orange-text);
 }
 
 .form-container {
@@ -201,8 +209,10 @@
   margin: 0 auto;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  transition: var(--theme-transition);
 }
 
 .form-row {
@@ -220,7 +230,7 @@
 
 .form-group label {
   font-weight: 600;
-  color: #4a5568;
+  color: var(--text-tertiary);
   font-size: 14px;
 }
 
@@ -229,23 +239,30 @@
 .form-card select {
   width: 100%;
   padding: 12px 14px;
-  border: 1px solid #cbd5e0;
+  border: 1px solid var(--input-border);
   border-radius: 8px;
   font-size: 14px;
-  background: #ffffff;
+  background: var(--input-bg);
+  color: var(--input-text);
   transition: all 0.2s ease;
+}
+
+.form-card input::placeholder,
+.form-card textarea::placeholder,
+.form-card select::placeholder {
+  color: var(--input-placeholder);
 }
 
 .form-card input:focus,
 .form-card textarea:focus,
 .form-card select:focus {
   outline: none;
-  border-color: #4299e1;
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 3px var(--input-focus-shadow);
 }
 
 .post-header {
-  background: #4299e1;
+  background: var(--accent);
   color: white;
   padding: 24px 32px;
   font-size: 24px;
@@ -256,7 +273,7 @@
 }
 
 .form-card {
-  background: #ffffff;
+  background: var(--bg-card);
   padding: 32px;
   border: none;
   border-radius: 0;
@@ -264,7 +281,7 @@
 }
 
 .required {
-  color: #e53e3e;
+  color: var(--error);
   margin-left: 2px;
 }
 
@@ -279,7 +296,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #007bff;
+  background: var(--accent);
 }
 
 .form-actions .btn-outline-secondary {
@@ -288,13 +305,14 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  border: 1px solid #cbd5e0;
-  color: #4a5568;
+  border: 1px solid var(--border-strong);
+  color: var(--text-tertiary);
+  background: var(--bg-primary);
 }
 
 .form-actions .btn-outline-secondary:hover {
-  background: #f7fafc;
-  border-color: #a0aec0;
+  background: var(--bg-hover);
+  border-color: var(--text-muted);
 }
 
 .form-group textarea {

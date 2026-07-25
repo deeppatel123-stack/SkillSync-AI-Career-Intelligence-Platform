@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
+import ThemeToggle from './ThemeToggle';
 
 export default function AppLayout({
   children,
@@ -48,7 +49,12 @@ export default function AppLayout({
           onAdminSectionChange={onAdminSectionChange}
           onLogout={onLogout}
         />
-        <main className="main-content">{children}</main>
+        <main className="main-content">
+          <div className="d-flex justify-content-end align-items-center mb-3" style={{ minHeight: 44 }}>
+            <ThemeToggle />
+          </div>
+          {children}
+        </main>
       </div>
     </>
   );

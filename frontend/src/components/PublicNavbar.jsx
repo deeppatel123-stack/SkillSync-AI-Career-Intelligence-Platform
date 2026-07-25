@@ -1,4 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
+import ThemeToggle from './ThemeToggle';
 
 export default function PublicNavbar() {
   return (
@@ -8,17 +9,20 @@ export default function PublicNavbar() {
           <i className="bi bi-bezier2" /> <span>SkillSync</span>
         </Link>
 
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon" />
-        </button>
+        <div className="d-flex align-items-center gap-2">
+          <ThemeToggle />
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
+        </div>
 
         <div className="collapse navbar-collapse" id="navbarNav">
           <div className="ms-auto nav-pill">

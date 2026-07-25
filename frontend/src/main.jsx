@@ -11,12 +11,16 @@ import './styles/dashboard.css';
 import './styles/opportunities.css';
 import './styles/applications.css';
 import './styles/profile.css';
+import './styles/ai.css';
+import { ThemeProvider } from './contexts/ThemeContext';
 import App from './App.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </StrictMode>,
 );

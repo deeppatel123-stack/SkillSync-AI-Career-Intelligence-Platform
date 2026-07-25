@@ -1,35 +1,36 @@
 .main-navbar {
-  background: #ffffff;
+  background: var(--bg-primary);
   padding: 16px 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  border-bottom: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-md);
+  border-bottom: 1px solid var(--border);
+  transition: var(--theme-transition);
 }
 
 .navbar-brand {
   font-size: 22px;
-  color: #2c5282;
+  color: var(--accent);
   font-weight: 700;
 }
 
 .navbar-brand:hover {
-  color: #2b6cb0;
+  color: var(--accent-dark);
 }
 
 .navbar-brand i {
-  color: #4299e1;
+  color: var(--accent);
 }
 
 .nav-link-btn {
-  color: #718096;
+  color: var(--text-muted);
   padding: 8px 19px;
   border-radius: 8px;
   font-weight: 500;
-  background: #ebf8ff;
-  border: 1px solid #bee3f8;
+  background: var(--accent-light);
+  border: 1px solid var(--info-border);
 }
 
 .nav-link-btn:hover {
-  background: #4299e1;
+  background: var(--accent);
   color: #ffffff;
 }
 
@@ -38,21 +39,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f0f4f8;
+  background: var(--auth-wrapper-bg);
   padding: 32px 16px;
+  transition: var(--theme-transition);
 }
 
 .auth-container {
-  background: #ffffff;
+  background: var(--bg-card);
   border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   width: 100%;
+  transition: var(--theme-transition);
 }
 
 .auth-side-panel {
-  background: linear-gradient(135deg, #2c5282 0%, #2a4365 100%);
+  background: var(--auth-panel-gradient);
   padding: 48px 40px;
   display: flex;
   align-items: center;
@@ -90,7 +93,7 @@
 
 .feature-item i {
   font-size: 19px;
-  color: #90cdf4;
+  color: var(--auth-feature-icon);
 }
 
 .auth-card {
@@ -108,16 +111,16 @@
 .auth-header h3 {
   font-size: 26px;
   font-weight: 600;
-  color: #1a202c;
+  color: var(--text-primary);
   margin-bottom: 8px;
 }
 
 .auth-header h3 i {
-  color: #4299e1;
+  color: var(--accent);
 }
 
 .auth-header p {
-  color: #718096;
+  color: var(--text-muted);
   margin: 0;
   font-size: 14px;
 }
@@ -129,13 +132,13 @@
 .input-group-custom label {
   display: block;
   font-weight: 500;
-  color: #4a5568;
+  color: var(--text-tertiary);
   margin-bottom: 8px;
   font-size: 14px;
 }
 
 .input-group-custom label i {
-  color: #4299e1;
+  color: var(--accent);
   margin-right: 5px;
 }
 
@@ -143,11 +146,17 @@
 .auth-card select {
   width: 100%;
   padding: 12px 16px;
-  border: 1px solid #cbd5e0;
+  border: 1px solid var(--input-border);
   border-radius: 8px;
   font-size: 15px;
-  background: #ffffff;
+  background: var(--input-bg);
+  color: var(--input-text);
   transition: all 0.2s ease;
+}
+
+.auth-card input::placeholder,
+.auth-card select::placeholder {
+  color: var(--input-placeholder);
 }
 
 .password-input-wrapper {
@@ -167,12 +176,12 @@
   background: transparent;
   padding: 0;
   line-height: 1;
-  color: #718096;
+  color: var(--text-muted);
   cursor: pointer;
 }
 
 .password-toggle-btn:hover {
-  color: #2d3748;
+  color: var(--text-secondary);
 }
 
 .password-toggle-btn:focus {
@@ -186,12 +195,12 @@
 .auth-card input:focus,
 .auth-card select:focus {
   outline: none;
-  border-color: #4299e1;
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 3px var(--input-focus-shadow);
 }
 
 .btn-auth {
-  background: #4299e1;
+  background: var(--accent);
   border: none;
   color: #ffffff;
   padding: 13px 24px;
@@ -202,25 +211,25 @@
 }
 
 .btn-auth:hover {
-  background: #3182ce;
+  background: var(--accent-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+  box-shadow: 0 4px 12px var(--accent-shadow);
 }
 
 .auth-footer {
   margin-top: 24px;
   padding-top: 24px;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--border);
 }
 
 .auth-footer p {
-  color: #718096;
+  color: var(--text-muted);
   margin: 0;
   font-size: 14px;
 }
 
 .auth-footer a {
-  color: #4299e1;
+  color: var(--accent);
   font-weight: 600;
   text-decoration: none;
 }

@@ -468,7 +468,7 @@ export default function AdminDashboard() {
   );
 
   const renderOpportunities = () => (
-    <div className="row mt-5" id="opportunities-section">
+    <div className="row mt-3" id="opportunities-section">
       <div className="col-12">
         <h4 className="section-title">Opportunities Posted by Colleges & Companies</h4>
         <div className="row g-4 mb-2">
@@ -609,7 +609,7 @@ export default function AdminDashboard() {
   );
 
   const renderUsers = () => (
-    <div className="row mt-5" id="users-section">
+    <div className="row mt-3" id="users-section">
       <div className="col-12">
         <h4 className="section-title">All Registered Users</h4>
         <div className="card">
@@ -668,7 +668,7 @@ export default function AdminDashboard() {
   );
 
   const renderApplications = () => (
-    <div className="row mt-5" id="applications-section">
+    <div className="row mt-3" id="applications-section">
       <div className="col-12">
         <h4 className="section-title">All Applications</h4>
         <div className="row g-4 mb-2">
@@ -951,21 +951,24 @@ export default function AdminDashboard() {
       onLogout={() => navigate('/admin/login')}
     >
       <div className="container-fluid px-3">
-        <div className="row">
-          <div className="col-12">
-            <div className="welcome-box">
-              <div className="welcome-content">
-                <h2>Welcome back, {adminUser.name} 👋</h2>
-                <p className="text-muted">Manage the entire SkillSync platform and oversee all users</p>
-              </div>
-              <div className="welcome-icon">
-                <i className="bi bi-shield-lock" />
+        {section === 'dashboard' && (
+          <>
+            <div className="row">
+              <div className="col-12">
+                <div className="welcome-box">
+                  <div className="welcome-content">
+                    <h2>Welcome back, {adminUser.name} 👋</h2>
+                    <p className="text-muted">Manage the entire SkillSync platform and oversee all users</p>
+                  </div>
+                  <div className="welcome-icon">
+                    <i className="bi bi-shield-lock" />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        {section === 'dashboard' && renderDashboard()}
+            {renderDashboard()}
+          </>
+        )}
         {section === 'opportunities' && renderOpportunities()}
         {section === 'applications' && renderApplications()}
         {section === 'users' && renderUsers()}

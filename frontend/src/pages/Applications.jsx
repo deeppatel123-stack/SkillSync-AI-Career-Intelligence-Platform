@@ -68,7 +68,7 @@ function ApplicationDetailsModal({ application, opportunity, onClose, isOrganize
                   <div className="col-12">
                     <h6 className="text-muted">Projects</h6>
                     {details.projects.map((p, i) => (
-                      <div key={i} className="mb-2 p-2" style={{ background: '#f7fafc', borderRadius: 8 }}>
+                      <div key={i} className="mb-2 p-2" style={{ background: 'var(--bg-secondary)', borderRadius: 8 }}>
                         <strong>{p.title || p.name || 'Project ' + (i + 1)}</strong>
                         {p.description && <p className="mb-0" style={{ fontSize: 13 }}>{p.description}</p>}
                       </div>
@@ -79,7 +79,7 @@ function ApplicationDetailsModal({ application, opportunity, onClose, isOrganize
                   <div className="col-12">
                     <h6 className="text-muted">Internships</h6>
                     {details.internships.map((intern, i) => (
-                      <div key={i} className="mb-2 p-2" style={{ background: '#f7fafc', borderRadius: 8 }}>
+                      <div key={i} className="mb-2 p-2" style={{ background: 'var(--bg-secondary)', borderRadius: 8 }}>
                         <strong>{intern.company || intern.organization || 'Internship ' + (i + 1)}</strong>
                         {intern.role && <span> - {intern.role}</span>}
                         {intern.description && <p className="mb-0" style={{ fontSize: 13 }}>{intern.description}</p>}

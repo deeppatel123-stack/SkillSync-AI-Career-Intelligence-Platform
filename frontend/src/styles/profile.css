@@ -4,7 +4,7 @@
   align-items: center;
   margin-bottom: 32px;
   padding-bottom: 24px;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid var(--border-muted);
 }
 
 .header-title-area {
@@ -15,19 +15,19 @@
 
 .header-title-area i {
   font-size: 40px;
-  color: #4299e1;
+  color: var(--accent);
 }
 
 .page-title {
   margin-bottom: 4px;
   font-weight: 700;
-  color: #1a202c;
+  color: var(--text-primary);
   font-size: 28px;
 }
 
 .page-subtitle {
   margin-bottom: 0;
-  color: #718096;
+  color: var(--text-muted);
 }
 
 .profile-container {
@@ -38,17 +38,18 @@
 }
 
 .profile-card-main {
-  background: #ffffff;
+  background: var(--bg-card);
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
   overflow: hidden;
+  transition: var(--theme-transition);
 }
 
 .card-header-custom {
   padding: 24px 32px;
-  background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -59,12 +60,12 @@
   align-items: center;
   gap: 12px;
   font-weight: 700;
-  color: #1a202c;
+  color: var(--text-primary);
   font-size: 18px;
 }
 
 .card-header-title i {
-  color: #4299e1;
+  color: var(--accent);
   font-size: 20px;
 }
 
@@ -85,7 +86,7 @@
 .form-group label {
   display: block;
   font-weight: 600;
-  color: #4a5568;
+  color: var(--text-tertiary);
   font-size: 15px;
   margin-bottom: 12px;
 }
@@ -94,23 +95,27 @@
   width: 100%;
   padding: 13px 16px;
   border-radius: 10px;
-  border: 1px solid #e2e8f0;
-  background: #f8fafc;
+  border: 1px solid var(--border);
+  background: var(--input-bg-secondary);
   font-size: 15px;
-  color: #2d3748;
+  color: var(--input-text);
   transition: all 0.2s ease;
+}
+
+.form-control-custom::placeholder {
+  color: var(--input-placeholder);
 }
 
 .form-control-custom:focus {
   outline: none;
-  background: #ffffff;
-  border-color: #4299e1;
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+  background: var(--input-bg);
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 3px var(--input-focus-shadow);
 }
 
 .form-control-custom:disabled {
-  background: #edf2f7;
-  color: #718096;
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
   cursor: not-allowed;
 }
 
@@ -120,12 +125,13 @@ textarea.form-control-custom {
 }
 
 .account-actions-card {
-  background: #ffffff;
+  background: var(--bg-card);
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
   padding: 24px;
   margin-top: 32px;
+  transition: var(--theme-transition);
 }
 
 .settings-header {
@@ -133,13 +139,13 @@ textarea.form-control-custom {
   align-items: center;
   gap: 12px;
   font-weight: 700;
-  color: #1a202c;
+  color: var(--text-primary);
   font-size: 18px;
   margin-bottom: 32px;
 }
 
 .settings-header i {
-  color: #4299e1;
+  color: var(--accent);
 }
 
 .settings-list {
@@ -149,7 +155,7 @@ textarea.form-control-custom {
 
 .settings-item {
   padding: 20px 0;
-  border-bottom: 1px solid #edf2f7;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .settings-item:last-child {
@@ -165,13 +171,13 @@ textarea.form-control-custom {
 
 .settings-item h6 {
   font-weight: 700;
-  color: #2d3748;
+  color: var(--text-secondary);
   margin: 0;
 }
 
 .settings-item p {
   font-size: 14px;
-  color: #718096;
+  color: var(--text-muted);
   margin: 0;
 }
 
@@ -179,31 +185,31 @@ textarea.form-control-custom {
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #4299e1;
-  background: #ffffff;
+  color: var(--accent);
+  background: var(--bg-primary);
   transition: all 0.2s ease;
 }
 
 .btn-icon-outline:hover {
-  background: #ebf8ff;
-  border-color: #4299e1;
+  background: var(--accent-light);
+  border-color: var(--accent);
 }
 
 .btn-icon-outline.danger {
-  color: #e53e3e;
+  color: var(--error);
 }
 
 .btn-icon-outline.danger:hover {
-  background: #fff5f5;
-  border-color: #feb2b2;
+  background: var(--error-bg);
+  border-color: var(--error-border);
 }
 
 .btn-save {
-  background: #4299e1;
+  background: var(--accent);
   color: #ffffff;
   border: none;
   padding: 12px 24px;
@@ -216,15 +222,15 @@ textarea.form-control-custom {
 }
 
 .btn-save:hover {
-  background: #3182ce;
+  background: var(--accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+  box-shadow: 0 4px 12px var(--accent-shadow);
 }
 
 .btn-cancel {
-  background: #ffffff;
-  color: #718096;
-  border: 1px solid #e2e8f0;
+  background: var(--bg-primary);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
   padding: 12px 24px;
   border-radius: 10px;
   font-weight: 600;
@@ -232,8 +238,8 @@ textarea.form-control-custom {
 }
 
 .btn-cancel:hover {
-  background: #f8fafc;
-  color: #4a5568;
+  background: var(--bg-secondary);
+  color: var(--text-tertiary);
 }
 
 @media (max-width: 1024px) {

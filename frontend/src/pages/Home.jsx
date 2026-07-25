@@ -181,6 +181,92 @@ export default function Home() {
         </div>
       </section>
 
+      {/* How It Works */}
+      <section className="steps-section">
+        <div className="container">
+          <div className="text-center mb-5">
+            <h2 className="section-title-large">How It Works</h2>
+            <p className="section-subtitle-large">Get started in four simple steps</p>
+          </div>
+          <div className="steps-grid">
+            <div className="step-card">
+              <div className="step-number">1</div>
+              <h4>Create Your Account</h4>
+              <p>Sign up as a student, college, or company in under a minute. No credit card required.</p>
+            </div>
+            <div className="step-card">
+              <div className="step-number">2</div>
+              <h4>Build Your Profile</h4>
+              <p>Add your skills, projects, internships, and education details to showcase your potential.</p>
+            </div>
+            <div className="step-card">
+              <div className="step-number">3</div>
+              <h4>Explore Opportunities</h4>
+              <p>Browse internships, jobs, hackathons, and events tailored to your interests and goals.</p>
+            </div>
+            <div className="step-card">
+              <div className="step-number">4</div>
+              <h4>Apply & Grow</h4>
+              <p>Apply with one click, track your applications, and use AI tools to improve your career readiness.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="features-section">
+        <div className="container">
+          <div className="text-center mb-5">
+            <h2 className="section-title-large">Everything You Need</h2>
+            <p className="section-subtitle-large">Powerful tools to accelerate your career journey</p>
+          </div>
+          <div className="features-grid">
+            <div className="feature-card">
+              <div className="feature-icon blue"><i className="bi bi-robot" /></div>
+              <div className="feature-text">
+                <h5>AI-Powered Insights</h5>
+                <p>Get resume analysis, career recommendations, and skill gap assessments powered by machine learning.</p>
+              </div>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon green"><i className="bi bi-lightning-fill" /></div>
+              <div className="feature-text">
+                <h5>Smart Matching</h5>
+                <p>Receive personalized opportunity recommendations based on your skills, interests, and career goals.</p>
+              </div>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon purple"><i className="bi bi-bell-fill" /></div>
+              <div className="feature-text">
+                <h5>Real-Time Updates</h5>
+                <p>Stay informed with instant notifications for application status, new opportunities, and upcoming events.</p>
+              </div>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon orange"><i className="bi bi-file-earmark-text-fill" /></div>
+              <div className="feature-text">
+                <h5>Application Tracking</h5>
+                <p>Track all your applications in one place, from submission to shortlisting to final decision.</p>
+              </div>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon teal"><i className="bi bi-signpost-2" /></div>
+              <div className="feature-text">
+                <h5>Learning Roadmaps</h5>
+                <p>Get personalized learning paths to bridge skill gaps and stay ahead in your chosen domain.</p>
+              </div>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon pink"><i className="bi bi-people-fill" /></div>
+              <div className="feature-text">
+                <h5>Networking Hub</h5>
+                <p>Connect with recruiters, attend career events, and build professional relationships that matter.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="cta-section">
         <div className="container">
           <div className="cta-card">

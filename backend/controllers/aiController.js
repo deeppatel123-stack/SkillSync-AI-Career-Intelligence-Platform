@@ -4,6 +4,7 @@
  */
 
 const djangoApi = require('../config/djangoApi');
+const User = require('../models/User');
 
 // ================================================================
 // Resume Analysis
@@ -11,6 +12,13 @@ const djangoApi = require('../config/djangoApi');
 
 async function analyzeResume(req, res) {
   try {
+    const student = await User.findById(req.user._id);
+    const pSkills = student?.skills || [];
+    const pProjects = student?.projects || [];
+    if (pSkills.length === 0 && pProjects.length === 0 && (student?.internships || []).length === 0 && (student?.certifications || []).length === 0) {
+      return res.status(400).json({ success: false, message: 'Please complete your profile with skills, projects, internships, or certifications before using Resume Analysis.' });
+    }
+
     const { skills, projects, internships, certifications,
             educationLevel, hasPortfolio, hasGithub, hasLinkedin,
             languages } = req.body;
@@ -43,6 +51,11 @@ async function analyzeResume(req, res) {
 
 async function recommendCareerRole(req, res) {
   try {
+    const student = await User.findById(req.user._id);
+    if (!student?.skills || student.skills.length === 0) {
+      return res.status(400).json({ success: false, message: 'Please add at least one skill to your profile before using Career Recommendation.' });
+    }
+
     const { skills, projectsCount, internshipCount, certificationCount,
             interestedDomain } = req.body;
 

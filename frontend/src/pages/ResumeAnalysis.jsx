@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import AppLayout from '../components/AppLayout';
 import { aiApi } from '../utils/aiApi';
 import { getSession } from '../utils/userSession';
@@ -10,6 +11,7 @@ export default function ResumeAnalysis() {
   const [error, setError] = useState('');
   const [profile, setProfile] = useState(null);
   const [profileLoading, setProfileLoading] = useState(true);
+  const [profileIncomplete, setProfileIncomplete] = useState(false);
 
   useEffect(() => {
     const session = getSession();
@@ -18,7 +20,15 @@ export default function ResumeAnalysis() {
       return;
     }
     aiApi.getStudentProfile()
-      .then((data) => setProfile(data.data))
+      .then((data) => {
+        setProfile(data.data);
+        const p = data.data || {};
+        const hasSkills = (p.skills || []).length > 0;
+        const hasProjects = (p.projects || []).length > 0;
+        const hasInternships = (p.internships || []).length > 0;
+        const hasCertifications = (p.certifications || []).length > 0;
+        setProfileIncomplete(!hasSkills && !hasProjects && !hasInternships && !hasCertifications);
+      })
       .catch(() => {})
       .finally(() => setProfileLoading(false));
   }, []);
@@ -121,13 +131,26 @@ export default function ResumeAnalysis() {
                     </div>
                   </div>
 
-                  <button
-                    className="ai-btn-primary"
-                    onClick={handleAnalyze}
-                    disabled={loading || !profile}
-                  >
-                    {loading ? 'Analyzing...' : 'Analyze My Resume'}
-                  </button>
+                  {profileIncomplete ? (
+                    <div className="ai-error" style={{ textAlign: 'center', padding: '24px' }}>
+                      <i className="bi bi-exclamation-circle-fill" style={{ fontSize: 32, display: 'block', marginBottom: 12 }} />
+                      <h6 style={{ color: '#9b2c2c' }}>Profile Incomplete</h6>
+                      <p style={{ fontSize: 14, marginBottom: 16 }}>
+                        Please add skills, projects, internships, or certifications to your profile before using Resume Analysis.
+                      </p>
+                      <Link to="/student/profile" className="ai-btn-primary" style={{ textDecoration: 'none', display: 'inline-block' }}>
+                        <i className="bi bi-person-fill-gear" /> Complete Your Profile
+                      </Link>
+                    </div>
+                  ) : (
+                    <button
+                      className="ai-btn-primary"
+                      onClick={handleAnalyze}
+                      disabled={loading || !profile}
+                    >
+                      {loading ? 'Analyzing...' : 'Analyze My Resume'}
+                    </button>
+                  )}
 
                   {!profile && !profileLoading && (
                     <p className="text-muted mt-2" style={{ fontSize: 13 }}>

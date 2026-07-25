@@ -1,29 +1,31 @@
 body {
-  background: #f0f4f8;
+  background: var(--bg-body);
   min-height: 100vh;
+  transition: var(--theme-transition);
 }
 
 .welcome-box {
-  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+  background: var(--welcome-gradient);
   padding: 32px;
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  color: #2d3748;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
+  transition: var(--theme-transition);
 }
 
 .welcome-content h2 {
   font-size: 28px;
   font-weight: 600;
   margin-bottom: 8px;
-  color: #1a202c;
+  color: var(--text-primary);
 }
 
 .welcome-box p {
-  color: #718096;
+  color: var(--text-muted);
   margin: 0;
   font-size: 15px;
   font-weight: 400;
@@ -31,24 +33,24 @@ body {
 
 .welcome-icon {
   font-size: 56px;
-  color: #a0aec0;
+  color: var(--icon-muted);
   opacity: 0.8;
 }
 
 .section-title {
   font-size: 22px;
   font-weight: 700;
-  color: #2d3748;
+  color: var(--text-secondary);
   margin-bottom: 24px;
   margin-top: 16px;
 }
 
 .stat-card {
-  background: #ffffff;
+  background: var(--bg-card);
   padding: 20px;
   border-radius: 16px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-  border: 1px solid #edf2f7;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-light);
   display: flex;
   align-items: center;
   gap: 20px;
@@ -59,9 +61,9 @@ body {
 }
 
 .stat-card:hover {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-lg);
   transform: translateY(-4px);
-  border-color: #e2e8f0;
+  border-color: var(--border);
 }
 
 .stat-icon {
@@ -75,23 +77,23 @@ body {
 }
 
 .stat-icon.icon-purple {
-  background: #ebf8ff;
-  color: #3182ce;
+  background: var(--accent-light);
+  color: var(--accent-hover);
 }
 
 .stat-icon.icon-blue {
-  background: #ebf8ff;
-  color: #3182ce;
+  background: var(--accent-light);
+  color: var(--accent-hover);
 }
 
 .stat-icon.icon-green {
-  background: #f0fff4;
-  color: #38a169;
+  background: var(--success-bg);
+  color: var(--success);
 }
 
 .stat-icon.icon-orange {
-  background: #fffaf0;
-  color: #dd6b20;
+  background: var(--warning-bg);
+  color: var(--warning);
 }
 
 .stat-icon i {
@@ -102,23 +104,23 @@ body {
 .stat-info h3 {
   font-size: 29px;
   font-weight: 800;
-  color: #1a202c;
+  color: var(--text-primary);
   margin-bottom: 2px;
 }
 
 .stat-info p {
-  color: #718096;
+  color: var(--text-muted);
   margin: 0;
   font-size: 15px;
   font-weight: 500;
 }
 
 .action-card {
-  background: #ffffff;
+  background: var(--bg-card);
   padding: 24px;
   border-radius: 16px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-  border: 1px solid #edf2f7;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-light);
   display: flex;
   align-items: center;
   gap: 20px;
@@ -131,9 +133,9 @@ body {
 }
 
 .action-card:hover {
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-lg);
   transform: translateY(-5px);
-  border-color: #4299e1;
+  border-color: var(--accent);
 }
 
 .action-icon {
@@ -147,18 +149,18 @@ body {
 }
 
 .action-icon.icon-purple {
-  background: #ebf8ff;
-  color: #3182ce;
+  background: var(--accent-light);
+  color: var(--accent-hover);
 }
 
 .action-icon.icon-blue {
-  background: #ebf8ff;
-  color: #3182ce;
+  background: var(--accent-light);
+  color: var(--accent-hover);
 }
 
 .action-icon.icon-green {
-  background: #f0fff4;
-  color: #38a169;
+  background: var(--success-bg);
+  color: var(--success);
 }
 
 .action-icon i {
@@ -174,33 +176,35 @@ body {
 .action-content h5 {
   font-size: 18px;
   font-weight: 600;
-  color: #1a202c;
+  color: var(--text-primary);
   margin-bottom: 5px;
 }
 
 .action-content p {
-  color: #718096;
+  color: var(--text-muted);
   margin: 0;
   font-size: 14px;
 }
 
 .action-arrow {
   font-size: 20px;
-  color: #cbd5e0;
+  color: var(--arrow-color);
   transition: all 0.2s ease;
   margin-left: auto;
   flex-shrink: 0;
 }
 
 .action-card:hover .action-arrow {
-  color: #4299e1;
+  color: var(--accent);
   transform: translateX(3px);
 }
 
 .admin-opportunities-card {
   border-radius: 16px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  background: var(--bg-card);
+  transition: var(--theme-transition);
 }
 
 .admin-opportunities-table {
@@ -212,6 +216,9 @@ body {
   padding: 12px 10px;
   white-space: normal;
   font-size: 13px;
+  color: var(--text-tertiary);
+  background: var(--table-header-bg);
+  border-bottom: 1px solid var(--border);
 }
 
 .admin-opportunities-table td {
@@ -219,6 +226,8 @@ body {
   vertical-align: middle;
   font-size: 14px;
   word-break: break-word;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .opportunity-title-cell {

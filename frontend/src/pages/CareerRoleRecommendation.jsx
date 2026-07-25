@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import AppLayout from '../components/AppLayout';
 import SkillSelector from '../components/SkillSelector';
 import { aiApi } from '../utils/aiApi';
@@ -26,6 +27,7 @@ export default function CareerRoleRecommendation() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [profileIncomplete, setProfileIncomplete] = useState(false);
 
   useEffect(() => {
     const session = getSession();
@@ -33,7 +35,9 @@ export default function CareerRoleRecommendation() {
     aiApi.getStudentProfile()
       .then((data) => {
         const p = data.data;
-        if (p.skills && p.skills.length) setSkills(p.skills);
+        const hasSkills = (p.skills || []).length > 0;
+        setProfileIncomplete(!hasSkills);
+        if (hasSkills) setSkills(p.skills);
         if (p.projects) setProjectsCount(String(p.projects.length));
         if (p.internships) setInternshipCount(String(p.internships.length));
         if (p.certifications) setCertificationCount(String(p.certifications.length));
@@ -77,6 +81,18 @@ export default function CareerRoleRecommendation() {
                 </div>
               </div>
 
+              {profileIncomplete ? (
+                <div className="ai-error" style={{ textAlign: 'center', padding: '24px' }}>
+                  <i className="bi bi-exclamation-circle-fill" style={{ fontSize: 32, display: 'block', marginBottom: 12 }} />
+                  <h6 style={{ color: '#9b2c2c' }}>Profile Incomplete</h6>
+                  <p style={{ fontSize: 14, marginBottom: 16 }}>
+                    Please add at least one skill to your profile before using Career Recommendation.
+                  </p>
+                  <Link to="/student/profile" className="ai-btn-primary" style={{ textDecoration: 'none', display: 'inline-block' }}>
+                    <i className="bi bi-person-fill-gear" /> Complete Your Profile
+                  </Link>
+                </div>
+              ) : (
               <form onSubmit={handleSubmit}>
                 <div className="row g-4">
                   <div className="col-md-4">
@@ -129,6 +145,7 @@ export default function CareerRoleRecommendation() {
                   {loading ? 'Recommending...' : 'Get Recommendation'}
                 </button>
               </form>
+              )}
 
               {error && <div className="ai-error">{error}</div>}
 

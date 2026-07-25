@@ -13,7 +13,6 @@ const opportunityRoutes = require('./routes/opportunityRoutes');
 const applicationRoutes = require('./routes/applicationRoutes');
 const aiRoutes = require('./routes/aiRoutes');
 const profileRoutes = require('./routes/profileRoutes');
-const trendingRoutes = require('./routes/trendingRoutes');
 const statisticsRoutes = require('./routes/statisticsRoutes');
 
 const app = express();
@@ -67,9 +66,6 @@ app.use('/api/ai', aiRoutes);
 
 // Student profile routes
 app.use('/api/users/profile', profileRoutes);
-
-// Trending Skills routes
-app.use('/api', trendingRoutes);
 
 // Statistics routes (college + company dashboards)
 app.use('/api', statisticsRoutes);

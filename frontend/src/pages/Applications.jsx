@@ -10,7 +10,6 @@ function getStatusClass(status) {
 function ApplicationDetailsModal({ application, opportunity, onClose, isOrganizer, onUpdateStatus, onDelete }) {
   if (!application) return null;
   const details = application.applicantDetails || {};
-  const student = null;
 
   return (
     <>
@@ -33,24 +32,67 @@ function ApplicationDetailsModal({ application, opportunity, onClose, isOrganize
                   <h6 className="text-muted">Opportunity</h6>
                   <p className="fw-semibold">{opportunity?.title || 'Removed'}</p>
                   <h6 className="text-muted">Applicant Name</h6>
-                  <p>{details.fullName || student?.name || 'Unknown'}</p>
+                  <p>{details.fullName || 'Unknown'}</p>
                   <h6 className="text-muted">Email</h6>
-                  <p>{details.email || student?.email || 'N/A'}</p>
+                  <p>{details.email || 'N/A'}</p>
                   <h6 className="text-muted">Phone</h6>
                   <p>{details.phone || 'N/A'}</p>
+                  <h6 className="text-muted">Bio</h6>
+                  <p>{details.bio || 'N/A'}</p>
                 </div>
                 <div className="col-md-6">
                   <h6 className="text-muted">University</h6>
                   <p>{details.university || 'N/A'}</p>
                   <h6 className="text-muted">Course</h6>
                   <p>{details.course || 'N/A'}</p>
-                  <h6 className="text-muted">Year</h6>
-                  <p>{details.year || 'N/A'}</p>
+                  <h6 className="text-muted">CGPA</h6>
+                  <p>{details.cgpa || 'N/A'}</p>
                   <h6 className="text-muted">Resume</h6>
                   <p>{details.resume || 'Not uploaded'}</p>
+                  <h6 className="text-muted">Portfolio</h6>
+                  <p>{details.portfolio || 'N/A'}</p>
+                  <h6 className="text-muted">GitHub</h6>
+                  <p>{details.github || 'N/A'}</p>
                   <h6 className="text-muted">LinkedIn</h6>
                   <p>{details.linkedin || 'N/A'}</p>
                 </div>
+                <div className="col-12">
+                  <h6 className="text-muted">Skills</h6>
+                  <p>{(details.skills || []).length ? details.skills.join(', ') : 'None listed'}</p>
+                </div>
+                <div className="col-12">
+                  <h6 className="text-muted">Languages</h6>
+                  <p>{(details.languages || []).length ? details.languages.join(', ') : 'None listed'}</p>
+                </div>
+                {(details.projects || []).length > 0 && (
+                  <div className="col-12">
+                    <h6 className="text-muted">Projects</h6>
+                    {details.projects.map((p, i) => (
+                      <div key={i} className="mb-2 p-2" style={{ background: '#f7fafc', borderRadius: 8 }}>
+                        <strong>{p.title || p.name || 'Project ' + (i + 1)}</strong>
+                        {p.description && <p className="mb-0" style={{ fontSize: 13 }}>{p.description}</p>}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {(details.internships || []).length > 0 && (
+                  <div className="col-12">
+                    <h6 className="text-muted">Internships</h6>
+                    {details.internships.map((intern, i) => (
+                      <div key={i} className="mb-2 p-2" style={{ background: '#f7fafc', borderRadius: 8 }}>
+                        <strong>{intern.company || intern.organization || 'Internship ' + (i + 1)}</strong>
+                        {intern.role && <span> - {intern.role}</span>}
+                        {intern.description && <p className="mb-0" style={{ fontSize: 13 }}>{intern.description}</p>}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {(details.certifications || []).length > 0 && (
+                  <div className="col-12">
+                    <h6 className="text-muted">Certifications</h6>
+                    <p>{(details.certifications || []).map((c) => c.name || c.title || c).join(', ')}</p>
+                  </div>
+                )}
                 <div className="col-12">
                   <h6 className="text-muted">Cover Letter</h6>
                   <p>{details.coverLetter || 'No cover letter provided'}</p>
@@ -206,6 +248,12 @@ export default function Applications() {
                         </span>
                         <span>
                           <i className="bi bi-book" /> {details.course || 'N/A'}
+                        </span>
+                        <span>
+                          <i className="bi bi-star-fill" /> {(details.skills || []).length} skills
+                        </span>
+                        <span>
+                          <i className="bi bi-folder" /> {(details.projects || []).length} projects
                         </span>
                         <span>
                           <i className="bi bi-calendar" /> Applied: {app.appliedAt || 'N/A'}

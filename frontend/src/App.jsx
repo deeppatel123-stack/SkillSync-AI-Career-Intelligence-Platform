@@ -18,12 +18,6 @@ import CareerRoleRecommendation from './pages/CareerRoleRecommendation';
 import SkillGapAnalysis from './pages/SkillGapAnalysis';
 import LearningRoadmap from './pages/LearningRoadmap';
 
-// Trending Skills
-import TrendingSkills from './pages/TrendingSkills';
-
-// Placement Statistics
-import PlacementStatistics from './pages/PlacementStatistics';
-
 // Student Profile
 import StudentProfile from './pages/StudentProfile';
 
@@ -40,6 +34,7 @@ export default function App() {
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
       <Route path="/opportunities" element={<ViewOpportunities />} />
       <Route path="/opportunities/add" element={<AddOpportunity />} />
+      <Route path="/opportunities/edit/:id" element={<AddOpportunity />} />
       <Route path="/applications" element={<Applications />} />
       <Route path="/profile" element={<ProfileSettings />} />
 
@@ -47,13 +42,9 @@ export default function App() {
       <Route path="/ai/resume-analysis" element={<ResumeAnalysis />} />
       <Route path="/ai/career-role" element={<CareerRoleRecommendation />} />
       <Route path="/ai/skill-gap" element={<SkillGapAnalysis />} />
-      <Route path="/ai/trending-skills" element={<TrendingSkills />} />
 
       {/* Learning Hub (separate from AI) */}
       <Route path="/learning-hub/roadmap" element={<LearningRoadmap />} />
-
-      {/* Placement Statistics */}
-      <Route path="/ai/placement-statistics" element={<PlacementStatistics />} />
 
       {/* Student Profile */}
       <Route path="/student/profile" element={<StudentProfile />} />

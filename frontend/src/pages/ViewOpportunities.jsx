@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AppLayout from '../components/AppLayout';
 import { applicationApi, opportunityApi } from '../utils/api';
 import { getAppRole, getSession } from '../utils/userSession';
@@ -84,6 +85,7 @@ function OpportunityDetailModal({ opportunity, organizerName, onClose, showApply
 }
 
 export default function ViewOpportunities() {
+  const navigate = useNavigate();
   const session = getSession();
   const sessionRole = session?.role;
   const isOrganizerView = sessionRole === 'college' || sessionRole === 'company';
@@ -291,7 +293,7 @@ export default function ViewOpportunities() {
                     <i className="bi bi-eye" /> View Details
                   </button>
                   {isOrganizerView && (
-                    <button type="button" className="btn btn-outline-secondary opportunity-btn">
+                    <button type="button" className="btn btn-outline-secondary opportunity-btn" onClick={() => navigate(`/opportunities/edit/${o.id}`)}>
                       <i className="bi bi-pencil" /> Edit Post
                     </button>
                   )}

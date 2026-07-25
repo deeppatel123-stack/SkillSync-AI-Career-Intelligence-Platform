@@ -31,9 +31,9 @@
 }
 
 .profile-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
   align-items: start;
 }
 
@@ -135,7 +135,7 @@ textarea.form-control-custom {
   font-weight: 700;
   color: #1a202c;
   font-size: 18px;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 .settings-header i {

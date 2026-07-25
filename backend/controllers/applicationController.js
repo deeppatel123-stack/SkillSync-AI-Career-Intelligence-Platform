@@ -79,22 +79,32 @@ async function createApplication(req, res) {
       return res.status(400).json({ success: false, message: 'You have already applied to this opportunity' });
     }
 
-    const resumeFile = req.file ? req.file.filename : '';
+    const student = await User.findById(req.user._id);
+    const resumeFile = req.file ? req.file.filename : (student?.resume || '');
 
     const application = await Application.create({
       opportunityId,
       studentId: req.user._id,
       status: 'applied',
       applicantDetails: {
-        fullName: fullName || req.user.name,
-        email: email || req.user.email,
-        phone: phone || req.user.phone || '',
-        university: university || '',
-        course: course || '',
-        year: year || '',
+        fullName: fullName || student?.name || req.user.name,
+        email: email || student?.email || req.user.email,
+        phone: phone || student?.phone || '',
+        university: university || student?.collegeName || '',
+        course: course || student?.degree || '',
+        year: year || student?.semester || '',
         resume: resumeFile,
         coverLetter: coverLetter || '',
-        linkedin: linkedin || '',
+        linkedin: linkedin || student?.linkedin || '',
+        skills: student?.skills || [],
+        projects: student?.projects || [],
+        internships: student?.internships || [],
+        certifications: student?.certifications || [],
+        bio: student?.bio || '',
+        github: student?.github || '',
+        portfolio: student?.portfolio || '',
+        languages: student?.languages || [],
+        cgpa: student?.cgpa || '',
       },
     });
 

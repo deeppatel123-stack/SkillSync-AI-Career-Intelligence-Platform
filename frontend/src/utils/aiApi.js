@@ -43,13 +43,6 @@ export const aiApi = {
 
   // Get Data
   getCareers: () => request('/ai/careers'),
-  getPlacementStatistics: () => request('/ai/placement-statistics'),
-
-  // Trending Skills
-  getTrendingSkills: () => request('/trending-skills'),
-  getTrendingCategories: () => request('/trending-categories'),
-  getRecommendedSkills: (body) =>
-    request('/recommended-skills', { method: 'POST', body: JSON.stringify(body) }),
 
   // Statistics
   getCollegeStatistics: () => request('/college/statistics'),

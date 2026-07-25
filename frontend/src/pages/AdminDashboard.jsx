@@ -175,11 +175,6 @@ export default function AdminDashboard() {
     adminId: demoAdmin.id,
   });
 
-  const [securitySettings, setSecuritySettings] = useState({
-    mfaEnabled: true,
-    reauthForSensitiveActions: true,
-    notifyNewApplications: true,
-  });
   const [opportunities, setOpportunities] = useState([]);
   const [applications, setApplications] = useState([]);
   const [users, setUsers] = useState([]);
@@ -943,62 +938,6 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          <div className="mt-4 settings-header">
-            <i className="bi bi-shield-lock" />
-            <span>Security & Access</span>
-          </div>
-
-          <div className="settings-list">
-            <div className="settings-item">
-              <div className="settings-item-header">
-                <h6>Two-Factor Authentication (2FA)</h6>
-              </div>
-              <div className="form-check form-switch">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  role="switch"
-                  id="mfaEnabled"
-                  checked={securitySettings.mfaEnabled}
-                  onChange={(e) => setSecuritySettings((s) => ({ ...s, mfaEnabled: e.target.checked }))}
-                />
-              </div>
-            </div>
-
-            <div className="settings-item">
-              <div className="settings-item-header">
-                <h6>Re-auth for Sensitive Actions</h6>
-              </div>
-              <div className="form-check form-switch">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  role="switch"
-                  id="reauthForSensitiveActions"
-                  checked={securitySettings.reauthForSensitiveActions}
-                  onChange={(e) =>
-                    setSecuritySettings((s) => ({ ...s, reauthForSensitiveActions: e.target.checked }))
-                  }
-                />
-              </div>
-            </div>
-
-            <div className="settings-item">
-              <div className="settings-item-header">
-                <h6>Notify on New Applications</h6>
-              </div>
-              <div className="form-check form-switch">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  role="switch"
-                  id="notifyNewApplications"
-                  checked={securitySettings.notifyNewApplications}
-                  onChange={(e) => setSecuritySettings((s) => ({ ...s, notifyNewApplications: e.target.checked }))}
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

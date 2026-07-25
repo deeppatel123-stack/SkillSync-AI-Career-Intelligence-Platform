@@ -14,6 +14,4 @@ router.post('/learning-roadmap', aiController.generateLearningRoadmap);
 
 // Data routes
 router.get('/careers', aiController.getCareers);
-router.get('/placement-statistics', aiController.getPlacementStatistics);
-
 module.exports = router;

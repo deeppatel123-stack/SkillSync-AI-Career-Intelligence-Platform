@@ -11,9 +11,18 @@ const applicantDetailsSchema = new mongoose.Schema(
     university: { type: String, default: '' },
     course: { type: String, default: '' },
     year: { type: String, default: '' },
-    resume: { type: String, default: '' }, // filename after Multer upload
+    resume: { type: String, default: '' },
     coverLetter: { type: String, default: '' },
     linkedin: { type: String, default: '' },
+    skills: { type: [String], default: [] },
+    projects: { type: [mongoose.Schema.Types.Mixed], default: [] },
+    internships: { type: [mongoose.Schema.Types.Mixed], default: [] },
+    certifications: { type: [mongoose.Schema.Types.Mixed], default: [] },
+    bio: { type: String, default: '' },
+    github: { type: String, default: '' },
+    portfolio: { type: String, default: '' },
+    languages: { type: [String], default: [] },
+    cgpa: { type: String, default: '' },
   },
   { _id: false }
 );

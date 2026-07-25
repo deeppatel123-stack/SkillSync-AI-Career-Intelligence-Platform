@@ -37,7 +37,7 @@ export default function OrganizerDashboard() {
           <div className="col-12">
             <div className="welcome-box">
               <div className="welcome-content">
-                <h2>Welcome back, {currentUser.name} 👋</h2>
+                <h2>Welcome back, {currentUser.name}</h2>
                 <p className="text-muted">Manage opportunities and review applications efficiently</p>
               </div>
               <div className="welcome-icon">
@@ -47,6 +47,7 @@ export default function OrganizerDashboard() {
           </div>
         </div>
 
+        {/* Stats Row */}
         <div className="row mt-4 g-4">
           <div className="col-lg-3 col-md-6">
             <div className="stat-card">
@@ -94,6 +95,7 @@ export default function OrganizerDashboard() {
           </div>
         </div>
 
+        {/* Company Dashboard Section */}
         {isCompany && companyStats && (
           <>
             <div className="row mt-4">
@@ -105,7 +107,7 @@ export default function OrganizerDashboard() {
               </div>
             </div>
             <div className="row mt-2 g-4">
-              <div className="col-lg-2 col-md-4 col-6">
+              <div className="col-lg-4 col-md-6">
                 <div className="stat-card">
                   <div className="stat-icon icon-blue"><i className="bi bi-briefcase-fill" /></div>
                   <div className="stat-info">
@@ -114,7 +116,7 @@ export default function OrganizerDashboard() {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-2 col-md-4 col-6">
+              <div className="col-lg-4 col-md-6">
                 <div className="stat-card">
                   <div className="stat-icon icon-blue"><i className="bi bi-journal-richtext" /></div>
                   <div className="stat-info">
@@ -123,7 +125,7 @@ export default function OrganizerDashboard() {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-2 col-md-4 col-6">
+              <div className="col-lg-4 col-md-6">
                 <div className="stat-card">
                   <div className="stat-icon icon-blue"><i className="bi bi-people-fill" /></div>
                   <div className="stat-info">
@@ -132,7 +134,7 @@ export default function OrganizerDashboard() {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-2 col-md-4 col-6">
+              <div className="col-lg-4 col-md-6">
                 <div className="stat-card">
                   <div className="stat-icon icon-green"><i className="bi bi-check-circle-fill" /></div>
                   <div className="stat-info">
@@ -141,7 +143,7 @@ export default function OrganizerDashboard() {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-2 col-md-4 col-6">
+              <div className="col-lg-4 col-md-6">
                 <div className="stat-card">
                   <div className="stat-icon icon-green"><i className="bi bi-trophy-fill" /></div>
                   <div className="stat-info">
@@ -150,7 +152,7 @@ export default function OrganizerDashboard() {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-2 col-md-4 col-6">
+              <div className="col-lg-4 col-md-6">
                 <div className="stat-card">
                   <div className="stat-icon icon-orange"><i className="bi bi-layers-fill" /></div>
                   <div className="stat-info">
@@ -163,7 +165,54 @@ export default function OrganizerDashboard() {
           </>
         )}
 
-        <div className="row mt-5">
+        {/* Quick Actions */}
+        <div className="row mt-4">
+          <div className="col-12">
+            <h4 className="section-title">
+              <i className="bi bi-lightning-fill me-2" />
+              Quick Actions
+            </h4>
+          </div>
+          <div className="col-lg-4 col-md-6">
+            <Link to="/opportunities/add" className="action-card">
+              <div className="action-icon icon-blue">
+                <i className="bi bi-plus-circle-fill" />
+              </div>
+              <div className="action-content">
+                <h5>Create Opportunity</h5>
+                <p>Post new jobs, internships and events</p>
+              </div>
+              <i className="bi bi-arrow-right action-arrow" />
+            </Link>
+          </div>
+          <div className="col-lg-4 col-md-6">
+            <Link to="/opportunities" className="action-card">
+              <div className="action-icon icon-blue">
+                <i className="bi bi-list-ul" />
+              </div>
+              <div className="action-content">
+                <h5>View All Opportunities</h5>
+                <p>Manage and edit your posted opportunities</p>
+              </div>
+              <i className="bi bi-arrow-right action-arrow" />
+            </Link>
+          </div>
+          <div className="col-lg-4 col-md-6">
+            <Link to="/applications" className="action-card">
+              <div className="action-icon icon-green">
+                <i className="bi bi-file-earmark-bar-graph-fill" />
+              </div>
+              <div className="action-content">
+                <h5>Review Applications</h5>
+                <p>Check and manage submitted applications</p>
+              </div>
+              <i className="bi bi-arrow-right action-arrow" />
+            </Link>
+          </div>
+        </div>
+
+        {/* Recent Posts */}
+        <div className="row mt-4">
           <div className="col-12">
             <h4 className="section-title">My Recent Posts</h4>
             <div className="mt-3">
@@ -182,67 +231,6 @@ export default function OrganizerDashboard() {
                 <p className="text-muted">No opportunities posted yet</p>
               )}
             </div>
-          </div>
-        </div>
-
-        <div className="row mt-4 g-4">
-          <div className="col-lg-4 col-md-6">
-            <Link to="/opportunities/add" className="action-card">
-              <div className="action-icon icon-blue">
-                <i className="bi bi-plus-circle-fill" />
-              </div>
-              <div className="action-content">
-                <h5>Create Opportunity</h5>
-                <p>Post new jobs, internships & events</p>
-              </div>
-              <i className="bi bi-arrow-right action-arrow" />
-            </Link>
-          </div>
-          <div className="col-lg-4 col-md-6">
-            <Link to="/opportunities" className="action-card">
-              <div className="action-icon icon-blue">
-                <i className="bi bi-list-ul" />
-              </div>
-              <div className="action-content">
-                <h5>View All Opportunities</h5>
-                <p>Manage your posted opportunities</p>
-              </div>
-              <i className="bi bi-arrow-right action-arrow" />
-            </Link>
-          </div>
-          <div className="col-lg-4 col-md-6 mx-auto">
-            <Link to="/applications" className="action-card">
-              <div className="action-icon icon-green">
-                <i className="bi bi-file-earmark-bar-graph-fill" />
-              </div>
-              <div className="action-content">
-                <h5>Review Applications</h5>
-                <p>Check submitted applications</p>
-              </div>
-              <i className="bi bi-arrow-right action-arrow" />
-            </Link>
-          </div>
-        </div>
-
-        {/* AI Tools for Organizers */}
-        <div className="row mt-4">
-          <div className="col-12">
-            <h4 className="section-title">
-              <i className="bi bi-robot me-2" />
-              AI Hiring Tools
-            </h4>
-          </div>
-          <div className="col-lg-4 col-md-6">
-            <Link to="/ai/placement-statistics" className="action-card">
-              <div className="action-icon icon-blue">
-                <i className="bi bi-bar-chart-fill" />
-              </div>
-              <div className="action-content">
-                <h5>Placement Statistics</h5>
-                <p>View placement data and trends</p>
-              </div>
-              <i className="bi bi-arrow-right action-arrow" />
-            </Link>
           </div>
         </div>
       </div>

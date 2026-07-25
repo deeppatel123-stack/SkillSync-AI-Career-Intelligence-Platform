@@ -4,8 +4,6 @@
  */
 
 const djangoApi = require('../config/djangoApi');
-const User = require('../models/User');
-const Application = require('../models/Application');
 
 // ================================================================
 // Resume Analysis
@@ -161,52 +159,10 @@ async function getCareers(req, res) {
   }
 }
 
-// ================================================================
-// Placement Statistics (real data from MongoDB)
-// ================================================================
-
-async function getPlacementStatistics(req, res) {
-  try {
-    const students = await User.find({ role: 'student' });
-    const totalStudents = students.length;
-    let totalCgpa = 0;
-    let cgpaCount = 0;
-    let studentsWithSkills = 0;
-    let totalSkills = 0;
-    const apps = await Application.find({});
-    const placed = apps.filter((a) => a.status === 'accepted').length;
-    const placedStudentIds = [...new Set(apps.filter((a) => a.status === 'accepted').map((a) => a.studentId.toString()))];
-
-    for (const s of students) {
-      if (s.skills?.length) { studentsWithSkills++; totalSkills += s.skills.length; }
-      const c = parseFloat(s.cgpa);
-      if (!isNaN(c)) { totalCgpa += c; cgpaCount++; }
-    }
-
-    res.json({
-      success: true,
-      data: {
-        total_students: totalStudents,
-        placed_students: placed,
-        not_placed: totalStudents - placed,
-        placement_percentage: totalStudents ? Math.round((placed / totalStudents) * 100) : 0,
-        avg_cgpa: cgpaCount ? (totalCgpa / cgpaCount).toFixed(2) : 'N/A',
-        total_applications: apps.length,
-        unique_placed_students: placedStudentIds.length,
-        avg_skills_per_student: studentsWithSkills ? (totalSkills / studentsWithSkills).toFixed(1) : 0,
-      },
-    });
-  } catch (error) {
-    console.error('Placement statistics error:', error.message);
-    res.status(500).json({ success: false, message: 'Server error.' });
-  }
-}
-
 module.exports = {
   analyzeResume,
   recommendCareerRole,
   analyzeSkillGap,
   generateLearningRoadmap,
   getCareers,
-  getPlacementStatistics,
 };

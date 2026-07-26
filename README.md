@@ -303,3 +303,4 @@ This project is developed for educational and academic purposes.
 ## 👨‍💻 Developed By
 
 **Deep Patel**
+**Aditya Kantariya**

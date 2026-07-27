@@ -27,10 +27,10 @@ export default function StudentDashboard() {
 
   const aiFeatures = [
     {
-      to: '/ai/resume-analysis',
+      to: '/ai/profile-analysis',
       icon: 'bi-file-earmark-text',
-      title: 'Resume Analysis',
-      desc: 'Get a professional analysis of your resume',
+      title: 'Profile Analysis',
+      desc: 'Get an AI-powered analysis of your professional profile',
       color: 'icon-blue',
     },
     {

@@ -8,7 +8,7 @@ const studentLinks = [
   { to: '/opportunities', icon: 'bi-search', label: 'Opportunities' },
   { to: '/applications', icon: 'bi-file-text-fill', label: 'Applications' },
   // AI Features
-  { to: '/ai/resume-analysis', icon: 'bi-file-earmark-text', label: 'Resume Analysis' },
+  { to: '/ai/profile-analysis', icon: 'bi-file-earmark-text', label: 'Profile Analysis' },
   { to: '/ai/career-role', icon: 'bi-briefcase-fill', label: 'Career Recommendation' },
   { to: '/ai/skill-gap', icon: 'bi-exclamation-triangle', label: 'Skill Gap Analysis' },
   // Learning Hub

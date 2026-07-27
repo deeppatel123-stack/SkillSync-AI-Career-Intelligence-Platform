@@ -5,12 +5,13 @@
 const express = require('express');
 const router = express.Router();
 const aiController = require('../controllers/aiController');
+const { requireAuth, requireStudent } = require('../middleware/authMiddleware');
 
-// ML Prediction routes (no auth required)
-router.post('/resume-analysis', aiController.analyzeResume);
-router.post('/career-role', aiController.recommendCareerRole);
-router.post('/skill-gap', aiController.analyzeSkillGap);
-router.post('/learning-roadmap', aiController.generateLearningRoadmap);
+// ML Prediction routes (auth required)
+router.post('/resume-analysis', requireAuth, requireStudent, aiController.analyzeResume);
+router.post('/career-role', requireAuth, requireStudent, aiController.recommendCareerRole);
+router.post('/skill-gap', requireAuth, aiController.analyzeSkillGap);
+router.post('/learning-roadmap', requireAuth, aiController.generateLearningRoadmap);
 
 // Data routes
 router.get('/careers', aiController.getCareers);

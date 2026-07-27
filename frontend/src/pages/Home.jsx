@@ -225,7 +225,7 @@ export default function Home() {
               <div className="feature-icon blue"><i className="bi bi-robot" /></div>
               <div className="feature-text">
                 <h5>AI-Powered Insights</h5>
-                <p>Get resume analysis, career recommendations, and skill gap assessments powered by machine learning.</p>
+                <p>Get profile analysis, career recommendations, and skill gap assessments powered by machine learning.</p>
               </div>
             </div>
             <div className="feature-card">

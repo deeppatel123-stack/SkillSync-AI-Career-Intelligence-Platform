@@ -13,7 +13,7 @@ import Applications from './pages/Applications';
 import ProfileSettings from './pages/ProfileSettings';
 
 // AI Feature Pages
-import ResumeAnalysis from './pages/ResumeAnalysis';
+import ProfileAnalysis from './pages/ProfileAnalysis';
 import CareerRoleRecommendation from './pages/CareerRoleRecommendation';
 import SkillGapAnalysis from './pages/SkillGapAnalysis';
 import LearningRoadmap from './pages/LearningRoadmap';
@@ -40,7 +40,7 @@ export default function App() {
       <Route path="/profile" element={<ProfileSettings />} />
 
       {/* AI Feature Routes */}
-      <Route path="/ai/resume-analysis" element={<ResumeAnalysis />} />
+      <Route path="/ai/profile-analysis" element={<ProfileAnalysis />} />
       <Route path="/ai/career-role" element={<CareerRoleRecommendation />} />
       <Route path="/ai/skill-gap" element={<SkillGapAnalysis />} />
 

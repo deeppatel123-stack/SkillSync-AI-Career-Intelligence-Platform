@@ -1,6 +1,5 @@
 """
-Simple Django Views for ML Predictions
-No DRF, no serializers, no APIView - just plain Django
+Django API views for ML predictions
 """
 
 import json
@@ -38,15 +37,17 @@ def resume_analysis(request):
     try:
         data = json.loads(request.body)
         result = predict_resume(
-            skills_count=int(data.get('skills_count', 0)),
-            projects_count=int(data.get('projects_count', 0)),
-            internship_count=int(data.get('internship_count', 0)),
-            certification_count=int(data.get('certification_count', 0)),
-            education_level=int(data.get('education_level', 0)),
-            has_portfolio=int(data.get('has_portfolio', 0)),
+            technical_skills=int(data.get('technical_skills', 0)),
+            projects=int(data.get('projects', 0)),
+            internships=int(data.get('internships', 0)),
+            certifications=int(data.get('certifications', 0)),
+            cgpa=float(data.get('cgpa', 0)),
             has_github=int(data.get('has_github', 0)),
             has_linkedin=int(data.get('has_linkedin', 0)),
+            has_portfolio=int(data.get('has_portfolio', 0)),
             languages_known=int(data.get('languages_known', 1)),
+            soft_skills=int(data.get('soft_skills', 0)),
+            workshops=int(data.get('workshops', 0)),
         )
         return JsonResponse(result)
     except Exception as e:
@@ -59,6 +60,7 @@ def career_role(request):
         return JsonResponse({'error': 'POST required'}, status=405)
     try:
         data = json.loads(request.body)
+        skills_list = data.get('skills', data.get('skills_list', []))
         result = predict_career(
             python=float(data.get('python', 0)),
             java=float(data.get('java', 0)),
@@ -78,6 +80,7 @@ def career_role(request):
             internship_count=int(data.get('internship_count', 0)),
             certification_count=int(data.get('certification_count', 0)),
             interested_domain=int(data.get('interested_domain', 0)),
+            skills_list=skills_list,
         )
         return JsonResponse(result)
     except Exception as e:

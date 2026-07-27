@@ -1,84 +1,130 @@
 """
 Resume Analysis - Training Script
-College Practical Style
-Uses profile-based features only (no manual scores)
+DecisionTreeClassifier: Excellent, Good, Average, Needs Improvement
 """
 
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_absolute_error, r2_score
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn.preprocessing import LabelEncoder
 import joblib
 from pathlib import Path
 
 np.random.seed(42)
-n = 600
+n = 1200
 
 data = {
-    'Skills_Count': np.random.randint(2, 18, n),
-    'Projects_Count': np.random.randint(0, 10, n),
-    'Internship_Count': np.random.randint(0, 5, n),
-    'Certification_Count': np.random.randint(0, 8, n),
-    'Education_Level': np.random.randint(0, 4, n),
-    'Has_Portfolio': np.random.randint(0, 2, n),
+    'Technical_Skills': np.random.randint(2, 18, n),
+    'Projects': np.random.randint(0, 10, n),
+    'Internships': np.random.randint(0, 5, n),
+    'Certifications': np.random.randint(0, 8, n),
+    'CGPA': np.round(np.random.uniform(5.0, 10.0, n), 2),
     'Has_GitHub': np.random.randint(0, 2, n),
     'Has_LinkedIn': np.random.randint(0, 2, n),
+    'Has_Portfolio': np.random.randint(0, 2, n),
     'Languages_Known': np.random.randint(1, 5, n),
+    'Soft_Skills': np.random.randint(0, 6, n),
+    'Workshops': np.random.randint(0, 5, n),
 }
 
 df = pd.DataFrame(data)
 
-resume_score = (
-    (df['Skills_Count'] / 18.0) * 20 +
-    (df['Projects_Count'] / 10.0) * 15 +
-    (df['Internship_Count'] / 5.0) * 15 +
-    (df['Certification_Count'] / 8.0) * 10 +
-    (df['Education_Level'] / 4.0) * 10 +
-    df['Has_Portfolio'] * 10 +
-    df['Has_GitHub'] * 8 +
-    df['Has_LinkedIn'] * 5 +
-    (df['Languages_Known'] / 5.0) * 7 +
-    np.random.normal(0, 4, n)
-)
-df['Resume_Score'] = np.clip(resume_score, 0, 100).astype(int)
+def assign_category(row):
+    score = 0
+    if row['Technical_Skills'] >= 12: score += 15
+    elif row['Technical_Skills'] >= 7: score += 10
+    elif row['Technical_Skills'] >= 4: score += 5
+    if row['Projects'] >= 6: score += 15
+    elif row['Projects'] >= 3: score += 10
+    elif row['Projects'] >= 1: score += 5
+    if row['Internships'] >= 3: score += 15
+    elif row['Internships'] >= 1: score += 8
+    if row['Certifications'] >= 5: score += 10
+    elif row['Certifications'] >= 2: score += 6
+    elif row['Certifications'] >= 1: score += 3
+    if row['CGPA'] >= 9.0: score += 12
+    elif row['CGPA'] >= 7.5: score += 8
+    elif row['CGPA'] >= 6.0: score += 4
+    if row['Has_GitHub']: score += 5
+    if row['Has_LinkedIn']: score += 3
+    if row['Has_Portfolio']: score += 5
+    if row['Languages_Known'] >= 3: score += 4
+    elif row['Languages_Known'] >= 2: score += 2
+    if row['Soft_Skills'] >= 4: score += 5
+    elif row['Soft_Skills'] >= 2: score += 3
+    if row['Workshops'] >= 3: score += 5
+    elif row['Workshops'] >= 1: score += 2
+
+    noise = np.random.randint(-6, 7)
+    score += noise
+
+    if score >= 62: return 'Excellent'
+    elif score >= 45: return 'Good'
+    elif score >= 30: return 'Average'
+    else: return 'Needs Improvement'
+
+df['Resume_Category'] = df.apply(assign_category, axis=1)
 
 datasets_dir = Path(__file__).resolve().parent.parent / 'datasets'
 datasets_dir.mkdir(exist_ok=True)
 csv_path = datasets_dir / 'resume_analysis.csv'
 df.to_csv(csv_path, index=False)
 print(f"Dataset saved to {csv_path}")
+print(f"Shape: {df.shape}")
+dist = df['Resume_Category'].value_counts()
+print(f"Category distribution:\n{dist}\n")
+if dist.min() < 2:
+    print("WARNING: Some classes have < 2 samples. Adjust thresholds.\n")
 
-df = pd.read_csv(csv_path)
-
-feature_cols = ['Skills_Count', 'Projects_Count', 'Internship_Count',
-                'Certification_Count', 'Education_Level', 'Has_Portfolio',
-                'Has_GitHub', 'Has_LinkedIn', 'Languages_Known']
+feature_cols = [
+    'Technical_Skills', 'Projects', 'Internships', 'Certifications',
+    'CGPA', 'Has_GitHub', 'Has_LinkedIn', 'Has_Portfolio',
+    'Languages_Known', 'Soft_Skills', 'Workshops'
+]
 X = df[feature_cols]
-y = df['Resume_Score']
+y = df['Resume_Category']
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+label_encoder = LabelEncoder()
+y_encoded = label_encoder.fit_transform(y)
 
-model = RandomForestRegressor(n_estimators=100, max_depth=10, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y_encoded, test_size=0.2, random_state=42, stratify=y_encoded
+)
+
+model = DecisionTreeClassifier(max_depth=12, min_samples_split=5, random_state=42)
 model.fit(X_train, y_train)
 
 y_pred = model.predict(X_test)
 
-mae = mean_absolute_error(y_test, y_pred)
-r2 = r2_score(y_test, y_pred)
-print(f"Mean Absolute Error: {mae:.2f}")
-print(f"R2 Score: {r2:.2f}")
-
-print("\nActual vs Predicted (first 10):")
-for i in range(10):
-    print(f"  Actual: {y_test.iloc[i]:3d}  Predicted: {y_pred[i]:5.1f}")
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2%}")
+print("\nClassification Report:")
+print(classification_report(
+    y_test, y_pred,
+    target_names=label_encoder.classes_
+))
 
 models_dir = Path(__file__).resolve().parent.parent / 'trained_models'
 models_dir.mkdir(exist_ok=True)
+
 model_path = models_dir / 'resume_analysis_model.pkl'
 joblib.dump(model, model_path)
-print(f"\nModel saved to {model_path}")
+print(f"Model saved to {model_path}")
 
-# Save feature names
+encoder_path = models_dir / 'resume_analysis_encoder.pkl'
+joblib.dump(label_encoder, encoder_path)
+print(f"Label encoder saved to {encoder_path}")
+
 features_path = models_dir / 'resume_analysis_features.pkl'
 joblib.dump(feature_cols, features_path)
+print(f"Feature names saved to {features_path}")
+
+print("\nSample predictions (first 8 test samples):")
+sample_preds = model.predict(X_test[:8])
+sample_actual = y_test[:8]
+for i in range(8):
+    pred_label = label_encoder.inverse_transform([sample_preds[i]])[0]
+    actual_label = label_encoder.inverse_transform([sample_actual[i]])[0]
+    print(f"  Predicted: {pred_label:20s} | Actual: {actual_label}")

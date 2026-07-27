@@ -6,6 +6,16 @@
 const djangoApi = require('../config/djangoApi');
 const User = require('../models/User');
 
+const SOFT_SKILL_KEYWORDS = [
+  'communication', 'teamwork', 'leadership', 'problem solving',
+  'problem-solving', 'time management', 'critical thinking',
+  'presentation', 'collaboration', 'adaptability', 'creativity',
+  'public speaking', 'decision making', 'analytical', 'negotiation',
+  'conflict resolution', 'interpersonal', 'mentoring', 'listening',
+  'emotional intelligence', 'work ethic', 'self motivation',
+  'self-motivation', 'team player', 'management',
+];
+
 // ================================================================
 // Resume Analysis
 // ================================================================
@@ -23,16 +33,28 @@ async function analyzeResume(req, res) {
             educationLevel, hasPortfolio, hasGithub, hasLinkedin,
             languages } = req.body;
 
+    const allSkills = Array.isArray(skills) ? skills : (Array.isArray(pSkills) ? pSkills : []);
+    const technicalSkills = allSkills.filter(
+      (s) => !SOFT_SKILL_KEYWORDS.some((kw) => s.toLowerCase().includes(kw))
+    );
+    const softSkills = allSkills.filter(
+      (s) => SOFT_SKILL_KEYWORDS.some((kw) => s.toLowerCase().includes(kw))
+    );
+
+    const cgpaVal = parseFloat(student?.cgpa) || 0;
+
     const result = await djangoApi.post('/api/resume-analysis/', {
-      skills_count: Array.isArray(skills) ? skills.length : Number(skills || 0),
-      projects_count: Array.isArray(projects) ? projects.length : Number(projects || 0),
-      internship_count: Array.isArray(internships) ? internships.length : Number(internships || 0),
-      certification_count: Array.isArray(certifications) ? certifications.length : Number(certifications || 0),
-      education_level: Number(educationLevel || 0),
-      has_portfolio: hasPortfolio ? 1 : 0,
+      technical_skills: technicalSkills.length,
+      projects: Array.isArray(projects) ? projects.length : Number(projects || 0),
+      internships: Array.isArray(internships) ? internships.length : Number(internships || 0),
+      certifications: Array.isArray(certifications) ? certifications.length : Number(certifications || 0),
+      cgpa: cgpaVal,
       has_github: hasGithub ? 1 : 0,
       has_linkedin: hasLinkedin ? 1 : 0,
+      has_portfolio: hasPortfolio ? 1 : 0,
       languages_known: Array.isArray(languages) ? languages.length : Number(languages || 1),
+      soft_skills: softSkills.length,
+      workshops: 0,
     });
 
     res.json({ success: true, data: result });
@@ -89,6 +111,7 @@ async function recommendCareerRole(req, res) {
       internship_count: Number(internshipCount || 0),
       certification_count: Number(certificationCount || 0),
       interested_domain: Number(interestedDomain || 0),
+      skills_list: Array.isArray(skills) ? skills : [],
     });
 
     res.json({ success: true, data: result });

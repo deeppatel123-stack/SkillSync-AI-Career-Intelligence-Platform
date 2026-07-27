@@ -76,8 +76,8 @@ export default function CareerRoleRecommendation() {
               <div className="ai-card-header">
                 <i className="bi bi-briefcase-fill" />
                 <div>
-                  <h3>Career Role Recommendation</h3>
-                  <p>Get a professional career role recommendation based on your skills and interests</p>
+                  <h3>AI Career Recommendation</h3>
+                  <p>Get a personalized career recommendation based on your skills, projects, and interests</p>
                 </div>
               </div>
 
@@ -142,7 +142,7 @@ export default function CareerRoleRecommendation() {
                 </div>
 
                 <button type="submit" className="ai-btn-primary mt-3" disabled={loading || !interestedDomain}>
-                  {loading ? 'Recommending...' : 'Get Recommendation'}
+                  {loading ? 'Recommending...' : 'Get AI Recommendation'}
                 </button>
               </form>
               )}
@@ -151,48 +151,38 @@ export default function CareerRoleRecommendation() {
 
               {loading && (
                 <div className="ai-loading">
-                  <i className="bi bi-arrow-repeat" /> Analyzing your profile...
+                  <i className="bi bi-arrow-repeat" /> Analyzing your profile with AI...
                 </div>
               )}
 
               {result && !result.error && (
                 <div className="ai-result-box">
-                  <h4 className="ai-result-title">Career Recommendation</h4>
-
-                  <div className="text-center mb-4">
-                    <h5 className="fw-bold text-primary">{result.primary_recommendation}</h5>
+                  <div className="cr-hero-v2">
+                    <p className="cr-hero-v2-label">AI Career Recommendation</p>
+                    <h2 className="cr-hero-v2-role">{result.recommended_role}</h2>
+                    <p className="cr-hero-v2-quote">
+                      &ldquo;Based on your profile, <strong>{result.recommended_role}</strong> is the most suitable career path for you.&rdquo;
+                    </p>
                   </div>
 
-                  <div className="mb-4">
-                    <h6 className="fw-bold">Why this role?</h6>
-                    <p style={{ fontSize: 14, color: '#2d3748' }}>{result.reason}</p>
-                  </div>
+                  {result.why_this_role && (
+                    <div className="cr-section-v2">
+                      <h5 className="cr-section-v2-title">
+                        <i className="bi bi-question-circle" /> Why This Role?
+                      </h5>
+                      <p className="cr-text-v2">{result.why_this_role}</p>
+                    </div>
+                  )}
 
-                  <div className="row g-4 mb-4">
-                    <div className="col-md-6">
-                      <h6 className="fw-bold">Key Skills Required</h6>
-                      <div className="ai-skills-container">
-                        {(result.key_skills || []).map((s, i) => (
-                          <span key={i} className="ai-skill-tag">{s}</span>
+                  {result.skill_gaps && result.skill_gaps.length > 0 && (
+                    <div className="cr-section-v2" style={{ borderBottom: 'none', marginBottom: 0, paddingBottom: 0 }}>
+                      <h5 className="cr-section-v2-title">
+                        <i className="bi bi-arrow-up-circle" /> Skills to Improve
+                      </h5>
+                      <div className="cr-chips-v2">
+                        {result.skill_gaps.map((s, i) => (
+                          <span key={i} className="cr-chip-v2">{s}</span>
                         ))}
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                    <h6 className="fw-bold">Alternative Roles</h6>
-                    <ul style={{ fontSize: 14 }}>
-                      {(result.alternative_roles || []).map((r, i) => <li key={i}>{r}</li>)}
-                    </ul>
-                    </div>
-                  </div>
-
-                  {result.confidence && (
-                    <div>
-                      <label className="ai-result-label">Match Confidence</label>
-                      <div className="ai-progress">
-                        <div
-                          className={`ai-progress-bar ${result.confidence >= 80 ? 'ai-progress-green' : result.confidence >= 60 ? 'ai-progress-orange' : 'ai-progress-red'}`}
-                          style={{ width: `${result.confidence}%` }}
-                        />
                       </div>
                     </div>
                   )}

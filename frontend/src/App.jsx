@@ -20,6 +20,7 @@ import LearningRoadmap from './pages/LearningRoadmap';
 
 // Student Profile
 import StudentProfile from './pages/StudentProfile';
+import TodoPage from './pages/TodoPage';
 
 export default function App() {
   return (
@@ -48,6 +49,9 @@ export default function App() {
 
       {/* Student Profile */}
       <Route path="/student/profile" element={<StudentProfile />} />
+
+      {/* To-Do List */}
+      <Route path="/todo" element={<TodoPage />} />
     </Routes>
   );
 }

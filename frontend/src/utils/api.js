@@ -78,4 +78,15 @@ export const applicationApi = {
   remove: (id) => request(`/applications/${id}`, { method: 'DELETE' }),
 };
 
-export default { authApi, userApi, opportunityApi, applicationApi };
+// —— Tasks ——
+export const taskApi = {
+  list: (filter = '') => {
+    const q = filter ? `?filter=${filter}` : '';
+    return request(`/tasks${q}`);
+  },
+  create: (title) => request('/tasks', { method: 'POST', body: JSON.stringify({ title }) }),
+  toggle: (id) => request(`/tasks/${id}/toggle`, { method: 'PATCH' }),
+  remove: (id) => request(`/tasks/${id}`, { method: 'DELETE' }),
+};
+
+export default { authApi, userApi, opportunityApi, applicationApi, taskApi };

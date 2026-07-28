@@ -8,7 +8,7 @@ const aiController = require('../controllers/aiController');
 const { requireAuth, requireStudent } = require('../middleware/authMiddleware');
 
 // ML Prediction routes (auth required)
-router.post('/resume-analysis', requireAuth, requireStudent, aiController.analyzeResume);
+router.post('/profile-analysis', requireAuth, requireStudent, aiController.analyzeProfile);
 router.post('/career-role', requireAuth, requireStudent, aiController.recommendCareerRole);
 router.post('/skill-gap', requireAuth, aiController.analyzeSkillGap);
 router.post('/learning-roadmap', requireAuth, aiController.generateLearningRoadmap);

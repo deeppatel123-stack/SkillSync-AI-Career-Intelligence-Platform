@@ -124,7 +124,7 @@ export default function ProfileAnalysis() {
     const certifications = p.certifications || [];
 
     try {
-      const data = await aiApi.analyzeResume({
+      const data = await aiApi.analyzeProfile({
         skills,
         projects,
         internships,
@@ -209,7 +209,7 @@ export default function ProfileAnalysis() {
                     <div className="ra-hero-badge">
                       <span className="ra-hero-category">{result.category}</span>
                     </div>
-                    {result.resume_score != null && (
+                    {result.profile_score != null && (
                       <div className="ra-score">
                         <div className="ra-score-ring">
                           <svg viewBox="0 0 120 120" className="ra-score-svg">
@@ -217,11 +217,11 @@ export default function ProfileAnalysis() {
                             <circle
                               cx="60" cy="60" r="52"
                               className="ra-score-fill"
-                              strokeDasharray={`${(result.resume_score / 100) * 327} 327`}
+                              strokeDasharray={`${(result.profile_score / 100) * 327} 327`}
                               strokeDashoffset="0"
                             />
                           </svg>
-                          <div className="ra-score-value">{result.resume_score}</div>
+                          <div className="ra-score-value">{result.profile_score}</div>
                         </div>
                         <div className="ra-score-label">Profile Score</div>
                       </div>

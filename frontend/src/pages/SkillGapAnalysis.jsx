@@ -45,13 +45,7 @@ export default function SkillGapAnalysis() {
     }
   }
 
-  function getPriorityBadge(priority) {
-    if (!priority) return '';
-    const p = priority.toLowerCase();
-    if (p === 'high') return 'ai-badge-danger';
-    if (p === 'medium') return 'ai-badge-warning';
-    return 'ai-badge-success';
-  }
+  const missingSkills = result?.skills_missing || [];
 
   return (
     <AppLayout role="student">
@@ -63,7 +57,7 @@ export default function SkillGapAnalysis() {
                 <i className="bi bi-exclamation-triangle" />
                 <div>
                   <h3>Skill Gap Analysis</h3>
-                  <p>Compare your current skills against what is required for your target career role</p>
+                  <p>Identify the important skills you are missing for your recommended career path.</p>
                 </div>
               </div>
 
@@ -106,99 +100,69 @@ export default function SkillGapAnalysis() {
 
               {result && !result.error && (
                 <div className="ai-result-box">
-                  <h4 className="ai-result-title">Skill Gap Analysis Result</h4>
-
-                  <div className="row g-4 mb-4">
-                    <div className="col-md-4">
-                      <div className="stat-card">
-                        <div className="stat-icon icon-blue">
-                          <i className="bi bi-check-circle" />
+                  <div className="sg-hero">
+                    <p className="sg-hero-label">Skill Gap Analysis</p>
+                    {missingSkills.length > 0 ? (
+                      <>
+                        <h2 className="sg-hero-title">Missing Skills</h2>
+                        <div className="sg-hero-chips">
+                          {missingSkills.map((s, i) => (
+                            <span key={i} className="sg-chip sg-chip-missing">{s}</span>
+                          ))}
                         </div>
-                        <div className="stat-info">
-                          <h6 className="fw-bold">Acquired Skills</h6>
-                          <p>{(result.skills_available || []).length} / {(result.skills_available || []).length + (result.skills_missing || []).length}</p>
+                      </>
+                    ) : (
+                      <>
+                        <h2 className="sg-hero-title sg-hero-complete">All Skills Covered</h2>
+                        <div className="sg-hero-chips">
+                          {(result.skills_available || []).map((s, i) => (
+                            <span key={i} className="sg-chip sg-chip-present">{s}</span>
+                          ))}
                         </div>
-                      </div>
-                    </div>
-                    <div className="col-md-4">
-                      <div className="stat-card">
-                        <div className="stat-icon icon-orange">
-                          <i className="bi bi-book" />
-                        </div>
-                        <div className="stat-info">
-                          <h6 className="fw-bold">Missing Skills</h6>
-                          <p>{(result.skills_missing || []).length}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-4">
-                      <div className="stat-card">
-                        <div className="stat-icon icon-green">
-                          <i className="bi bi-clock" />
-                        </div>
-                        <div className="stat-info">
-                          <h6 className="fw-bold">Est. Learning Time</h6>
-                          <p>{result.estimated_time || 'N/A'}</p>
-                        </div>
-                      </div>
-                    </div>
+                      </>
+                    )}
+                    <p className="sg-hero-desc">
+                      Based on your current profile and the requirements for <strong>{result.target_role}</strong>, these are the skills you should focus on.
+                    </p>
                   </div>
 
-                  {result.target_role && (
-                    <p className="mb-3">
-                      <strong>Target Role:</strong> {result.target_role}
-                    </p>
-                  )}
-
-                  {result.current_readiness !== undefined && (
-                    <div className="mb-4">
-                      <label className="ai-result-label">Current Readiness</label>
-                      <div className="ai-progress">
-                        <div
-                          className={`ai-progress-bar ${result.current_readiness >= 70 ? 'ai-progress-green' : result.current_readiness >= 40 ? 'ai-progress-orange' : 'ai-progress-red'}`}
-                          style={{ width: `${result.current_readiness}%` }}
-                        />
-                      </div>
-                      <p className="mt-2" style={{ fontSize: 14, color: '#2d3748' }}>{result.recommendation}</p>
-                    </div>
-                  )}
-
-                  {result.skills_available && result.skills_available.length > 0 && (
-                    <div className="mb-4">
-                      <h6 className="fw-bold text-success">Skills You Have</h6>
-                      <div className="ai-skills-container">
-                        {result.skills_available.map((s, i) => (
-                          <span key={i} className="ai-skill-tag matched">{s}</span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {result.learning_priority && result.learning_priority.length > 0 && (
-                    <div>
-                      <h6 className="fw-bold text-danger">Skills to Learn</h6>
-                      <div className="mt-2">
-                        {result.learning_priority.map((gap, i) => (
-                          <div className="ai-company-card" key={i}>
-                            <div className="ai-company-logo" style={{ background: '#fff5f5', color: '#e53e3e' }}>
-                              <i className="bi bi-book" />
-                            </div>
-                            <div className="ai-company-info">
-                              <div className="ai-company-name">{gap.skill}</div>
-                              <div className="ai-company-detail">
-                                {gap.time && <span>Est. time: {gap.time} &middot; </span>}
-                                {gap.priority && (
-                                  <span className={`ai-badge ${getPriorityBadge(gap.priority)}`}>
-                                    {gap.priority}
-                                  </span>
-                                )}
-                              </div>
-                            </div>
+                  <div className="sg-grid">
+                    {result.skills_available && result.skills_available.length > 0 && (
+                      <div className="sg-card sg-card-green">
+                        <div className="sg-card-header">
+                          <div className="sg-card-icon sg-card-icon-green">
+                            <i className="bi bi-check-circle-fill" />
                           </div>
-                        ))}
+                          <h5 className="sg-card-title">Current Skills</h5>
+                        </div>
+                        <div className="sg-card-body">
+                          <div className="sg-chips">
+                            {result.skills_available.map((s, i) => (
+                              <span key={i} className="sg-chip sg-chip-present">{s}</span>
+                            ))}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+
+                    {missingSkills.length > 0 && (
+                      <div className="sg-card sg-card-orange">
+                        <div className="sg-card-header">
+                          <div className="sg-card-icon sg-card-icon-orange">
+                            <i className="bi bi-book-fill" />
+                          </div>
+                          <h5 className="sg-card-title">Recommended Skills to Learn</h5>
+                        </div>
+                        <div className="sg-card-body">
+                          <div className="sg-chips">
+                            {missingSkills.map((s, i) => (
+                              <span key={i} className="sg-chip sg-chip-missing">{s}</span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
             </div>

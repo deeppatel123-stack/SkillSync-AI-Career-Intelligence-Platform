@@ -1,5 +1,6 @@
 """
-Django API views for ML predictions
+Django API views for AI-powered profile analysis, career recommendation,
+skill gap analysis, and learning roadmap generation.
 """
 
 import json
@@ -10,7 +11,7 @@ import sys
 
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 
-from prediction.predict_resume_analysis import predict as predict_resume
+from prediction.predict_profile_analysis import predict as analyze_profile
 from prediction.predict_career_role import predict as predict_career
 from prediction.skill_gap_analyzer import analyze as analyze_skill_gap
 from ml_app.ml_models.learning_roadmap import generate_roadmap
@@ -31,12 +32,12 @@ def careers(request):
 
 
 @csrf_exempt
-def resume_analysis(request):
+def profile_analysis(request):
     if request.method != 'POST':
         return JsonResponse({'error': 'POST required'}, status=405)
     try:
         data = json.loads(request.body)
-        result = predict_resume(
+        result = analyze_profile(
             technical_skills=int(data.get('technical_skills', 0)),
             projects=int(data.get('projects', 0)),
             internships=int(data.get('internships', 0)),

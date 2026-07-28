@@ -77,7 +77,7 @@ export default function CareerRoleRecommendation() {
                 <i className="bi bi-briefcase-fill" />
                 <div>
                   <h3>AI Career Recommendation</h3>
-                  <p>Get a personalized career recommendation based on your skills, projects, and interests</p>
+                  <p>Receive an AI-powered career recommendation based on your skills, projects, experience, and interests.</p>
                 </div>
               </div>
 
@@ -175,13 +175,26 @@ export default function CareerRoleRecommendation() {
                   )}
 
                   {result.skill_gaps && result.skill_gaps.length > 0 && (
-                    <div className="cr-section-v2" style={{ borderBottom: 'none', marginBottom: 0, paddingBottom: 0 }}>
+                    <div className="cr-section-v2">
                       <h5 className="cr-section-v2-title">
                         <i className="bi bi-arrow-up-circle" /> Skills to Improve
                       </h5>
                       <div className="cr-chips-v2">
                         {result.skill_gaps.map((s, i) => (
                           <span key={i} className="cr-chip-v2">{s}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {result.suitable_jobs && result.suitable_jobs.length > 0 && (
+                    <div className="cr-section-v2" style={{ borderBottom: 'none', marginBottom: 0, paddingBottom: 0 }}>
+                      <h5 className="cr-section-v2-title">
+                        <i className="bi bi-briefcase" /> Suitable Job Positions
+                      </h5>
+                      <div className="cr-chips-v2">
+                        {result.suitable_jobs.map((job, i) => (
+                          <span key={i} className="cr-chip-v2 cr-chip-v2-blue">{job}</span>
                         ))}
                       </div>
                     </div>

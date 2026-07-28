@@ -17,16 +17,16 @@ const SOFT_SKILL_KEYWORDS = [
 ];
 
 // ================================================================
-// Resume Analysis
+// Profile Analysis
 // ================================================================
 
-async function analyzeResume(req, res) {
+async function analyzeProfile(req, res) {
   try {
     const student = await User.findById(req.user._id);
     const pSkills = student?.skills || [];
     const pProjects = student?.projects || [];
     if (pSkills.length === 0 && pProjects.length === 0 && (student?.internships || []).length === 0 && (student?.certifications || []).length === 0) {
-      return res.status(400).json({ success: false, message: 'Please complete your profile with skills, projects, internships, or certifications before using Resume Analysis.' });
+      return res.status(400).json({ success: false, message: 'Please complete your profile with skills, projects, internships, or certifications before using Profile Analysis.' });
     }
 
     const { skills, projects, internships, certifications,
@@ -43,7 +43,7 @@ async function analyzeResume(req, res) {
 
     const cgpaVal = parseFloat(student?.cgpa) || 0;
 
-    const result = await djangoApi.post('/api/resume-analysis/', {
+    const result = await djangoApi.post('/api/profile-analysis/', {
       technical_skills: technicalSkills.length,
       projects: Array.isArray(projects) ? projects.length : Number(projects || 0),
       internships: Array.isArray(internships) ? internships.length : Number(internships || 0),
@@ -59,7 +59,7 @@ async function analyzeResume(req, res) {
 
     res.json({ success: true, data: result });
   } catch (error) {
-    console.error('Resume analysis error:', error.message);
+    console.error('Profile analysis error:', error.message);
     res.status(503).json({
       success: false,
       message: 'AI service unavailable. Please ensure the Django server is running.',
@@ -196,7 +196,7 @@ async function getCareers(req, res) {
 }
 
 module.exports = {
-  analyzeResume,
+  analyzeProfile,
   recommendCareerRole,
   analyzeSkillGap,
   generateLearningRoadmap,

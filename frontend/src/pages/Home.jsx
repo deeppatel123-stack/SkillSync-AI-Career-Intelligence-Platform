@@ -225,7 +225,7 @@ export default function Home() {
               <div className="feature-icon blue"><i className="bi bi-robot" /></div>
               <div className="feature-text">
                 <h5>AI-Powered Insights</h5>
-                <p>Get profile analysis, career recommendations, and skill gap assessments powered by machine learning.</p>
+                <p>Get AI-powered profile analysis, career recommendations, skill gap analysis, and personalized learning roadmaps.</p>
               </div>
             </div>
             <div className="feature-card">
@@ -253,7 +253,7 @@ export default function Home() {
               <div className="feature-icon teal"><i className="bi bi-signpost-2" /></div>
               <div className="feature-text">
                 <h5>Learning Roadmaps</h5>
-                <p>Get personalized learning paths to bridge skill gaps and stay ahead in your chosen domain.</p>
+                <p>Get a personalized learning roadmap based on your missing skills and career goals.</p>
               </div>
             </div>
             <div className="feature-card">

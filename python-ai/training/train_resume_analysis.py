@@ -1,7 +1,4 @@
-"""
-Resume Analysis - Training Script
-DecisionTreeClassifier: Excellent, Good, Average, Needs Improvement
-"""
+
 
 import pandas as pd
 import numpy as np

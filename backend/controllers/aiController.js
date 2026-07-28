@@ -1,8 +1,3 @@
-/**
- * AI Controller – handles AI feature requests.
- * Communicates with Django backend for ML predictions.
- */
-
 const djangoApi = require('../config/djangoApi');
 const User = require('../models/User');
 
@@ -16,10 +11,6 @@ const SOFT_SKILL_KEYWORDS = [
   'self-motivation', 'team player', 'management',
 ];
 
-// ================================================================
-// Resume Analysis
-// ================================================================
-
 async function analyzeResume(req, res) {
   try {
     const student = await User.findById(req.user._id);
@@ -30,17 +21,12 @@ async function analyzeResume(req, res) {
     }
 
     const { skills, projects, internships, certifications,
-            educationLevel, hasPortfolio, hasGithub, hasLinkedin,
-            languages } = req.body;
+            hasPortfolio, hasGithub, hasLinkedin, languages } = req.body;
 
     const allSkills = Array.isArray(skills) ? skills : (Array.isArray(pSkills) ? pSkills : []);
-    const technicalSkills = allSkills.filter(
-      (s) => !SOFT_SKILL_KEYWORDS.some((kw) => s.toLowerCase().includes(kw))
-    );
-    const softSkills = allSkills.filter(
-      (s) => SOFT_SKILL_KEYWORDS.some((kw) => s.toLowerCase().includes(kw))
-    );
-
+    const lowerSkills = allSkills.map(s => s.toLowerCase());
+    const technicalSkills = allSkills.filter((s, i) => !SOFT_SKILL_KEYWORDS.some(kw => lowerSkills[i].includes(kw)));
+    const softSkills = allSkills.filter((s, i) => SOFT_SKILL_KEYWORDS.some(kw => lowerSkills[i].includes(kw)));
     const cgpaVal = parseFloat(student?.cgpa) || 0;
 
     const result = await djangoApi.post('/api/profile-analysis/', {
@@ -60,16 +46,9 @@ async function analyzeResume(req, res) {
     res.json({ success: true, data: result });
   } catch (error) {
     console.error('Resume analysis error:', error.message);
-    res.status(503).json({
-      success: false,
-      message: 'AI service unavailable. Please ensure the Django server is running.',
-    });
+    res.status(503).json({ success: false, message: 'AI service unavailable. Please ensure the Django server is running.' });
   }
 }
-
-// ================================================================
-// Career Role Recommendation
-// ================================================================
 
 async function recommendCareerRole(req, res) {
   try {
@@ -78,8 +57,7 @@ async function recommendCareerRole(req, res) {
       return res.status(400).json({ success: false, message: 'Please add at least one skill to your profile before using Career Recommendation.' });
     }
 
-    const { skills, projectsCount, internshipCount, certificationCount,
-            interestedDomain } = req.body;
+    const { skills, projectsCount, internshipCount, certificationCount, interestedDomain } = req.body;
 
     const skillMap = {
       python: 0, java: 0, javascript: 0, react: 0, node: 0,
@@ -117,66 +95,37 @@ async function recommendCareerRole(req, res) {
     res.json({ success: true, data: result });
   } catch (error) {
     console.error('Career role error:', error.message);
-    res.status(503).json({
-      success: false,
-      message: 'AI service unavailable.',
-    });
+    res.status(503).json({ success: false, message: 'AI service unavailable.' });
   }
 }
-
-// ================================================================
-// Skill Gap Analysis (rule-based)
-// ================================================================
 
 async function analyzeSkillGap(req, res) {
   try {
     const { skills, targetRole } = req.body;
-
     const result = await djangoApi.post('/api/skill-gap/', {
       skills: skills || [],
       target_role: targetRole || '',
     });
-
     res.json({ success: true, data: result });
   } catch (error) {
     console.error('Skill gap error:', error.message);
-    res.status(503).json({
-      success: false,
-      message: 'AI service unavailable.',
-    });
+    res.status(503).json({ success: false, message: 'AI service unavailable.' });
   }
 }
-
-// ================================================================
-// Learning Roadmap
-// ================================================================
 
 async function generateLearningRoadmap(req, res) {
   try {
     const { career, skills } = req.body;
-
     if (!career) {
-      return res.status(400).json({
-        success: false,
-        message: 'Please provide a career name.',
-      });
+      return res.status(400).json({ success: false, message: 'Please provide a career name.' });
     }
-
-    const result = await djangoApi.post('/api/learning-roadmap/', {
-      career: career,
-      skills: skills || [],
-    });
-
+    const result = await djangoApi.post('/api/learning-roadmap/', { career, skills: skills || [] });
     res.json({ success: true, data: result });
   } catch (error) {
     console.error('Learning roadmap error:', error.message);
     res.status(503).json({ success: false, message: 'AI service unavailable.' });
   }
 }
-
-// ================================================================
-// Available Careers
-// ================================================================
 
 async function getCareers(req, res) {
   try {
@@ -196,9 +145,6 @@ async function getCareers(req, res) {
 }
 
 module.exports = {
-  analyzeResume,
-  recommendCareerRole,
-  analyzeSkillGap,
-  generateLearningRoadmap,
-  getCareers,
+  analyzeResume, recommendCareerRole, analyzeSkillGap,
+  generateLearningRoadmap, getCareers,
 };

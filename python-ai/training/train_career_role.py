@@ -1,8 +1,4 @@
-"""
-Career Role Recommendation - Training Script
-College Practical Style
-Based on skills, projects, internships, certifications, and interested domain only.
-"""
+
 
 import pandas as pd
 import numpy as np

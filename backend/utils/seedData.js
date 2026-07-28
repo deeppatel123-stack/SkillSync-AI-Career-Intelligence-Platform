@@ -1,7 +1,3 @@
-/**
- * Seed script – populates MongoDB with sample data matching frontend mockData.
- * Run: npm run seed
- */
 require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') });
 
 const bcrypt = require('bcryptjs');

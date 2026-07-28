@@ -1,14 +1,8 @@
-"""
-Career Role Recommendation - Prediction Module
-Loads RandomForestClassifier and generates a comprehensive 14-section report
-"""
-
 import joblib
 import numpy as np
 import sklearn
 from pathlib import Path
 
-# ── Role knowledge base ──────────────────────────────────────────
 ROLE_INFO = {
     "Frontend Developer": {
         "description": "responsible for building the visual and interactive parts of web applications using HTML, CSS, and JavaScript frameworks.",
@@ -174,7 +168,6 @@ ROLE_INFO = {
     },
 }
 
-# ── Skill synonyms ───────────────────────────────────────────────
 SKILL_SYNONYMS = {
     "python": ["python", "python3"],
     "java": ["java", "core java", "java ee"],
@@ -192,7 +185,6 @@ SKILL_SYNONYMS = {
     "problem_solving": ["problem solving", "problem-solving", "analytical", "logical reasoning"],
 }
 
-# ── Skill display labels ─────────────────────────────────────────
 SKILL_LABELS = {
     "python": "Python", "java": "Java", "javascript": "JavaScript",
     "react": "React", "node": "Node.js", "express": "Express",

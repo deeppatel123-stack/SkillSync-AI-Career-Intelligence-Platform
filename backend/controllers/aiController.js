@@ -43,7 +43,7 @@ async function analyzeResume(req, res) {
 
     const cgpaVal = parseFloat(student?.cgpa) || 0;
 
-    const result = await djangoApi.post('/api/resume-analysis/', {
+    const result = await djangoApi.post('/api/profile-analysis/', {
       technical_skills: technicalSkills.length,
       projects: Array.isArray(projects) ? projects.length : Number(projects || 0),
       internships: Array.isArray(internships) ? internships.length : Number(internships || 0),

@@ -45,13 +45,9 @@ export default function SkillGapAnalysis() {
     }
   }
 
-  function getPriorityBadge(priority) {
-    if (!priority) return '';
-    const p = priority.toLowerCase();
-    if (p === 'high') return 'ai-badge-danger';
-    if (p === 'medium') return 'ai-badge-warning';
-    return 'ai-badge-success';
-  }
+  const allMissing = result?.skills_missing || [];
+  const hasMissing = allMissing.length > 0;
+  const allPresent = result?.skills_available || [];
 
   return (
     <AppLayout role="student">
@@ -105,97 +101,130 @@ export default function SkillGapAnalysis() {
               )}
 
               {result && !result.error && (
-                <div className="ai-result-box">
-                  <h4 className="ai-result-title">Skill Gap Analysis Result</h4>
+                <div className="ai-result-box" style={{ marginTop: 24 }}>
 
-                  <div className="row g-4 mb-4">
-                    <div className="col-md-4">
-                      <div className="stat-card">
-                        <div className="stat-icon icon-blue">
-                          <i className="bi bi-check-circle" />
-                        </div>
-                        <div className="stat-info">
-                          <h6 className="fw-bold">Acquired Skills</h6>
-                          <p>{(result.skills_available || []).length} / {(result.skills_available || []).length + (result.skills_missing || []).length}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-4">
-                      <div className="stat-card">
-                        <div className="stat-icon icon-orange">
-                          <i className="bi bi-book" />
-                        </div>
-                        <div className="stat-info">
-                          <h6 className="fw-bold">Missing Skills</h6>
-                          <p>{(result.skills_missing || []).length}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-4">
-                      <div className="stat-card">
-                        <div className="stat-icon icon-green">
-                          <i className="bi bi-clock" />
-                        </div>
-                        <div className="stat-info">
-                          <h6 className="fw-bold">Est. Learning Time</h6>
-                          <p>{result.estimated_time || 'N/A'}</p>
-                        </div>
-                      </div>
-                    </div>
+                  <div style={{
+                    background: 'var(--bg-card)',
+                    border: '1px solid var(--border-light)',
+                    borderRadius: 12,
+                    padding: '28px 20px',
+                    marginBottom: 32,
+                    textAlign: 'center',
+                  }}>
+                    <p style={{
+                      fontSize: 11,
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: 2,
+                      color: 'var(--text-muted)',
+                      marginBottom: 6,
+                    }}>
+                      SKILL GAP ANALYSIS
+                    </p>
+                    <h2 style={{
+                      fontSize: 24,
+                      fontWeight: 800,
+                      color: 'var(--text-primary)',
+                      marginBottom: 10,
+                      marginTop: 0,
+                    }}>
+                      {result.target_role}
+                    </h2>
+                    <p style={{
+                      fontSize: 14,
+                      color: 'var(--text-secondary)',
+                      margin: 0,
+                    }}>
+                      You currently possess {result.present_count} of {result.total_required} required skills for this career path.
+                    </p>
                   </div>
 
-                  {result.target_role && (
-                    <p className="mb-3">
-                      <strong>Target Role:</strong> {result.target_role}
-                    </p>
-                  )}
-
-                  {result.current_readiness !== undefined && (
-                    <div className="mb-4">
-                      <label className="ai-result-label">Current Readiness</label>
-                      <div className="ai-progress">
-                        <div
-                          className={`ai-progress-bar ${result.current_readiness >= 70 ? 'ai-progress-green' : result.current_readiness >= 40 ? 'ai-progress-orange' : 'ai-progress-red'}`}
-                          style={{ width: `${result.current_readiness}%` }}
-                        />
+                  {hasMissing && (
+                    <div style={{ marginBottom: 32 }}>
+                      <h5 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)', margin: 0, marginBottom: 12 }}>
+                        Missing Skills
+                      </h5>
+                      <div className="ai-skills-container" style={{ gap: 10 }}>
+                        {allMissing.map((s, i) => (
+                          <span key={i} className="ai-skill-tag missing" style={{ fontSize: 14, padding: '6px 18px' }}>
+                            {s}
+                          </span>
+                        ))}
                       </div>
-                      <p className="mt-2" style={{ fontSize: 14, color: '#2d3748' }}>{result.recommendation}</p>
                     </div>
                   )}
 
-                  {result.skills_available && result.skills_available.length > 0 && (
-                    <div className="mb-4">
-                      <h6 className="fw-bold text-success">Skills You Have</h6>
+                  {!hasMissing && (
+                    <div style={{
+                      background: 'var(--success-bg)',
+                      borderRadius: 12,
+                      padding: '24px 20px',
+                      marginBottom: 32,
+                      textAlign: 'center',
+                    }}>
+                      <i className="bi bi-check-circle-fill" style={{ fontSize: 32, color: 'var(--success-text)', display: 'block', marginBottom: 10 }} />
+                      <h5 style={{ fontSize: 16, fontWeight: 700, color: 'var(--success-text)', margin: 0 }}>
+                        Excellent! You already possess all core skills required for this role.
+                      </h5>
+                    </div>
+                  )}
+
+                  {allPresent.length > 0 && (
+                    <div style={{
+                      background: 'var(--bg-card)',
+                      border: '1px solid var(--border-light)',
+                      borderLeft: '4px solid var(--success)',
+                      borderRadius: 12,
+                      padding: '20px',
+                      marginBottom: 32,
+                    }}>
+                      <h5 style={{ fontSize: 15, fontWeight: 700, color: 'var(--success-text)', margin: 0, marginBottom: 4 }}>
+                        Current Skills
+                      </h5>
+                      <p style={{ fontSize: 13, color: 'var(--text-muted)', margin: 0, marginBottom: 12 }}>
+                        Skills already present in your profile.
+                      </p>
                       <div className="ai-skills-container">
-                        {result.skills_available.map((s, i) => (
+                        {allPresent.map((s, i) => (
                           <span key={i} className="ai-skill-tag matched">{s}</span>
                         ))}
                       </div>
                     </div>
                   )}
 
-                  {result.learning_priority && result.learning_priority.length > 0 && (
-                    <div>
-                      <h6 className="fw-bold text-danger">Skills to Learn</h6>
-                      <div className="mt-2">
-                        {result.learning_priority.map((gap, i) => (
-                          <div className="ai-company-card" key={i}>
-                            <div className="ai-company-logo" style={{ background: '#fff5f5', color: '#e53e3e' }}>
-                              <i className="bi bi-book" />
-                            </div>
-                            <div className="ai-company-info">
-                              <div className="ai-company-name">{gap.skill}</div>
-                              <div className="ai-company-detail">
-                                {gap.time && <span>Est. time: {gap.time} &middot; </span>}
-                                {gap.priority && (
-                                  <span className={`ai-badge ${getPriorityBadge(gap.priority)}`}>
-                                    {gap.priority}
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                          </div>
+                  {hasMissing && (
+                    <div style={{ marginBottom: 32 }}>
+                      <h5 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)', margin: 0, marginBottom: 4 }}>
+                        Recommended Skills to Learn
+                      </h5>
+                      <p style={{ fontSize: 13, color: 'var(--text-muted)', margin: 0, marginBottom: 12 }}>
+                        Focus on these skills to improve your career readiness.
+                      </p>
+                      <div className="ai-skills-container">
+                        {allMissing.map((s, i) => (
+                          <span key={i} className="ai-skill-tag" style={{
+                            background: 'var(--warning-bg)',
+                            color: 'var(--warning-text)',
+                          }}>{s}</span>
                         ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {result.summary && (
+                    <div
+                      className="ai-company-card"
+                      style={{
+                        borderLeft: '4px solid var(--accent)',
+                        padding: '20px',
+                        marginBottom: 0,
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                        <i className="bi bi-info-circle" style={{ fontSize: 18, color: 'var(--accent)', marginTop: 2, flexShrink: 0 }} />
+                        <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: 'var(--text-primary)' }}>
+                          {result.summary}
+                        </p>
                       </div>
                     </div>
                   )}

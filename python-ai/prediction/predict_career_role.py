@@ -5,6 +5,7 @@ Loads RandomForestClassifier and generates a comprehensive 14-section report
 
 import joblib
 import numpy as np
+import sklearn
 from pathlib import Path
 
 # ── Role knowledge base ──────────────────────────────────────────

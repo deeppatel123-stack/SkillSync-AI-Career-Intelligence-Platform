@@ -67,7 +67,7 @@
 .filter-actions button {
   padding: 10px 24px;
   background: var(--accent);
-  color: var(--text-inverse);
+  color: #ffffff;
   border: none;
   border-radius: 8px;
   font-weight: 500;
@@ -263,7 +263,7 @@
 
 .post-header {
   background: var(--accent);
-  color: var(--text-inverse);
+  color: white;
   padding: 24px 32px;
   font-size: 24px;
   font-weight: 600;

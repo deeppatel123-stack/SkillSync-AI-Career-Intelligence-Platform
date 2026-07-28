@@ -43,7 +43,7 @@ export default function CertificationSelector({ value = [], onChange, label = 'C
                 type="button"
                 onClick={() => removeCert(cert)}
                 style={{
-                  background: 'none', border: 'none', color: 'var(--success-text)',
+                  background: 'none', border: 'none', color: '#276749',
                   marginLeft: 6, padding: 0, cursor: 'pointer', fontWeight: 'bold',
                 }}
               >
@@ -80,7 +80,7 @@ export default function CertificationSelector({ value = [], onChange, label = 'C
           <div
             style={{
               position: 'absolute', top: '100%', left: 0, right: 0,
-              background: 'var(--bg-primary)', border: '1px solid var(--border)', borderRadius: 8,
+              background: '#fff', border: '1px solid #e2e8f0', borderRadius: 8,
               maxHeight: 200, overflowY: 'auto', zIndex: 1000,
               boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
             }}
@@ -91,9 +91,9 @@ export default function CertificationSelector({ value = [], onChange, label = 'C
                 onMouseDown={() => addCert(cert)}
                 style={{
                   padding: '8px 12px', cursor: 'pointer', fontSize: 14,
-                  borderBottom: '1px solid var(--border-light)',
+                  borderBottom: '1px solid #f0f4f8',
                 }}
-                onMouseEnter={(e) => e.target.style.background = 'var(--accent-light)'}
+                onMouseEnter={(e) => e.target.style.background = '#ebf8ff'}
                 onMouseLeave={(e) => e.target.style.background = 'transparent'}
               >
                 {cert}
@@ -103,12 +103,12 @@ export default function CertificationSelector({ value = [], onChange, label = 'C
             {search.trim() && !DEFAULT_CERTIFICATIONS.some(
               (c) => c.toLowerCase() === search.toLowerCase()
             ) && (
-              <div style={{ padding: '8px 12px', borderTop: '1px solid var(--border)', background: 'var(--warning-bg)' }}>
+              <div style={{ padding: '8px 12px', borderTop: '1px solid #e2e8f0', background: '#fffbeb' }}>
                 <button
                   type="button"
                   onMouseDown={() => addCert(search.trim())}
                   style={{
-                    background: 'none', border: 'none', color: 'var(--warning-text)',
+                    background: 'none', border: 'none', color: '#92400e',
                     cursor: 'pointer', fontSize: 13, fontWeight: 500,
                   }}
                 >
@@ -118,7 +118,7 @@ export default function CertificationSelector({ value = [], onChange, label = 'C
             )}
 
             {filtered.length === 0 && !search.trim() && (
-              <div style={{ padding: '12px', color: 'var(--text-muted)', fontSize: 13, textAlign: 'center' }}>
+              <div style={{ padding: '12px', color: '#718096', fontSize: 13, textAlign: 'center' }}>
                 Type to search or add custom certifications
               </div>
             )}

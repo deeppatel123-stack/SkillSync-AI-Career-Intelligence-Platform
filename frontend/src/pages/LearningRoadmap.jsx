@@ -110,7 +110,7 @@ export default function LearningRoadmap() {
                   {result.phases.map((phase, index) => (
                     <div className="ai-roadmap-phase" key={index}>
                       <h5>
-                        <i className="bi bi-flag-fill me-2" style={{ color: 'var(--accent)' }} />
+                        <i className="bi bi-flag-fill me-2" style={{ color: '#4299e1' }} />
                         {phase.name}
                       </h5>
                       {phase.topics.map((topic, tIndex) => (

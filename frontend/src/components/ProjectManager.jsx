@@ -41,30 +41,30 @@ export default function ProjectManager({ value = [], onChange, label = 'Projects
             <div
               key={index}
               style={{
-                background: 'var(--bg-secondary)', border: '1px solid var(--border)',
+                background: '#f7fafc', border: '1px solid #e2e8f0',
                 borderRadius: 8, padding: '10px 14px', marginBottom: 8,
                 display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
               }}
             >
               <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 600, fontSize: 14, color: 'var(--text-primary)' }}>
+                <div style={{ fontWeight: 600, fontSize: 14, color: '#1a202c' }}>
                   {proj.title}
                 </div>
                 {proj.technologies && (
-                  <div style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 2 }}>
+                  <div style={{ fontSize: 13, color: '#718096', marginTop: 2 }}>
                     Tech: {proj.technologies}
                   </div>
                 )}
                 <div style={{ display: 'flex', gap: 12, marginTop: 4 }}>
                   {proj.githubLink && (
                     <a href={proj.githubLink} target="_blank" rel="noreferrer"
-                      style={{ fontSize: 12, color: 'var(--accent)' }}>
+                      style={{ fontSize: 12, color: '#4299e1' }}>
                       <i className="bi bi-github" /> GitHub
                     </a>
                   )}
                   {proj.liveLink && (
                     <a href={proj.liveLink} target="_blank" rel="noreferrer"
-                      style={{ fontSize: 12, color: 'var(--accent)' }}>
+                      style={{ fontSize: 12, color: '#38a169' }}>
                       <i className="bi bi-box-arrow-up-right" /> Live
                     </a>
                   )}
@@ -74,7 +74,7 @@ export default function ProjectManager({ value = [], onChange, label = 'Projects
                 type="button"
                 onClick={() => removeProject(index)}
                 style={{
-                  background: 'none', border: 'none', color: 'var(--error)',
+                  background: 'none', border: 'none', color: '#e53e3e',
                   cursor: 'pointer', padding: '4px', fontSize: 16,
                 }}
               >
@@ -88,7 +88,7 @@ export default function ProjectManager({ value = [], onChange, label = 'Projects
       {/* Add new project form */}
       {showForm ? (
         <div style={{
-          background: 'var(--bg-primary)', border: '1px solid var(--accent)', borderRadius: 8,
+          background: '#fff', border: '1px solid #4299e1', borderRadius: 8,
           padding: 16, marginTop: 8,
         }}>
           <div className="row g-2">
@@ -158,16 +158,16 @@ export default function ProjectManager({ value = [], onChange, label = 'Projects
             padding: '10px 16px',
             fontSize: 14,
             fontWeight: 600,
-            background: 'var(--bg-secondary)',
-            color: 'var(--accent)',
-            border: '2px dashed var(--border-strong)',
+            background: '#f7fafc',
+            color: '#4299e1',
+            border: '2px dashed #cbd5e0',
             borderRadius: 8,
             cursor: 'pointer',
             transition: 'all 0.2s',
             marginTop: 4,
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--accent-light)'; e.currentTarget.style.borderColor = 'var(--badge-blue-bg)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--bg-secondary)'; e.currentTarget.style.borderColor = 'var(--border-strong)'; }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = '#ebf8ff'; e.currentTarget.style.borderColor = '#90cdf4'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = '#f7fafc'; e.currentTarget.style.borderColor = '#cbd5e0'; }}
         >
           <i className="bi bi-plus-circle me-1" /> Add Project
         </button>

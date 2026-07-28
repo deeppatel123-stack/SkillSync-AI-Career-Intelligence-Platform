@@ -1,7 +1,9 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import AppLayout from '../components/AppLayout';
 import SkillSelector from '../components/SkillSelector';
 import { aiApi } from '../utils/aiApi';
+import { getSession } from '../utils/userSession';
 import '../styles/ai.css';
 
 const domainOptions = [
@@ -25,57 +27,37 @@ export default function CareerRoleRecommendation() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [validationMsg, setValidationMsg] = useState('');
-  const [fieldErrors, setFieldErrors] = useState({});
+  const [profileIncomplete, setProfileIncomplete] = useState(false);
 
-  const domainRef = useRef(null);
-  const skillsRef = useRef(null);
-  const projectsRef = useRef(null);
-  const internshipsRef = useRef(null);
-  const certsRef = useRef(null);
-
-  function validate() {
-    const errors = {};
-    if (!skills || skills.length === 0) errors.skills = true;
-    if (interestedDomain === '') errors.interestedDomain = true;
-    if (projectsCount === '') errors.projectsCount = true;
-    if (internshipCount === '') errors.internshipCount = true;
-    if (certificationCount === '') errors.certificationCount = true;
-    return errors;
-  }
-
-  function focusFirst(errors) {
-    if (errors.interestedDomain) { domainRef.current?.focus(); return; }
-    if (errors.skills) { skillsRef.current?.querySelector('input')?.focus(); return; }
-    if (errors.projectsCount) { projectsRef.current?.focus(); return; }
-    if (errors.internshipCount) { internshipsRef.current?.focus(); return; }
-    if (errors.certificationCount) { certsRef.current?.focus(); return; }
-  }
+  useEffect(() => {
+    const session = getSession();
+    if (!session) return;
+    aiApi.getStudentProfile()
+      .then((data) => {
+        const p = data.data;
+        const hasSkills = (p.skills || []).length > 0;
+        setProfileIncomplete(!hasSkills);
+        if (hasSkills) setSkills(p.skills);
+        if (p.projects) setProjectsCount(String(p.projects.length));
+        if (p.internships) setInternshipCount(String(p.internships.length));
+        if (p.certifications) setCertificationCount(String(p.certifications.length));
+      })
+      .catch(() => {});
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true);
     setError('');
     setResult(null);
-
-    const errors = validate();
-    setFieldErrors(errors);
-    setValidationMsg('');
-
-    if (Object.keys(errors).length > 0) {
-      setValidationMsg('Please enter your skills, projects, internships, certifications, and interested domain to receive an AI career recommendation.');
-      focusFirst(errors);
-      return;
-    }
-
-    setLoading(true);
 
     try {
       const data = await aiApi.recommendCareerRole({
         skills,
-        projectsCount: Number(projectsCount),
-        internshipCount: Number(internshipCount),
-        certificationCount: Number(certificationCount),
-        interestedDomain: Number(interestedDomain),
+        projectsCount: Number(projectsCount || 0),
+        internshipCount: Number(internshipCount || 0),
+        certificationCount: Number(certificationCount || 0),
+        interestedDomain: Number(interestedDomain || 0),
       });
       setResult(data.data);
     } catch (err) {
@@ -83,10 +65,6 @@ export default function CareerRoleRecommendation() {
     } finally {
       setLoading(false);
     }
-  }
-
-  function inputClass(base, field) {
-    return fieldErrors[field] ? `${base} cr-input-error` : base;
   }
 
   return (
@@ -99,49 +77,55 @@ export default function CareerRoleRecommendation() {
                 <i className="bi bi-briefcase-fill" />
                 <div>
                   <h3>AI Career Recommendation</h3>
-                  <p>Enter your skills, experience, and interests to receive an AI-powered career recommendation.</p>
+                  <p>Receive an AI-powered career recommendation based on your skills, projects, experience, and interests.</p>
                 </div>
               </div>
 
+              {profileIncomplete ? (
+                <div className="ai-error" style={{ textAlign: 'center', padding: '24px' }}>
+                  <i className="bi bi-exclamation-circle-fill" style={{ fontSize: 32, display: 'block', marginBottom: 12 }} />
+                  <h6 style={{ color: '#9b2c2c' }}>Profile Incomplete</h6>
+                  <p style={{ fontSize: 14, marginBottom: 16 }}>
+                    Please add at least one skill to your profile before using Career Recommendation.
+                  </p>
+                  <Link to="/student/profile" className="ai-btn-primary" style={{ textDecoration: 'none', display: 'inline-block' }}>
+                    <i className="bi bi-person-fill-gear" /> Complete Your Profile
+                  </Link>
+                </div>
+              ) : (
               <form onSubmit={handleSubmit}>
                 <div className="row g-4">
                   <div className="col-md-4">
-                    <label className="ai-form-label">Projects Count *</label>
+                    <label className="ai-form-label">Projects Count</label>
                     <input
-                      ref={projectsRef}
-                      type="number" min="0" max="20"
-                      className={inputClass('ai-form-input', 'projectsCount')}
-                      value={projectsCount} onChange={(e) => { setProjectsCount(e.target.value); setFieldErrors((prev) => ({ ...prev, projectsCount: false })); }}
+                      type="number" min="0" max="20" className="ai-form-input"
+                      value={projectsCount} onChange={(e) => setProjectsCount(e.target.value)}
                       placeholder="e.g. 3"
                     />
                   </div>
                   <div className="col-md-4">
-                    <label className="ai-form-label">Internship Count *</label>
+                    <label className="ai-form-label">Internship Count</label>
                     <input
-                      ref={internshipsRef}
-                      type="number" min="0" max="10"
-                      className={inputClass('ai-form-input', 'internshipCount')}
-                      value={internshipCount} onChange={(e) => { setInternshipCount(e.target.value); setFieldErrors((prev) => ({ ...prev, internshipCount: false })); }}
+                      type="number" min="0" max="10" className="ai-form-input"
+                      value={internshipCount} onChange={(e) => setInternshipCount(e.target.value)}
                       placeholder="e.g. 1"
                     />
                   </div>
                   <div className="col-md-4">
-                    <label className="ai-form-label">Certification Count *</label>
+                    <label className="ai-form-label">Certification Count</label>
                     <input
-                      ref={certsRef}
-                      type="number" min="0" max="20"
-                      className={inputClass('ai-form-input', 'certificationCount')}
-                      value={certificationCount} onChange={(e) => { setCertificationCount(e.target.value); setFieldErrors((prev) => ({ ...prev, certificationCount: false })); }}
+                      type="number" min="0" max="20" className="ai-form-input"
+                      value={certificationCount} onChange={(e) => setCertificationCount(e.target.value)}
                       placeholder="e.g. 2"
                     />
                   </div>
                   <div className="col-md-6">
                     <label className="ai-form-label">Interested Domain *</label>
                     <select
-                      ref={domainRef}
-                      className={inputClass('ai-form-input', 'interestedDomain')}
+                      className="ai-form-input"
                       value={interestedDomain}
-                      onChange={(e) => { setInterestedDomain(e.target.value); setFieldErrors((prev) => ({ ...prev, interestedDomain: false })); }}
+                      onChange={(e) => setInterestedDomain(e.target.value)}
+                      required
                     >
                       <option value="">Select domain...</option>
                       {domainOptions.map((d) => (
@@ -150,26 +134,18 @@ export default function CareerRoleRecommendation() {
                     </select>
                   </div>
                   <div className="col-12">
-                    <div ref={skillsRef}>
-                      <SkillSelector value={skills} onChange={(v) => { setSkills(v); setFieldErrors((prev) => ({ ...prev, skills: false })); }} />
-                    </div>
+                    <SkillSelector value={skills} onChange={setSkills} />
                     <p className="text-muted mt-2" style={{ fontSize: 13 }}>
-                      Enter the programming languages, frameworks, and tools you know.
+                      Your skills are auto-loaded from your profile. Add or remove as needed.
                     </p>
                   </div>
                 </div>
 
-                {validationMsg && (
-                  <div className="ai-error" style={{ marginTop: 16 }}>
-                    <i className="bi bi-exclamation-circle-fill me-2" />
-                    {validationMsg}
-                  </div>
-                )}
-
-                <button type="submit" className="ai-btn-primary mt-3" disabled={loading}>
+                <button type="submit" className="ai-btn-primary mt-3" disabled={loading || !interestedDomain}>
                   {loading ? 'Recommending...' : 'Get AI Recommendation'}
                 </button>
               </form>
+              )}
 
               {error && <div className="ai-error">{error}</div>}
 

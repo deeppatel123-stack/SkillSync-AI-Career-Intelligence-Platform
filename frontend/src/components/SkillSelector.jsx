@@ -67,7 +67,7 @@ export default function SkillSelector({ value = [], onChange, label = 'Skills' }
                 type="button"
                 onClick={() => removeSkill(skill)}
                 style={{
-                  background: 'none', border: 'none', color: 'var(--success-text)',
+                  background: 'none', border: 'none', color: '#276749',
                   marginLeft: 6, padding: 0, cursor: 'pointer', fontWeight: 'bold',
                 }}
               >
@@ -99,7 +99,7 @@ export default function SkillSelector({ value = [], onChange, label = 'Skills' }
           <div
             style={{
               position: 'absolute', top: '100%', left: 0, right: 0,
-              background: 'var(--bg-primary)', border: '1px solid var(--border)', borderRadius: 8,
+              background: '#fff', border: '1px solid #e2e8f0', borderRadius: 8,
               maxHeight: 200, overflowY: 'auto', zIndex: 1000,
               boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
             }}
@@ -111,9 +111,9 @@ export default function SkillSelector({ value = [], onChange, label = 'Skills' }
                 onMouseDown={() => addSkill(skill)}
                 style={{
                   padding: '8px 12px', cursor: 'pointer', fontSize: 14,
-                  borderBottom: '1px solid var(--border-light)',
+                  borderBottom: '1px solid #f0f4f8',
                 }}
-                onMouseEnter={(e) => e.target.style.background = 'var(--accent-light)'}
+                onMouseEnter={(e) => e.target.style.background = '#ebf8ff'}
                 onMouseLeave={(e) => e.target.style.background = 'transparent'}
               >
                 {skill}
@@ -122,9 +122,9 @@ export default function SkillSelector({ value = [], onChange, label = 'Skills' }
 
             {/* Custom skill input */}
             {search.trim() && !DEFAULT_SKILLS.some((s) => s.toLowerCase() === search.toLowerCase()) && (
-              <div style={{ padding: '8px 12px', borderTop: '1px solid var(--border)', background: 'var(--warning-bg)' }}>
+              <div style={{ padding: '8px 12px', borderTop: '1px solid #e2e8f0', background: '#fffbeb' }}>
                 <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                  <span style={{ fontSize: 13, color: 'var(--warning-text)' }}>
+                  <span style={{ fontSize: 13, color: '#92400e' }}>
                     Add &quot;{search.trim()}&quot;
                   </span>
                   <button
@@ -134,7 +134,7 @@ export default function SkillSelector({ value = [], onChange, label = 'Skills' }
                       addSkill(search.trim());
                     }}
                     style={{
-                      background: 'var(--accent)', color: 'var(--text-inverse)', border: 'none',
+                      background: '#4299e1', color: '#fff', border: 'none',
                       borderRadius: 4, padding: '4px 10px', cursor: 'pointer',
                       fontSize: 12,
                     }}
@@ -146,7 +146,7 @@ export default function SkillSelector({ value = [], onChange, label = 'Skills' }
             )}
 
             {filteredSkills.length === 0 && !search.trim() && (
-              <div style={{ padding: '12px', color: 'var(--text-muted)', fontSize: 13, textAlign: 'center' }}>
+              <div style={{ padding: '12px', color: '#718096', fontSize: 13, textAlign: 'center' }}>
                 Type to search or add custom skills
               </div>
             )}

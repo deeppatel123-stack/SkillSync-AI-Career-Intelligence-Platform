@@ -17,34 +17,8 @@ const SOFT_SKILL_KEYWORDS = [
 ];
 
 // ================================================================
-// Profile Analysis (also returns Most Suitable Career)
+// Profile Analysis
 // ================================================================
-
-function buildSkillMap(skills) {
-  const skillMap = {
-    python: 0, java: 0, javascript: 0, react: 0, node: 0,
-    express: 0, mongodb: 0, sql: 0, html: 0, css: 0,
-    git: 0, dsa: 0, communication: 0, problem_solving: 0,
-  };
-  if (Array.isArray(skills)) {
-    const lower = skills.map((s) => s.toLowerCase());
-    if (lower.some((s) => s.includes('python'))) skillMap.python = 1;
-    if (lower.some((s) => s.includes('java'))) skillMap.java = 1;
-    if (lower.some((s) => ['javascript', 'js', 'typescript'].some((kw) => s.includes(kw)))) skillMap.javascript = 1;
-    if (lower.some((s) => ['react', 'reactjs', 'react.js'].some((kw) => s.includes(kw)))) skillMap.react = 1;
-    if (lower.some((s) => ['node', 'nodejs', 'node.js'].some((kw) => s.includes(kw)))) skillMap.node = 1;
-    if (lower.some((s) => ['express', 'expressjs', 'express.js'].some((kw) => s.includes(kw)))) skillMap.express = 1;
-    if (lower.some((s) => ['mongodb', 'mongo'].some((kw) => s.includes(kw)))) skillMap.mongodb = 1;
-    if (lower.some((s) => ['sql', 'mysql', 'postgresql', 'postgres'].some((kw) => s.includes(kw)))) skillMap.sql = 1;
-    if (lower.some((s) => ['html5', 'html'].some((kw) => s === kw || s.includes(kw)))) skillMap.html = 1;
-    if (lower.some((s) => ['css3', 'css'].some((kw) => s === kw || s.includes(kw)))) skillMap.css = 1;
-    if (lower.some((s) => ['git', 'github', 'git/github'].some((kw) => s.includes(kw)))) skillMap.git = 1;
-    if (lower.some((s) => ['dsa', 'data structures', 'algorithms'].some((kw) => s.includes(kw)))) skillMap.dsa = 1;
-    if (lower.some((s) => ['communication', 'presentation'].some((kw) => s.includes(kw)))) skillMap.communication = 1;
-    if (lower.some((s) => ['problem solving', 'problem-solving', 'logical'].some((kw) => s.includes(kw)))) skillMap.problem_solving = 1;
-  }
-  return skillMap;
-}
 
 async function analyzeProfile(req, res) {
   try {
@@ -83,24 +57,6 @@ async function analyzeProfile(req, res) {
       workshops: 0,
     });
 
-    // Build skill map and get career recommendation for "Most Suitable Career"
-    const skillMap = buildSkillMap(allSkills);
-    const projectsCount = Array.isArray(projects) ? projects.length : Number(projects || 0);
-    const internshipCount = Array.isArray(internships) ? internships.length : Number(internships || 0);
-    const certificationCount = Array.isArray(certifications) ? certifications.length : Number(certifications || 0);
-
-    const careerResult = await djangoApi.post('/api/career-role/', {
-      ...skillMap,
-      projects_count: projectsCount,
-      internship_count: internshipCount,
-      certification_count: certificationCount,
-      interested_domain: 0,
-      skills_list: allSkills,
-    });
-
-    result.most_suitable_career_role = careerResult.recommended_role || '';
-    result.career_data = careerResult;
-
     res.json({ success: true, data: result });
   } catch (error) {
     console.error('Profile analysis error:', error.message);
@@ -117,10 +73,37 @@ async function analyzeProfile(req, res) {
 
 async function recommendCareerRole(req, res) {
   try {
+    const student = await User.findById(req.user._id);
+    if (!student?.skills || student.skills.length === 0) {
+      return res.status(400).json({ success: false, message: 'Please add at least one skill to your profile before using Career Recommendation.' });
+    }
+
     const { skills, projectsCount, internshipCount, certificationCount,
             interestedDomain } = req.body;
 
-    const skillMap = buildSkillMap(skills);
+    const skillMap = {
+      python: 0, java: 0, javascript: 0, react: 0, node: 0,
+      express: 0, mongodb: 0, sql: 0, html: 0, css: 0,
+      git: 0, dsa: 0, communication: 0, problem_solving: 0,
+    };
+
+    if (Array.isArray(skills)) {
+      const lower = skills.map((s) => s.toLowerCase());
+      if (lower.some((s) => s.includes('python'))) skillMap.python = 1;
+      if (lower.some((s) => s.includes('java'))) skillMap.java = 1;
+      if (lower.some((s) => ['javascript', 'js', 'typescript'].some((kw) => s.includes(kw)))) skillMap.javascript = 1;
+      if (lower.some((s) => ['react', 'reactjs', 'react.js'].some((kw) => s.includes(kw)))) skillMap.react = 1;
+      if (lower.some((s) => ['node', 'nodejs', 'node.js'].some((kw) => s.includes(kw)))) skillMap.node = 1;
+      if (lower.some((s) => ['express', 'expressjs', 'express.js'].some((kw) => s.includes(kw)))) skillMap.express = 1;
+      if (lower.some((s) => ['mongodb', 'mongo'].some((kw) => s.includes(kw)))) skillMap.mongodb = 1;
+      if (lower.some((s) => ['sql', 'mysql', 'postgresql', 'postgres'].some((kw) => s.includes(kw)))) skillMap.sql = 1;
+      if (lower.some((s) => ['html5', 'html'].some((kw) => s === kw || s.includes(kw)))) skillMap.html = 1;
+      if (lower.some((s) => ['css3', 'css'].some((kw) => s === kw || s.includes(kw)))) skillMap.css = 1;
+      if (lower.some((s) => ['git', 'github', 'git/github'].some((kw) => s.includes(kw)))) skillMap.git = 1;
+      if (lower.some((s) => ['dsa', 'data structures', 'algorithms'].some((kw) => s.includes(kw)))) skillMap.dsa = 1;
+      if (lower.some((s) => ['communication', 'presentation'].some((kw) => s.includes(kw)))) skillMap.communication = 1;
+      if (lower.some((s) => ['problem solving', 'problem-solving', 'logical'].some((kw) => s.includes(kw)))) skillMap.problem_solving = 1;
+    }
 
     const result = await djangoApi.post('/api/career-role/', {
       ...skillMap,

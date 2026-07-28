@@ -51,12 +51,12 @@
 
 .nav-pill .register-btn {
   background: var(--accent);
-  color: var(--text-inverse);
+  color: #ffffff;
 }
 
 .nav-pill .register-btn:hover {
   background: var(--accent-hover);
-  color: var(--text-inverse);
+  color: #ffffff;
   box-shadow: 0 4px 12px var(--accent-shadow);
 }
 
@@ -108,7 +108,7 @@
 .hero-btn-primary {
   background: var(--accent);
   border: none;
-  color: var(--text-inverse);
+  color: #ffffff;
   font-weight: 500;
   padding: 13px 32px;
   border-radius: 8px;
@@ -116,7 +116,7 @@
 
 .hero-btn-primary:hover {
   background: var(--accent-hover);
-  color: var(--text-inverse);
+  color: #ffffff;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px var(--accent-shadow);
 }
@@ -259,7 +259,7 @@
   width: 70px;
   height: 70px;
   background: var(--accent);
-  color: var(--text-inverse);
+  color: #ffffff;
   border-radius: 18px;
   display: flex;
   align-items: center;
@@ -344,7 +344,7 @@
   background: var(--accent-light);
   color: var(--accent);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--accent-shadow);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .cta-note {
@@ -397,7 +397,7 @@
 
 .social-links a:hover {
   background: var(--accent);
-  color: var(--text-inverse);
+  color: #ffffff;
   transform: translateY(-3px);
 }
 

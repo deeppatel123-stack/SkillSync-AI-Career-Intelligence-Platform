@@ -264,7 +264,7 @@
 
 .btn-view {
   background: var(--accent);
-  color: var(--text-inverse);
+  color: #ffffff;
 }
 
 .btn-view:hover {
@@ -280,7 +280,7 @@
 
 .btn-withdraw:hover {
   background: var(--error);
-  color: var(--text-inverse);
+  color: #ffffff;
 }
 
 @media (max-width: 1200px) {

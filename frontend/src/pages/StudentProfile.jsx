@@ -104,9 +104,9 @@ export default function StudentProfile() {
         {toast && (
           <div style={{
             position: 'fixed', top: 20, right: 20, zIndex: 9999,
-            background: toast.type === 'danger' ? 'var(--error-bg)' : 'var(--success-bg)',
-            color: toast.type === 'danger' ? 'var(--error-text)' : 'var(--success-text)',
-            border: `1px solid ${toast.type === 'danger' ? 'var(--error-border)' : 'var(--success-border)'}`,
+            background: toast.type === 'danger' ? '#fee2e2' : '#d1fae5',
+            color: toast.type === 'danger' ? '#991b1b' : '#065f46',
+            border: `1px solid ${toast.type === 'danger' ? '#fecaca' : '#a7f3d0'}`,
             borderRadius: 12, padding: '14px 20px', fontWeight: 600, fontSize: 15,
             boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
             display: 'flex', alignItems: 'center', gap: 10,
@@ -118,17 +118,17 @@ export default function StudentProfile() {
 
         {/* Profile hero */}
         <div style={{
-          background: 'var(--welcome-gradient)',
+          background: 'linear-gradient(135deg, #1a202c 0%, #2d3748 100%)',
           borderRadius: 16, padding: '32px 36px', marginTop: 24, marginBottom: 28,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          color: 'var(--text-primary)',
+          color: '#fff',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
             <div style={{
               width: 64, height: 64, borderRadius: '50%',
-              background: 'var(--accent)',
+              background: 'linear-gradient(135deg, #4299e1, #63b3ed)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 28, fontWeight: 700, color: 'var(--text-inverse)',
+              fontSize: 28, fontWeight: 700, color: '#fff',
             }}>
               {(profile.name || currentUser?.name || '?')[0].toUpperCase()}
             </div>
@@ -143,8 +143,8 @@ export default function StudentProfile() {
           <button
             onClick={() => setEditMode(!editMode)}
             style={{
-              background: editMode ? 'var(--bg-primary)' : 'rgba(255,255,255,0.15)',
-              color: editMode ? 'var(--text-primary)' : 'var(--text-inverse)',
+              background: editMode ? '#fff' : 'rgba(255,255,255,0.15)',
+              color: editMode ? '#1a202c' : '#fff',
               border: 'none', borderRadius: 10, padding: '10px 20px',
               fontWeight: 600, fontSize: 14, cursor: 'pointer',
               display: 'flex', alignItems: 'center', gap: 8,
@@ -168,7 +168,7 @@ export default function StudentProfile() {
             </div>
 
             <form onSubmit={handleSubmit}>
-              <h5 className="fw-bold mt-2 mb-3" style={{ color: 'var(--accent-deeper)' }}>
+              <h5 className="fw-bold mt-2 mb-3" style={{ color: '#2c5282' }}>
                 <i className="bi bi-person-lines-fill me-2" />Personal Information
               </h5>
               <div className="row g-3">
@@ -211,7 +211,7 @@ export default function StudentProfile() {
                 </div>
               </div>
 
-              <h5 className="fw-bold mt-4 mb-3" style={{ color: 'var(--accent-deeper)' }}>
+              <h5 className="fw-bold mt-4 mb-3" style={{ color: '#2c5282' }}>
                 <i className="bi bi-book-fill me-2" />Education
               </h5>
               <div className="row g-3">
@@ -241,22 +241,22 @@ export default function StudentProfile() {
                 </div>
               </div>
 
-              <h5 className="fw-bold mt-4 mb-3" style={{ color: 'var(--accent-deeper)' }}>
+              <h5 className="fw-bold mt-4 mb-3" style={{ color: '#2c5282' }}>
                 <i className="bi bi-tools me-2" />Skills
               </h5>
               <SkillSelector value={profile.skills} onChange={(val) => setProfile({ ...profile, skills: val })} />
 
-              <h5 className="fw-bold mt-4 mb-3" style={{ color: 'var(--accent-deeper)' }}>
+              <h5 className="fw-bold mt-4 mb-3" style={{ color: '#2c5282' }}>
                 <i className="bi bi-code-square me-2" />Projects
               </h5>
               <ProjectManager value={profile.projects} onChange={(val) => setProfile({ ...profile, projects: val })} />
 
-              <h5 className="fw-bold mt-4 mb-3" style={{ color: 'var(--accent-deeper)' }}>
+              <h5 className="fw-bold mt-4 mb-3" style={{ color: '#2c5282' }}>
                 <i className="bi bi-briefcase-fill me-2" />Internships
               </h5>
               <InternshipManager value={profile.internships} onChange={(val) => setProfile({ ...profile, internships: val })} />
 
-              <h5 className="fw-bold mt-4 mb-3" style={{ color: 'var(--accent-deeper)' }}>
+              <h5 className="fw-bold mt-4 mb-3" style={{ color: '#2c5282' }}>
                 <i className="bi bi-chat-dots-fill me-2" />Languages
               </h5>
               <div className="ai-skills-container mb-3">
@@ -269,7 +269,7 @@ export default function StudentProfile() {
                 ))}
               </div>
 
-              <h5 className="fw-bold mt-4 mb-3" style={{ color: 'var(--accent-deeper)' }}>
+              <h5 className="fw-bold mt-4 mb-3" style={{ color: '#2c5282' }}>
                 <i className="bi bi-link-45deg me-2" />Social Links
               </h5>
               <div className="row g-3">
@@ -287,7 +287,7 @@ export default function StudentProfile() {
                 </div>
               </div>
 
-              <h5 className="fw-bold mt-4 mb-3" style={{ color: 'var(--accent-deeper)' }}>
+              <h5 className="fw-bold mt-4 mb-3" style={{ color: '#2c5282' }}>
                 <i className="bi bi-quote me-2" />About / Bio
               </h5>
               <textarea className="ai-form-input" name="bio" value={profile.bio} onChange={handleChange} rows="3"
@@ -309,10 +309,10 @@ export default function StudentProfile() {
             {profile.bio && (
               <div className="col-12">
                 <div className="ai-card">
-                  <h5 style={{ fontWeight: 700, color: 'var(--text-primary)', marginBottom: 12 }}>
-                    <i className="bi bi-quote me-2" style={{ color: 'var(--accent)' }} />About
+                  <h5 style={{ fontWeight: 700, color: '#1a202c', marginBottom: 12 }}>
+                    <i className="bi bi-quote me-2" style={{ color: '#4299e1' }} />About
                   </h5>
-                  <p style={{ color: 'var(--text-tertiary)', lineHeight: 1.7, margin: 0 }}>{profile.bio}</p>
+                  <p style={{ color: '#4a5568', lineHeight: 1.7, margin: 0 }}>{profile.bio}</p>
                 </div>
               </div>
             )}
@@ -320,8 +320,8 @@ export default function StudentProfile() {
             {/* Personal Information */}
             <div className="col-md-6">
               <div className="ai-card h-100">
-                <h5 style={{ fontWeight: 700, color: 'var(--text-primary)', marginBottom: 16 }}>
-                  <i className="bi bi-person-lines-fill me-2" style={{ color: 'var(--accent)' }} />Personal Details
+                <h5 style={{ fontWeight: 700, color: '#1a202c', marginBottom: 16 }}>
+                  <i className="bi bi-person-lines-fill me-2" style={{ color: '#4299e1' }} />Personal Details
                 </h5>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <tbody>
@@ -341,8 +341,8 @@ export default function StudentProfile() {
             {/* Education */}
             <div className="col-md-6">
               <div className="ai-card h-100">
-                <h5 style={{ fontWeight: 700, color: 'var(--text-primary)', marginBottom: 16 }}>
-                  <i className="bi bi-book-fill me-2" style={{ color: 'var(--accent)' }} />Education
+                <h5 style={{ fontWeight: 700, color: '#1a202c', marginBottom: 16 }}>
+                  <i className="bi bi-book-fill me-2" style={{ color: '#4299e1' }} />Education
                 </h5>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <tbody>
@@ -361,8 +361,8 @@ export default function StudentProfile() {
             {(profile.github || profile.linkedin || profile.portfolio) && (
               <div className="col-md-6">
                 <div className="ai-card h-100">
-                  <h5 style={{ fontWeight: 700, color: 'var(--text-primary)', marginBottom: 16 }}>
-                    <i className="bi bi-link-45deg me-2" style={{ color: 'var(--accent)' }} />Social Links
+                  <h5 style={{ fontWeight: 700, color: '#1a202c', marginBottom: 16 }}>
+                    <i className="bi bi-link-45deg me-2" style={{ color: '#4299e1' }} />Social Links
                   </h5>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                     {profile.github && <SocialLink icon="bi-github" label="GitHub" url={profile.github} />}
@@ -377,8 +377,8 @@ export default function StudentProfile() {
             {profile.languages.length > 0 && (
               <div className="col-md-6">
                 <div className="ai-card h-100">
-                  <h5 style={{ fontWeight: 700, color: 'var(--text-primary)', marginBottom: 16 }}>
-                    <i className="bi bi-chat-dots-fill me-2" style={{ color: 'var(--accent)' }} />Languages
+                  <h5 style={{ fontWeight: 700, color: '#1a202c', marginBottom: 16 }}>
+                    <i className="bi bi-chat-dots-fill me-2" style={{ color: '#4299e1' }} />Languages
                   </h5>
                   <div className="ai-skills-container">
                     {profile.languages.map((l) => (
@@ -393,8 +393,8 @@ export default function StudentProfile() {
             {profile.skills.length > 0 && (
               <div className="col-12">
                 <div className="ai-card">
-                  <h5 style={{ fontWeight: 700, color: 'var(--text-primary)', marginBottom: 16 }}>
-                    <i className="bi bi-tools me-2" style={{ color: 'var(--accent)' }} />Skills
+                  <h5 style={{ fontWeight: 700, color: '#1a202c', marginBottom: 16 }}>
+                    <i className="bi bi-tools me-2" style={{ color: '#4299e1' }} />Skills
                   </h5>
                   <div className="ai-skills-container">
                     {profile.skills.map((s) => (
@@ -409,22 +409,22 @@ export default function StudentProfile() {
             {profile.projects.length > 0 && (
               <div className="col-12">
                 <div className="ai-card">
-                  <h5 style={{ fontWeight: 700, color: 'var(--text-primary)', marginBottom: 16 }}>
-                    <i className="bi bi-code-square me-2" style={{ color: 'var(--accent)' }} />Projects
+                  <h5 style={{ fontWeight: 700, color: '#1a202c', marginBottom: 16 }}>
+                    <i className="bi bi-code-square me-2" style={{ color: '#4299e1' }} />Projects
                   </h5>
                   <div className="row g-3">
                     {profile.projects.map((proj, i) => (
                       <div className="col-md-6" key={i}>
-                        <div style={{ background: 'var(--bg-secondary)', borderRadius: 10, padding: 16, border: '1px solid var(--border)' }}>
-                          <h6 style={{ fontWeight: 700, color: 'var(--text-primary)', marginBottom: 6 }}>{proj.title}</h6>
+                        <div style={{ background: '#f7fafc', borderRadius: 10, padding: 16, border: '1px solid #e2e8f0' }}>
+                          <h6 style={{ fontWeight: 700, color: '#1a202c', marginBottom: 6 }}>{proj.title}</h6>
                           {proj.technologies && (
-                            <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 8 }}>
+                            <p style={{ fontSize: 13, color: '#718096', marginBottom: 8 }}>
                               <i className="bi bi-cpu me-1" />{proj.technologies}
                             </p>
                           )}
                           <div style={{ display: 'flex', gap: 8 }}>
-                            {proj.githubLink && <a href={proj.githubLink} target="_blank" rel="noreferrer" style={{ fontSize: 13, color: 'var(--accent)' }}><i className="bi bi-github me-1" />Code</a>}
-                            {proj.liveLink && <a href={proj.liveLink} target="_blank" rel="noreferrer" style={{ fontSize: 13, color: 'var(--accent)' }}><i className="bi bi-box-arrow-up-right me-1" />Live</a>}
+                            {proj.githubLink && <a href={proj.githubLink} target="_blank" rel="noreferrer" style={{ fontSize: 13, color: '#4299e1' }}><i className="bi bi-github me-1" />Code</a>}
+                            {proj.liveLink && <a href={proj.liveLink} target="_blank" rel="noreferrer" style={{ fontSize: 13, color: '#4299e1' }}><i className="bi bi-box-arrow-up-right me-1" />Live</a>}
                           </div>
                         </div>
                       </div>
@@ -438,19 +438,19 @@ export default function StudentProfile() {
             {profile.internships.length > 0 && (
               <div className="col-12">
                 <div className="ai-card">
-                  <h5 style={{ fontWeight: 700, color: 'var(--text-primary)', marginBottom: 16 }}>
-                    <i className="bi bi-briefcase-fill me-2" style={{ color: 'var(--accent)' }} />Internships
+                  <h5 style={{ fontWeight: 700, color: '#1a202c', marginBottom: 16 }}>
+                    <i className="bi bi-briefcase-fill me-2" style={{ color: '#4299e1' }} />Internships
                   </h5>
                   <div className="row g-3">
                     {profile.internships.map((inv, i) => (
                       <div className="col-md-6" key={i}>
-                        <div style={{ background: 'var(--bg-secondary)', borderRadius: 10, padding: 16, border: '1px solid var(--border)' }}>
-                          <h6 style={{ fontWeight: 700, color: 'var(--text-primary)', marginBottom: 4 }}>{inv.role} @ {inv.company}</h6>
-                          <p style={{ fontSize: 13, color: 'var(--text-muted)', margin: 0 }}>
+                        <div style={{ background: '#f7fafc', borderRadius: 10, padding: 16, border: '1px solid #e2e8f0' }}>
+                          <h6 style={{ fontWeight: 700, color: '#1a202c', marginBottom: 4 }}>{inv.role} @ {inv.company}</h6>
+                          <p style={{ fontSize: 13, color: '#718096', margin: 0 }}>
                             {inv.duration && <><i className="bi bi-clock me-1" />{inv.duration}</>}
                             {inv.mode && <><span className="mx-2">|</span>{inv.mode}</>}
                           </p>
-                          {inv.description && <p style={{ fontSize: 13, color: 'var(--text-tertiary)', marginTop: 8, marginBottom: 0 }}>{inv.description}</p>}
+                          {inv.description && <p style={{ fontSize: 13, color: '#4a5568', marginTop: 8, marginBottom: 0 }}>{inv.description}</p>}
                         </div>
                       </div>
                     ))}
@@ -462,11 +462,11 @@ export default function StudentProfile() {
             {/* Empty state */}
             {!profile.bio && !profile.skills.length && !profile.certifications.length && !profile.projects.length && !profile.internships.length && (
               <div className="col-12 text-center py-5">
-                <div style={{ fontSize: 48, color: 'var(--icon-muted)', marginBottom: 16 }}>
+                <div style={{ fontSize: 48, color: '#cbd5e0', marginBottom: 16 }}>
                   <i className="bi bi-person" />
                 </div>
-                <h5 style={{ color: 'var(--text-muted)' }}>No profile details yet</h5>
-                <p style={{ color: 'var(--icon-muted)', marginBottom: 20 }}>Fill in your profile to showcase your skills and experience.</p>
+                <h5 style={{ color: '#718096' }}>No profile details yet</h5>
+                <p style={{ color: '#a0aec0', marginBottom: 20 }}>Fill in your profile to showcase your skills and experience.</p>
                 <button className="ai-btn-primary" onClick={() => setEditMode(true)}>
                   <i className="bi bi-pencil-square me-1" /> Complete Profile
                 </button>
@@ -484,8 +484,8 @@ function renderRow(label, value) {
   if (!value) return null;
   return (
     <tr>
-      <td style={{ padding: '6px 12px 6px 0', color: 'var(--text-muted)', fontSize: 14, whiteSpace: 'nowrap', verticalAlign: 'top', fontWeight: 500 }}>{label}</td>
-      <td style={{ padding: '6px 0', color: 'var(--text-secondary)', fontSize: 14, fontWeight: 600 }}>{value}</td>
+      <td style={{ padding: '6px 12px 6px 0', color: '#718096', fontSize: 14, whiteSpace: 'nowrap', verticalAlign: 'top', fontWeight: 500 }}>{label}</td>
+      <td style={{ padding: '6px 0', color: '#2d3748', fontSize: 14, fontWeight: 600 }}>{value}</td>
     </tr>
   );
 }
@@ -496,19 +496,19 @@ function SocialLink({ icon, label, url }) {
     <a href={url} target="_blank" rel="noreferrer"
       style={{
         display: 'flex', alignItems: 'center', gap: 12,
-        padding: '10px 14px', borderRadius: 10, background: 'var(--bg-secondary)',
-        textDecoration: 'none', color: 'var(--text-secondary)', border: '1px solid var(--border)',
+        padding: '10px 14px', borderRadius: 10, background: '#f7fafc',
+        textDecoration: 'none', color: '#2d3748', border: '1px solid #e2e8f0',
         transition: 'all 0.2s',
       }}
-      onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--accent-light)'; e.currentTarget.style.borderColor = 'var(--badge-blue-bg)'; }}
-      onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--bg-secondary)'; e.currentTarget.style.borderColor = 'var(--border)'; }}
+      onMouseEnter={(e) => { e.currentTarget.style.background = '#ebf8ff'; e.currentTarget.style.borderColor = '#90cdf4'; }}
+      onMouseLeave={(e) => { e.currentTarget.style.background = '#f7fafc'; e.currentTarget.style.borderColor = '#e2e8f0'; }}
     >
-      <i className={`bi ${icon}`} style={{ fontSize: 20, color: 'var(--accent)' }} />
+      <i className={`bi ${icon}`} style={{ fontSize: 20, color: '#4299e1' }} />
       <div>
         <div style={{ fontWeight: 600, fontSize: 14 }}>{label}</div>
-        <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{displayUrl}</div>
+        <div style={{ fontSize: 12, color: '#718096' }}>{displayUrl}</div>
       </div>
-      <i className="bi bi-box-arrow-up-right" style={{ marginLeft: 'auto', fontSize: 14, color: 'var(--icon-muted)' }} />
+      <i className="bi bi-box-arrow-up-right" style={{ marginLeft: 'auto', fontSize: 14, color: '#a0aec0' }} />
     </a>
   );
 }

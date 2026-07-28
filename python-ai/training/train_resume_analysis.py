@@ -1,5 +1,5 @@
 """
-Profile Analysis - Training Script (College Practical Style)
+Resume Analysis - Training Script
 DecisionTreeClassifier: Excellent, Good, Average, Needs Improvement
 """
 
@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, classification_report
 from sklearn.preprocessing import LabelEncoder
 import joblib
 from pathlib import Path
@@ -15,7 +15,7 @@ from pathlib import Path
 np.random.seed(42)
 n = 1200
 
-df = pd.DataFrame({
+data = {
     'Technical_Skills': np.random.randint(2, 18, n),
     'Projects': np.random.randint(0, 10, n),
     'Internships': np.random.randint(0, 5, n),
@@ -27,9 +27,11 @@ df = pd.DataFrame({
     'Languages_Known': np.random.randint(1, 5, n),
     'Soft_Skills': np.random.randint(0, 6, n),
     'Workshops': np.random.randint(0, 5, n),
-})
+}
 
-def get_category(row):
+df = pd.DataFrame(data)
+
+def assign_category(row):
     score = 0
     if row['Technical_Skills'] >= 12: score += 15
     elif row['Technical_Skills'] >= 7: score += 10
@@ -54,42 +56,75 @@ def get_category(row):
     elif row['Soft_Skills'] >= 2: score += 3
     if row['Workshops'] >= 3: score += 5
     elif row['Workshops'] >= 1: score += 2
-    score += np.random.randint(-6, 7)
+
+    noise = np.random.randint(-6, 7)
+    score += noise
+
     if score >= 62: return 'Excellent'
     elif score >= 45: return 'Good'
     elif score >= 30: return 'Average'
-    return 'Needs Improvement'
+    else: return 'Needs Improvement'
 
-df['Profile_Category'] = df.apply(get_category, axis=1)
+df['Resume_Category'] = df.apply(assign_category, axis=1)
 
 datasets_dir = Path(__file__).resolve().parent.parent / 'datasets'
 datasets_dir.mkdir(exist_ok=True)
-df.to_csv(datasets_dir / 'profile_analysis.csv', index=False)
-print(f"Dataset saved, shape: {df.shape}")
-print(df['Profile_Category'].value_counts())
+csv_path = datasets_dir / 'resume_analysis.csv'
+df.to_csv(csv_path, index=False)
+print(f"Dataset saved to {csv_path}")
+print(f"Shape: {df.shape}")
+dist = df['Resume_Category'].value_counts()
+print(f"Category distribution:\n{dist}\n")
+if dist.min() < 2:
+    print("WARNING: Some classes have < 2 samples. Adjust thresholds.\n")
 
-feature_cols = ['Technical_Skills', 'Projects', 'Internships', 'Certifications',
-                'CGPA', 'Has_GitHub', 'Has_LinkedIn', 'Has_Portfolio',
-                'Languages_Known', 'Soft_Skills', 'Workshops']
+feature_cols = [
+    'Technical_Skills', 'Projects', 'Internships', 'Certifications',
+    'CGPA', 'Has_GitHub', 'Has_LinkedIn', 'Has_Portfolio',
+    'Languages_Known', 'Soft_Skills', 'Workshops'
+]
 X = df[feature_cols]
-y = df['Profile_Category']
+y = df['Resume_Category']
 
-encoder = LabelEncoder()
-y_enc = encoder.fit_transform(y)
+label_encoder = LabelEncoder()
+y_encoded = label_encoder.fit_transform(y)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y_enc, test_size=0.2, random_state=42, stratify=y_enc)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y_encoded, test_size=0.2, random_state=42, stratify=y_encoded
+)
 
 model = DecisionTreeClassifier(max_depth=12, min_samples_split=5, random_state=42)
 model.fit(X_train, y_train)
 
-pred = model.predict(X_test)
-acc = accuracy_score(y_test, pred)
-print(f"\nAccuracy: {acc:.2%}")
+y_pred = model.predict(X_test)
+
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2%}")
+print("\nClassification Report:")
+print(classification_report(
+    y_test, y_pred,
+    target_names=label_encoder.classes_
+))
 
 models_dir = Path(__file__).resolve().parent.parent / 'trained_models'
 models_dir.mkdir(exist_ok=True)
 
-joblib.dump(model, models_dir / 'profile_analysis_model.pkl')
-joblib.dump(encoder, models_dir / 'profile_analysis_encoder.pkl')
-joblib.dump(feature_cols, models_dir / 'profile_analysis_features.pkl')
-print("\nModel, encoder, and feature names saved.")
+model_path = models_dir / 'resume_analysis_model.pkl'
+joblib.dump(model, model_path)
+print(f"Model saved to {model_path}")
+
+encoder_path = models_dir / 'resume_analysis_encoder.pkl'
+joblib.dump(label_encoder, encoder_path)
+print(f"Label encoder saved to {encoder_path}")
+
+features_path = models_dir / 'resume_analysis_features.pkl'
+joblib.dump(feature_cols, features_path)
+print(f"Feature names saved to {features_path}")
+
+print("\nSample predictions (first 8 test samples):")
+sample_preds = model.predict(X_test[:8])
+sample_actual = y_test[:8]
+for i in range(8):
+    pred_label = label_encoder.inverse_transform([sample_preds[i]])[0]
+    actual_label = label_encoder.inverse_transform([sample_actual[i]])[0]
+    print(f"  Predicted: {pred_label:20s} | Actual: {actual_label}")

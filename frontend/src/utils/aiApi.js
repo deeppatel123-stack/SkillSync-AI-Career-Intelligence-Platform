@@ -25,9 +25,9 @@ async function request(path, options = {}) {
 }
 
 export const aiApi = {
-  // Profile Analysis
-  analyzeProfile: (body) =>
-    request('/ai/profile-analysis', { method: 'POST', body: JSON.stringify(body) }),
+  // Profile Analysis (calls /ai/resume-analysis on backend)
+  analyzeResume: (body) =>
+    request('/ai/resume-analysis', { method: 'POST', body: JSON.stringify(body) }),
 
   // Career Role Recommendation
   recommendCareerRole: (body) =>

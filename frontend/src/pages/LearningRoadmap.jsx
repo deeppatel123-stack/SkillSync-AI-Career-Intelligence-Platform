@@ -57,7 +57,7 @@ export default function LearningRoadmap() {
                 <i className="bi bi-signpost-2" />
                 <div>
                   <h3>Learning Hub - Roadmap</h3>
-                  <p>Get a personalized learning roadmap based on your missing skills and career goals.</p>
+                  <p>Get a step-by-step learning plan for your dream career</p>
                 </div>
               </div>
 

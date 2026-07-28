@@ -43,21 +43,21 @@ export default function InternshipManager({ value = [], onChange, label = 'Inter
             <div
               key={index}
               style={{
-                background: '#f7fafc', border: '1px solid #e2e8f0',
+                background: 'var(--bg-secondary)', border: '1px solid var(--border)',
                 borderRadius: 8, padding: '10px 14px', marginBottom: 8,
                 display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
               }}
             >
               <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 600, fontSize: 14, color: '#1a202c' }}>
+                <div style={{ fontWeight: 600, fontSize: 14, color: 'var(--text-primary)' }}>
                   {intern.role} @ {intern.company}
                 </div>
-                <div style={{ fontSize: 13, color: '#718096', marginTop: 2 }}>
+                <div style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 2 }}>
                   {intern.duration && <span>{intern.duration} | </span>}
                   {intern.mode && <span>{intern.mode}</span>}
                 </div>
                 {intern.description && (
-                  <div style={{ fontSize: 13, color: '#4a5568', marginTop: 4 }}>
+                  <div style={{ fontSize: 13, color: 'var(--text-tertiary)', marginTop: 4 }}>
                     {intern.description}
                   </div>
                 )}
@@ -66,7 +66,7 @@ export default function InternshipManager({ value = [], onChange, label = 'Inter
                 type="button"
                 onClick={() => removeInternship(index)}
                 style={{
-                  background: 'none', border: 'none', color: '#e53e3e',
+                  background: 'none', border: 'none', color: 'var(--error)',
                   cursor: 'pointer', padding: '4px', fontSize: 16,
                 }}
               >
@@ -80,7 +80,7 @@ export default function InternshipManager({ value = [], onChange, label = 'Inter
       {/* Add new internship form */}
       {showForm ? (
         <div style={{
-          background: '#fff', border: '1px solid #4299e1', borderRadius: 8,
+          background: 'var(--bg-primary)', border: '1px solid var(--accent)', borderRadius: 8,
           padding: 16, marginTop: 8,
         }}>
           <div className="row g-2">
@@ -163,16 +163,16 @@ export default function InternshipManager({ value = [], onChange, label = 'Inter
             padding: '10px 16px',
             fontSize: 14,
             fontWeight: 600,
-            background: '#f7fafc',
-            color: '#4299e1',
-            border: '2px dashed #cbd5e0',
+            background: 'var(--bg-secondary)',
+            color: 'var(--accent)',
+            border: '2px dashed var(--border-strong)',
             borderRadius: 8,
             cursor: 'pointer',
             transition: 'all 0.2s',
             marginTop: 4,
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.background = '#ebf8ff'; e.currentTarget.style.borderColor = '#90cdf4'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = '#f7fafc'; e.currentTarget.style.borderColor = '#cbd5e0'; }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--accent-light)'; e.currentTarget.style.borderColor = 'var(--badge-blue-bg)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--bg-secondary)'; e.currentTarget.style.borderColor = 'var(--border-strong)'; }}
         >
           <i className="bi bi-plus-circle me-1" /> Add Internship
         </button>

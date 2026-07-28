@@ -240,7 +240,7 @@ a {
 .btn-primary-custom {
   background: var(--accent);
   border: none;
-  color: #ffffff;
+  color: var(--text-inverse);
   padding: 11px 24px;
   border-radius: 8px;
   font-weight: 500;
@@ -282,7 +282,7 @@ a {
 .sidebar {
   width: 260px;
   background: var(--sidebar-bg);
-  color: #ffffff;
+  color: var(--sidebar-text-hover);
   height: 100vh;
   position: fixed;
   top: 0;
@@ -299,7 +299,7 @@ a {
   margin-bottom: 32px;
   font-weight: 700;
   padding: 0 24px;
-  color: #ffffff;
+  color: var(--sidebar-text-hover);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -367,7 +367,7 @@ a {
   left: 15px;
   z-index: 1001;
   background: var(--accent);
-  color: white;
+  color: var(--text-inverse);
   border: none;
   width: 40px;
   height: 40px;
@@ -748,7 +748,7 @@ a {
 [data-theme="dark"] .btn-outline-primary:hover {
   background: var(--accent);
   border-color: var(--accent);
-  color: #ffffff;
+  color: var(--text-inverse);
 }
 
 [data-theme="dark"] .page-link {
@@ -765,7 +765,7 @@ a {
 [data-theme="dark"] .page-item.active .page-link {
   background: var(--accent);
   border-color: var(--accent);
-  color: #ffffff;
+  color: var(--text-inverse);
 }
 
 [data-theme="dark"] .page-item.disabled .page-link {
@@ -826,7 +826,7 @@ a {
 
 [data-theme="dark"] .nav-pills .nav-link.active {
   background: var(--accent);
-  color: #ffffff;
+  color: var(--text-inverse);
 }
 
 [data-theme="dark"] .offcanvas {

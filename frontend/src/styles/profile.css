@@ -210,7 +210,7 @@ textarea.form-control-custom {
 
 .btn-save {
   background: var(--accent);
-  color: #ffffff;
+  color: var(--text-inverse);
   border: none;
   padding: 12px 24px;
   border-radius: 10px;

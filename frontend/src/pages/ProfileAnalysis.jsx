@@ -168,7 +168,7 @@ export default function ProfileAnalysis() {
                   {profileIncomplete ? (
                     <div className="ai-error" style={{ textAlign: 'center', padding: '24px' }}>
                       <i className="bi bi-exclamation-circle-fill" style={{ fontSize: 32, display: 'block', marginBottom: 12 }} />
-                      <h6 style={{ color: '#9b2c2c' }}>Profile Incomplete</h6>
+                      <h6 style={{ color: 'var(--error-text)' }}>Profile Incomplete</h6>
                       <p style={{ fontSize: 14, marginBottom: 16 }}>
                         Please add skills, projects, internships, or certifications to your profile before using Profile Analysis.
                       </p>
@@ -227,6 +227,16 @@ export default function ProfileAnalysis() {
                       </div>
                     )}
                     <p className="ra-hero-desc">{cfg.tagline}</p>
+
+                    {result.most_suitable_career_role && (
+                      <div className="ra-career-section">
+                        <p className="ra-career-label">Most Suitable Career</p>
+                        <h3 className="ra-career-role">{result.most_suitable_career_role}</h3>
+                        <p className="ra-career-desc">
+                          &ldquo;Based on your overall profile, skills, projects, internships, and certifications, <strong>{result.most_suitable_career_role}</strong> is currently the most suitable career path for you.&rdquo;
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   <div className="ra-grid">

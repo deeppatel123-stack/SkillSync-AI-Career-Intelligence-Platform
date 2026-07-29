@@ -1,7 +1,3 @@
-/**
- * AI API helper – communicates with Node.js backend which forwards to Django.
- */
-
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 async function request(path, options = {}) {
@@ -25,30 +21,23 @@ async function request(path, options = {}) {
 }
 
 export const aiApi = {
-  // Profile Analysis (calls /ai/resume-analysis on backend)
   analyzeResume: (body) =>
     request('/ai/resume-analysis', { method: 'POST', body: JSON.stringify(body) }),
 
-  // Career Role Recommendation
   recommendCareerRole: (body) =>
     request('/ai/career-role', { method: 'POST', body: JSON.stringify(body) }),
 
-  // Skill Gap Analysis
   analyzeSkillGap: (body) =>
     request('/ai/skill-gap', { method: 'POST', body: JSON.stringify(body) }),
 
-  // Learning Roadmap
   generateLearningRoadmap: (body) =>
     request('/ai/learning-roadmap', { method: 'POST', body: JSON.stringify(body) }),
 
-  // Get Data
   getCareers: () => request('/ai/careers'),
 
-  // Statistics
   getCollegeStatistics: () => request('/college/statistics'),
   getCompanyStatistics: () => request('/company/statistics'),
 
-  // Student Profile
   getStudentProfile: () => request('/users/profile/student'),
   updateStudentProfile: (body) =>
     request('/users/profile/student', { method: 'PUT', body: JSON.stringify(body) }),

@@ -1,11 +1,8 @@
-/**
- * API helper – all requests go to the Express backend with session cookies.
- */
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 async function request(path, options = {}) {
   const res = await fetch(`${API_BASE}${path}`, {
-    credentials: 'include', // send session cookie
+    credentials: 'include', 
     headers: {
       'Content-Type': 'application/json',
       ...options.headers,
@@ -23,7 +20,6 @@ async function request(path, options = {}) {
   return data;
 }
 
-// —— Auth ——
 export const authApi = {
   register: (body) => request('/auth/register', { method: 'POST', body: JSON.stringify(body) }),
   login: (body) => request('/auth/login', { method: 'POST', body: JSON.stringify(body) }),
@@ -33,7 +29,6 @@ export const authApi = {
   me: () => request('/auth/me'),
 };
 
-// —— Users ——
 export const userApi = {
   getAll: () => request('/users'),
   getStats: () => request('/users/stats'),
@@ -41,7 +36,6 @@ export const userApi = {
   delete: (id) => request(`/users/${id}`, { method: 'DELETE' }),
 };
 
-// —— Opportunities ——
 export const opportunityApi = {
   list: (params = {}) => {
     const q = new URLSearchParams(params).toString();
@@ -57,7 +51,6 @@ export const opportunityApi = {
   dashboardStats: () => request('/opportunities/dashboard/stats'),
 };
 
-// —— Applications ——
 export const applicationApi = {
   list: (params = {}) => {
     const q = new URLSearchParams(params).toString();
@@ -67,7 +60,7 @@ export const applicationApi = {
     fetch(`${API_BASE}/applications`, {
       method: 'POST',
       credentials: 'include',
-      body: formData, // FormData for file upload – no Content-Type header
+      body: formData, 
     }).then(async (res) => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Request failed');
@@ -78,7 +71,6 @@ export const applicationApi = {
   remove: (id) => request(`/applications/${id}`, { method: 'DELETE' }),
 };
 
-// —— Tasks ——
 export const taskApi = {
   list: (filter = '') => {
     const q = filter ? `?filter=${filter}` : '';

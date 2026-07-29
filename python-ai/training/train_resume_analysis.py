@@ -1,5 +1,3 @@
-
-
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -118,10 +116,3 @@ features_path = models_dir / 'resume_analysis_features.pkl'
 joblib.dump(feature_cols, features_path)
 print(f"Feature names saved to {features_path}")
 
-print("\nSample predictions (first 8 test samples):")
-sample_preds = model.predict(X_test[:8])
-sample_actual = y_test[:8]
-for i in range(8):
-    pred_label = label_encoder.inverse_transform([sample_preds[i]])[0]
-    actual_label = label_encoder.inverse_transform([sample_actual[i]])[0]
-    print(f"  Predicted: {pred_label:20s} | Actual: {actual_label}")

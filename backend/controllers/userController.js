@@ -66,4 +66,46 @@ async function changePassword(req, res) {
   }
 }
 
-module.exports = { getAllUsers, getPlatformStats, updateProfile, deleteUser, changePassword };
+async function toggleSaveOpportunity(req, res) {
+  try {
+    const opp = await Opportunity.findById(req.params.id);
+    if (!opp) return res.status(404).json({ success: false, message: 'Opportunity not found' });
+
+    const user = req.user;
+    const index = user.savedOpportunities.findIndex(id => id.toString() === opp._id.toString());
+
+    if (index > -1) {
+      user.savedOpportunities.splice(index, 1);
+      await user.save();
+      return res.json({ success: true, message: 'Removed from saved', saved: false });
+    }
+
+    user.savedOpportunities.push(opp._id);
+    await user.save();
+    res.json({ success: true, message: 'Opportunity saved', saved: true });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+}
+
+async function getSavedOpportunities(req, res) {
+  try {
+    const user = await User.findById(req.user._id).populate({
+      path: 'savedOpportunities',
+      match: { reviewStatus: 'approved' },
+      populate: { path: 'organizerId', select: 'name' },
+    });
+    const opportunities = user.savedOpportunities
+      .filter(o => o)
+      .map(o => {
+        const json = o.toPublicJSON();
+        json.organizerName = o.organizerId?.name || 'Unknown';
+        return json;
+      });
+    res.json({ success: true, opportunities });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+}
+
+module.exports = { getAllUsers, getPlatformStats, updateProfile, deleteUser, changePassword, toggleSaveOpportunity, getSavedOpportunities };

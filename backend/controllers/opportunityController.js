@@ -1,5 +1,6 @@
 const Opportunity = require('../models/Opportunity');
 const Application = require('../models/Application');
+const Notification = require('../models/Notification');
 
 async function getOpportunities(req, res) {
   try {
@@ -93,6 +94,11 @@ async function reviewOpportunity(req, res) {
     if (!opp) return res.status(404).json({ success: false, message: 'Opportunity not found' });
     opp.reviewStatus = reviewStatus;
     await opp.save();
+
+    await Notification.create({
+      recipientId: opp.organizerId, type: 'opportunity', title: 'Opportunity review update',
+      message: `Your opportunity "${opp.title}" was ${reviewStatus} by admin`, link: '/manage-opportunities',
+    });
     res.json({ success: true, message: `Opportunity ${reviewStatus}`, opportunity: opp.toPublicJSON() });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

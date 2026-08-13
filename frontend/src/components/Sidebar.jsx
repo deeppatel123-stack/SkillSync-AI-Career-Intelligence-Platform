@@ -13,6 +13,8 @@ const studentLinks = [
   { to: '/ai/skill-gap', icon: 'bi-exclamation-triangle', label: 'Skill Gap Analysis' },
   // Learning Hub
   { to: '/learning-hub/roadmap', icon: 'bi-signpost-2', label: 'Learning Hub' },
+  // Resume Builder
+  { to: '/resume', icon: 'bi-file-earmark-arrow-down', label: 'Resume Builder' },
 ];
 
 const organizerLinks = [

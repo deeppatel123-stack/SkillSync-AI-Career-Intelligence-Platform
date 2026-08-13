@@ -34,6 +34,15 @@ export const userApi = {
   getStats: () => request('/users/stats'),
   updateProfile: (body) => request('/users/profile', { method: 'PUT', body: JSON.stringify(body) }),
   delete: (id) => request(`/users/${id}`, { method: 'DELETE' }),
+  getSaved: () => request('/users/saved'),
+  saveOpportunity: (id) => request(`/users/saved/${id}`, { method: 'POST' }),
+  unsaveOpportunity: (id) => request(`/users/saved/${id}`, { method: 'DELETE' }),
+};
+
+export const notificationApi = {
+  list: () => request('/notifications'),
+  markRead: (id) => request(`/notifications/${id}/read`, { method: 'PATCH' }),
+  markAllRead: () => request('/notifications/read-all', { method: 'POST' }),
 };
 
 export const opportunityApi = {
@@ -81,4 +90,4 @@ export const taskApi = {
   remove: (id) => request(`/tasks/${id}`, { method: 'DELETE' }),
 };
 
-export default { authApi, userApi, opportunityApi, applicationApi, taskApi };
+export default { authApi, userApi, opportunityApi, applicationApi, taskApi, notificationApi };

@@ -29,6 +29,7 @@ const userSchema = new mongoose.Schema({
   projects: [{ title: String, technologies: String, githubLink: String, liveLink: String }],
   internships: [{ company: String, role: String, duration: String, mode: String, description: String }],
   languages: { type: [String], default: [] },
+  savedOpportunities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Opportunity', default: [] }],
   resume: { type: String, default: '' },
   github: { type: String, default: '' },
   linkedin: { type: String, default: '' },

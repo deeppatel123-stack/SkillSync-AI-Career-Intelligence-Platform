@@ -88,6 +88,29 @@ export default function StudentProfile() {
     }
   }
 
+  const profileStrengthChecks = [
+    { label: 'Basic details filled', done: Boolean(profile.name && profile.phone) },
+    { label: 'About / bio added', done: Boolean(profile.bio) },
+    { label: 'Education details added', done: Boolean(profile.collegeName && profile.degree) },
+    { label: 'CGPA added', done: Boolean(profile.cgpa) },
+    { label: 'At least 3 skills', done: profile.skills.length >= 3 },
+    { label: 'At least 1 project', done: profile.projects.length >= 1 },
+    { label: 'At least 1 internship', done: profile.internships.length >= 1 },
+    { label: 'At least 1 certification', done: profile.certifications.length >= 1 },
+    { label: 'At least 1 social link', done: Boolean(profile.github || profile.linkedin || profile.portfolio) },
+    { label: 'Languages added', done: profile.languages.length >= 1 },
+  ];
+
+  const profileStrength = Math.round(
+    (profileStrengthChecks.filter((c) => c.done).length / profileStrengthChecks.length) * 100,
+  );
+
+  function strengthColor(score) {
+    if (score < 40) return { color: '#e53e3e', label: 'Needs Improvement' };
+    if (score < 70) return { color: '#dd6b20', label: 'Good' };
+    return { color: '#38a169', label: 'Excellent' };
+  }
+
   if (loading) {
     return (
       <AppLayout role="student">
@@ -304,6 +327,35 @@ export default function StudentProfile() {
         ) : (
           /* View Mode */
           <div className="row g-4">
+
+            {/* Profile Strength */}
+            <div className="col-12">
+              <div className="ai-card" style={{ borderLeft: `4px solid ${strengthColor(profileStrength).color}` }}>
+                <div className="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                  <div>
+                    <h5 style={{ fontWeight: 700, color: '#1a202c', marginBottom: 4 }}>
+                      <i className="bi bi-gauge me-2" style={{ color: strengthColor(profileStrength).color }} />Profile Strength
+                    </h5>
+                    <p style={{ margin: 0, fontSize: 13.5, color: '#718096' }}>
+                      {strengthColor(profileStrength).label} - {profileStrength}%
+                    </p>
+                  </div>
+                  <div style={{ width: 180, height: 10, borderRadius: 8, background: '#edf2f7', overflow: 'hidden' }}>
+                    <div style={{ width: `${profileStrength}%`, height: '100%', borderRadius: 8, background: strengthColor(profileStrength).color, transition: 'width 0.5s ease' }} />
+                  </div>
+                </div>
+                <div className="row g-2 mt-2">
+                  {profileStrengthChecks.map((c) => (
+                    <div className="col-md-6" key={c.label}>
+                      <span style={{ fontSize: 13, color: c.done ? '#2f855a' : '#a0aec0' }}>
+                        <i className={`bi ${c.done ? 'bi-check-circle-fill' : 'bi-circle'} me-1`} />
+                        {c.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
 
             {/* About section */}
             {profile.bio && (

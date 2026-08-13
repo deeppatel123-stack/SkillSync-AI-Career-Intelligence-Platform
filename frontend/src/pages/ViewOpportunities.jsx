@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppLayout from '../components/AppLayout';
-import { applicationApi, opportunityApi } from '../utils/api';
+import { applicationApi, opportunityApi, userApi } from '../utils/api';
 import { getAppRole, getSession } from '../utils/userSession';
 
-function OpportunityDetailModal({ opportunity, organizerName, onClose, showApply, onApply, hasApplied, deadlinePassed }) {
+function OpportunityDetailModal({ opportunity, organizerName, onClose, showApply, onApply, hasApplied, deadlinePassed, saved, onToggleSave }) {
   if (!opportunity) return null;
 
   return (
@@ -20,6 +20,15 @@ function OpportunityDetailModal({ opportunity, organizerName, onClose, showApply
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">{opportunity.title}</h5>
+              {showApply && (
+                <button
+                  type="button"
+                  className={`btn btn-sm ${saved ? 'btn-warning' : 'btn-outline-warning'} me-2`}
+                  onClick={() => onToggleSave(opportunity.id)}
+                >
+                  <i className={`bi ${saved ? 'bi-bookmark-fill' : 'bi-bookmark'}`} />
+                </button>
+              )}
               <button type="button" className="btn-close" onClick={onClose} aria-label="Close" />
             </div>
             <div className="modal-body">
@@ -93,7 +102,9 @@ export default function ViewOpportunities() {
 
   const [typeFilter, setTypeFilter] = useState('all');
   const [search, setSearch] = useState('');
+  const [savedOnly, setSavedOnly] = useState(false);
   const [applied, setApplied] = useState(new Set());
+  const [saved, setSaved] = useState(new Set());
   const [detailOpp, setDetailOpp] = useState(null);
   const [opportunities, setOpportunities] = useState([]);
   const [appCounts, setAppCounts] = useState({});
@@ -113,6 +124,13 @@ export default function ViewOpportunities() {
         .then((data) => {
           const ids = new Set((data.applications || []).map((a) => a.opportunityId));
           setApplied(ids);
+        })
+        .catch(() => {});
+      userApi
+        .getSaved()
+        .then((data) => {
+          const ids = new Set((data.opportunities || []).map((o) => o.id));
+          setSaved(ids);
         })
         .catch(() => {});
     }
@@ -137,6 +155,9 @@ export default function ViewOpportunities() {
     if (typeFilter !== 'all') {
       data = data.filter((o) => o.type === typeFilter);
     }
+    if (savedOnly) {
+      data = data.filter((o) => saved.has(o.id));
+    }
     if (search.trim()) {
       const q = search.toLowerCase();
       data = data.filter(
@@ -147,9 +168,27 @@ export default function ViewOpportunities() {
       );
     }
     return [...data].reverse();
-  }, [baseOpps, typeFilter, search]);
+  }, [baseOpps, typeFilter, savedOnly, saved, search]);
 
   const getOrganizerName = (o) => o.organizerName || 'Unknown';
+
+  const handleToggleSave = async (oppId) => {
+    try {
+      if (saved.has(oppId)) {
+        await userApi.unsaveOpportunity(oppId);
+        setSaved((prev) => {
+          const next = new Set(prev);
+          next.delete(oppId);
+          return next;
+        });
+      } else {
+        await userApi.saveOpportunity(oppId);
+        setSaved((prev) => new Set(prev).add(oppId));
+      }
+    } catch (err) {
+      alert(err.message);
+    }
+  };
 
   const handleApply = async (oppId) => {
     try {
@@ -210,9 +249,20 @@ export default function ViewOpportunities() {
           <div className="col-lg-3 col-md-3 col-sm-12">
             <div className="filter-group">
               <label>&nbsp;</label>
-              <button type="button" className="btn btn-primary w-100">
-                <i className="bi bi-funnel" /> Filter
-              </button>
+              {!isOrganizerView && (
+                <button
+                  type="button"
+                  className={`btn ${savedOnly ? 'btn-warning' : 'btn-outline-warning'} w-100`}
+                  onClick={() => setSavedOnly((prev) => !prev)}
+                >
+                  <i className={`bi ${savedOnly ? 'bi-bookmark-fill' : 'bi-bookmark'}`} /> Saved
+                </button>
+              )}
+              {isOrganizerView && (
+                <button type="button" className="btn btn-primary w-100">
+                  <i className="bi bi-funnel" /> Filter
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -270,6 +320,16 @@ export default function ViewOpportunities() {
                 </div>
 
                 <div className="opportunity-list-actions">
+                  {!isOrganizerView && (
+                    <button
+                      type="button"
+                      className={`btn ${saved.has(o.id) ? 'btn-warning' : 'btn-outline-warning'} opportunity-btn`}
+                      onClick={() => handleToggleSave(o.id)}
+                      title={saved.has(o.id) ? 'Remove from saved' : 'Save opportunity'}
+                    >
+                      <i className={`bi ${saved.has(o.id) ? 'bi-bookmark-fill' : 'bi-bookmark'}`} />
+                    </button>
+                  )}
                   {!isOrganizerView && !deadlinePassed && (
                     hasApplied ? (
                       <button type="button" className="btn btn-success opportunity-btn" disabled>
@@ -312,6 +372,8 @@ export default function ViewOpportunities() {
           showApply={!isOrganizerView}
           onApply={() => handleApply(detailOpp.id)}
           hasApplied={applied.has(detailOpp.id)}
+          saved={saved.has(detailOpp.id)}
+          onToggleSave={handleToggleSave}
           deadlinePassed={new Date(detailOpp.deadline) < new Date() || detailOpp.status === 'closed'}
         />
       )}

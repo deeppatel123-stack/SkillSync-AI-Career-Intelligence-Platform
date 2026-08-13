@@ -15,6 +15,7 @@ const aiRoutes = require('./routes/aiRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 const statisticsRoutes = require('./routes/statisticsRoutes');
 const taskRoutes = require('./routes/taskRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -55,6 +56,7 @@ app.use('/api/ai', aiRoutes);
 app.use('/api/users/profile', profileRoutes);
 app.use('/api', statisticsRoutes);
 app.use('/api/tasks', taskRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({ success: true, message: 'SkillSync API is running' });

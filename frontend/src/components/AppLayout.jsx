@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
 import ThemeToggle from './ThemeToggle';
+import NotificationBell from './NotificationBell';
 
 export default function AppLayout({
   children,
@@ -50,7 +51,8 @@ export default function AppLayout({
           onLogout={onLogout}
         />
         <main className="main-content">
-          <div className="d-flex justify-content-end align-items-center mb-3" style={{ minHeight: 44 }}>
+          <div className="d-flex justify-content-end align-items-center mb-3 gap-2" style={{ minHeight: 44 }}>
+            <NotificationBell />
             <ThemeToggle />
           </div>
           {children}

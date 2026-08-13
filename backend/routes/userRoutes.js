@@ -5,6 +5,8 @@ const {
   updateProfile,
   deleteUser,
   changePassword,
+  toggleSaveOpportunity,
+  getSavedOpportunities,
 } = require('../controllers/userController');
 const { requireAuth, requireAdmin } = require('../middleware/authMiddleware');
 
@@ -24,6 +26,15 @@ router.put('/profile', updateProfile);
 
 // POST /api/users/change-password
 router.post('/change-password', changePassword);
+
+// GET /api/users/saved
+router.get('/saved', getSavedOpportunities);
+
+// POST /api/users/saved/:id
+router.post('/saved/:id', toggleSaveOpportunity);
+
+// DELETE /api/users/saved/:id
+router.delete('/saved/:id', toggleSaveOpportunity);
 
 // DELETE /api/users/:id
 router.delete('/:id', requireAdmin, deleteUser);

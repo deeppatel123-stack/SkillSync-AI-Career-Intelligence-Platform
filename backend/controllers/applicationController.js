@@ -1,6 +1,7 @@
 const Application = require('../models/Application');
 const Opportunity = require('../models/Opportunity');
 const User = require('../models/User');
+const Notification = require('../models/Notification');
 const { sendEmail } = require('../config/email');
 
 async function getApplications(req, res) {
@@ -80,6 +81,11 @@ async function createApplication(req, res) {
       });
     }
 
+    await Notification.create({
+      recipientId: opp.organizerId, type: 'application', title: 'New application received',
+      message: `${req.user.name} applied to ${opp.title}`, link: '/applications',
+    });
+
     res.status(201).json({ success: true, message: 'Application submitted successfully', application: application.toPublicJSON() });
   } catch (error) {
     if (error.code === 11000) return res.status(400).json({ success: false, message: 'Already applied' });
@@ -109,6 +115,12 @@ async function updateApplicationStatus(req, res) {
         html: `<p>Your application status was updated to: <strong>${status}</strong></p>`,
       });
     }
+
+    const opp = await Opportunity.findById(app.opportunityId);
+    await Notification.create({
+      recipientId: app.studentId, type: 'application', title: 'Application status updated',
+      message: `Your application for ${opp?.title || 'an opportunity'} is now ${status}`, link: '/applications',
+    });
 
     res.json({ success: true, message: 'Application status updated', application: app.toPublicJSON() });
   } catch (error) {

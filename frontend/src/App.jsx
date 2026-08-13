@@ -21,6 +21,7 @@ import LearningRoadmap from './pages/LearningRoadmap';
 // Student Profile
 import StudentProfile from './pages/StudentProfile';
 import TodoPage from './pages/TodoPage';
+import ResumeBuilder from './pages/ResumeBuilder';
 
 export default function App() {
   return (
@@ -49,6 +50,9 @@ export default function App() {
 
       {/* Student Profile */}
       <Route path="/student/profile" element={<StudentProfile />} />
+
+      {/* Resume Builder */}
+      <Route path="/resume" element={<ResumeBuilder />} />
 
       {/* To-Do List */}
       <Route path="/todo" element={<TodoPage />} />

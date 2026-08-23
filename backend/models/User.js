@@ -34,6 +34,22 @@ const userSchema = new mongoose.Schema({
   github: { type: String, default: '' },
   linkedin: { type: String, default: '' },
   portfolio: { type: String, default: '' },
+  industry: { type: String, default: '' },
+  companySize: { type: String, default: '' },
+  companyBenefits: { type: String, default: '' },
+  logoUrl: { type: String, default: '' },
+  institutionCode: { type: String, default: '' },
+  contactEmail: { type: String, default: '' },
+  isVerified: { type: Boolean, default: false },
+  accreditation: { type: String, default: '' },
+  placementStatus: { type: String, enum: ['unplaced', 'placed', 'seeking'], default: 'unplaced' },
+  careerGoals: {
+    targetRole: { type: String, default: '' },
+    targetSkills: { type: [String], default: [] },
+    preferredIndustry: { type: String, default: '' },
+    preferredLocation: { type: String, default: '' },
+    opportunityPreference: { type: String, default: 'any' },
+  },
 }, { timestamps: true });
 
 userSchema.methods.toPublicJSON = function () {
@@ -48,6 +64,11 @@ userSchema.methods.toPublicJSON = function () {
     certifications: this.certifications, projects: this.projects,
     internships: this.internships, languages: this.languages, resume: this.resume,
     github: this.github, linkedin: this.linkedin, portfolio: this.portfolio,
+    savedOpportunities: (this.savedOpportunities || []).map(id => id.toString ? id.toString() : id),
+    industry: this.industry, companySize: this.companySize, companyBenefits: this.companyBenefits,
+    logoUrl: this.logoUrl, institutionCode: this.institutionCode, contactEmail: this.contactEmail,
+    isVerified: this.isVerified, accreditation: this.accreditation, placementStatus: this.placementStatus,
+    careerGoals: this.careerGoals,
     createdAt: this.createdAt,
   };
 };

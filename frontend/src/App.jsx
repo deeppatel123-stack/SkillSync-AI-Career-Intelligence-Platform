@@ -23,6 +23,14 @@ import StudentProfile from './pages/StudentProfile';
 import TodoPage from './pages/TodoPage';
 import ResumeBuilder from './pages/ResumeBuilder';
 
+import CollegeDashboard from './pages/CollegeDashboard';
+import CompanyDashboard from './pages/CompanyDashboard';
+import CampusDrives from './pages/CampusDrives';
+import StudentManagement from './pages/StudentManagement';
+import CandidateSearch from './pages/CandidateSearch';
+import InterviewsPage from './pages/InterviewsPage';
+import SavedOpportunities from './pages/SavedOpportunities';
+
 export default function App() {
   return (
     <Routes>
@@ -31,9 +39,27 @@ export default function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/admin/register" element={<AdminRegister />} />
+
+      {/* Role Dashboards */}
       <Route path="/student/dashboard" element={<StudentDashboard />} />
-      <Route path="/organizer/dashboard" element={<OrganizerDashboard />} />
+      <Route path="/college/dashboard" element={<CollegeDashboard />} />
+      <Route path="/company/dashboard" element={<CompanyDashboard />} />
+      <Route path="/organizer/dashboard" element={<CollegeDashboard />} />
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+      {/* Role Specific Routes */}
+      <Route path="/college/drives" element={<CampusDrives />} />
+      <Route path="/college/students" element={<StudentManagement />} />
+      <Route path="/college/events" element={<CampusDrives />} />
+
+      <Route path="/company/candidates" element={<CandidateSearch />} />
+      <Route path="/company/interviews" element={<InterviewsPage />} />
+
+      <Route path="/student/interviews" element={<InterviewsPage />} />
+      <Route path="/student/saved" element={<SavedOpportunities />} />
+      <Route path="/student/drives" element={<CampusDrives />} />
+
+      {/* Shared Platform Routes */}
       <Route path="/opportunities" element={<ViewOpportunities />} />
       <Route path="/opportunities/add" element={<AddOpportunity />} />
       <Route path="/opportunities/edit/:id" element={<AddOpportunity />} />
@@ -45,7 +71,7 @@ export default function App() {
       <Route path="/ai/career-role" element={<CareerRoleRecommendation />} />
       <Route path="/ai/skill-gap" element={<SkillGapAnalysis />} />
 
-      {/* Learning Hub (separate from AI) */}
+      {/* Learning Hub */}
       <Route path="/learning-hub/roadmap" element={<LearningRoadmap />} />
 
       {/* Student Profile */}

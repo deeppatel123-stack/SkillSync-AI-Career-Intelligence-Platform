@@ -108,4 +108,22 @@ async function getSavedOpportunities(req, res) {
   }
 }
 
-module.exports = { getAllUsers, getPlatformStats, updateProfile, deleteUser, changePassword, toggleSaveOpportunity, getSavedOpportunities };
+async function updateCareerGoals(req, res) {
+  try {
+    const { targetRole, targetSkills, preferredIndustry, preferredLocation, opportunityPreference } = req.body;
+    const user = req.user;
+    user.careerGoals = {
+      targetRole: targetRole !== undefined ? targetRole : (user.careerGoals?.targetRole || ''),
+      targetSkills: Array.isArray(targetSkills) ? targetSkills : (user.careerGoals?.targetSkills || []),
+      preferredIndustry: preferredIndustry !== undefined ? preferredIndustry : (user.careerGoals?.preferredIndustry || ''),
+      preferredLocation: preferredLocation !== undefined ? preferredLocation : (user.careerGoals?.preferredLocation || ''),
+      opportunityPreference: opportunityPreference !== undefined ? opportunityPreference : (user.careerGoals?.opportunityPreference || 'any'),
+    };
+    await user.save();
+    res.json({ success: true, message: 'Career goals updated', careerGoals: user.careerGoals });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+}
+
+module.exports = { getAllUsers, getPlatformStats, updateProfile, deleteUser, changePassword, toggleSaveOpportunity, getSavedOpportunities, updateCareerGoals };

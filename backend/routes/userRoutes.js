@@ -7,6 +7,7 @@ const {
   changePassword,
   toggleSaveOpportunity,
   getSavedOpportunities,
+  updateCareerGoals,
 } = require('../controllers/userController');
 const { requireAuth, requireAdmin } = require('../middleware/authMiddleware');
 
@@ -23,6 +24,9 @@ router.get('/', requireAdmin, getAllUsers);
 
 // PUT /api/users/profile
 router.put('/profile', updateProfile);
+
+// POST /api/users/career-goals
+router.post('/career-goals', updateCareerGoals);
 
 // POST /api/users/change-password
 router.post('/change-password', changePassword);

@@ -41,13 +41,15 @@ export function findUserByEmail(email, seedUsers = []) {
 }
 
 export function getDashboardPath(role) {
-  if (role === 'college' || role === 'company') return '/organizer/dashboard';
+  if (role === 'college') return '/college/dashboard';
+  if (role === 'company') return '/company/dashboard';
   if (role === 'superadmin') return '/admin/dashboard';
   return '/student/dashboard';
 }
 
 export function getAppRole(role) {
-  if (role === 'college' || role === 'company') return 'organizer';
+  if (role === 'college') return 'college';
+  if (role === 'company') return 'company';
   if (role === 'superadmin') return 'admin';
   return 'student';
 }

@@ -33,10 +33,50 @@ export const userApi = {
   getAll: () => request('/users'),
   getStats: () => request('/users/stats'),
   updateProfile: (body) => request('/users/profile', { method: 'PUT', body: JSON.stringify(body) }),
+  updateCareerGoals: (body) => request('/users/career-goals', { method: 'POST', body: JSON.stringify(body) }),
   delete: (id) => request(`/users/${id}`, { method: 'DELETE' }),
   getSaved: () => request('/users/saved'),
   saveOpportunity: (id) => request(`/users/saved/${id}`, { method: 'POST' }),
   unsaveOpportunity: (id) => request(`/users/saved/${id}`, { method: 'DELETE' }),
+};
+
+export const collegeApi = {
+  getStats: () => request('/college/stats'),
+  getStudents: (params = {}) => {
+    const q = new URLSearchParams(params).toString();
+    return request(`/college/students${q ? `?${q}` : ''}`);
+  },
+  getDrives: (params = {}) => {
+    const q = new URLSearchParams(params).toString();
+    return request(`/college/drives${q ? `?${q}` : ''}`);
+  },
+  createDrive: (body) => request('/college/drives', { method: 'POST', body: JSON.stringify(body) }),
+  updateDrive: (id, body) => request(`/college/drives/${id}`, { method: 'PUT', body: JSON.stringify(body) }),
+  deleteDrive: (id) => request(`/college/drives/${id}`, { method: 'DELETE' }),
+  registerDrive: (id) => request(`/college/drives/${id}/register`, { method: 'POST' }),
+  getEvents: (params = {}) => {
+    const q = new URLSearchParams(params).toString();
+    return request(`/college/events${q ? `?${q}` : ''}`);
+  },
+  createEvent: (body) => request('/college/events', { method: 'POST', body: JSON.stringify(body) }),
+  deleteEvent: (id) => request(`/college/events/${id}`, { method: 'DELETE' }),
+};
+
+export const companyApi = {
+  getStats: () => request('/company/stats'),
+  searchCandidates: (params = {}) => {
+    const q = new URLSearchParams(params).toString();
+    return request(`/company/candidates${q ? `?${q}` : ''}`);
+  },
+  addNote: (applicationId, note) => request(`/company/applications/${applicationId}/note`, { method: 'POST', body: JSON.stringify({ note }) }),
+  updateProfile: (body) => request('/company/profile', { method: 'PUT', body: JSON.stringify(body) }),
+};
+
+export const interviewApi = {
+  schedule: (body) => request('/interviews', { method: 'POST', body: JSON.stringify(body) }),
+  list: () => request('/interviews'),
+  updateStatus: (id, body) => request(`/interviews/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  remove: (id) => request(`/interviews/${id}`, { method: 'DELETE' }),
 };
 
 export const notificationApi = {
@@ -90,4 +130,4 @@ export const taskApi = {
   remove: (id) => request(`/tasks/${id}`, { method: 'DELETE' }),
 };
 
-export default { authApi, userApi, opportunityApi, applicationApi, taskApi, notificationApi };
+export default { authApi, userApi, collegeApi, companyApi, interviewApi, opportunityApi, applicationApi, taskApi, notificationApi };

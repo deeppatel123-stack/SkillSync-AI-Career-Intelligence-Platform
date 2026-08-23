@@ -939,3 +939,13 @@ a {
   font-size: 12.5px;
   color: var(--text-muted);
 }
+
+/* ========= Soft Badges & SaaS Helpers ========= */
+.bg-soft-primary { background-color: #ebf8ff !important; color: #2b6cb0 !important; }
+.bg-soft-success { background-color: #f0fff4 !important; color: #276749 !important; }
+.bg-soft-info { background-color: #ebf8ff !important; color: #2c5282 !important; }
+.bg-soft-warning { background-color: #fffaf0 !important; color: #9c4221 !important; }
+.bg-indigo { background-color: #5a67d8 !important; }
+.hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.hover-lift:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.1) !important; }
+.bg-gradient-primary { background: linear-gradient(135deg, #2b6cb0 0%, #4299e1 100%) !important; }

@@ -24,9 +24,18 @@ const applicantDetailsSchema = new mongoose.Schema({
 const applicationSchema = new mongoose.Schema({
   opportunityId: { type: mongoose.Schema.Types.ObjectId, ref: 'Opportunity', required: true },
   studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  status: { type: String, enum: ['applied', 'pending', 'reviewed', 'accepted', 'rejected'], default: 'applied' },
+  status: {
+    type: String,
+    enum: ['applied', 'pending', 'reviewed', 'shortlisted', 'interview', 'accepted', 'rejected'],
+    default: 'applied',
+  },
   appliedAt: { type: Date, default: Date.now },
   applicantDetails: { type: applicantDetailsSchema, required: true },
+  recruiterNotes: [{
+    note: String,
+    addedBy: String,
+    createdAt: { type: Date, default: Date.now }
+  }],
 }, { timestamps: true });
 
 applicationSchema.index({ opportunityId: 1, studentId: 1 }, { unique: true });
@@ -37,6 +46,8 @@ applicationSchema.methods.toPublicJSON = function () {
     studentId: this.studentId.toString(), status: this.status,
     appliedAt: this.appliedAt.toISOString().split('T')[0],
     applicantDetails: this.applicantDetails,
+    recruiterNotes: this.recruiterNotes || [],
+    createdAt: this.createdAt,
   };
 };
 

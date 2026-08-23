@@ -26,9 +26,19 @@ function requireOrganizer(req, res, next) {
   next();
 }
 
+function requireCollege(req, res, next) {
+  if (req.user.role !== 'college' && req.user.role !== 'superadmin') return res.status(403).json({ success: false, message: 'College administration access required' });
+  next();
+}
+
+function requireCompany(req, res, next) {
+  if (req.user.role !== 'company' && req.user.role !== 'superadmin') return res.status(403).json({ success: false, message: 'Company recruiter access required' });
+  next();
+}
+
 function requireAdmin(req, res, next) {
   if (req.user.role !== 'superadmin') return res.status(403).json({ success: false, message: 'Admin access required' });
   next();
 }
 
-module.exports = { requireAuth, requireStudent, requireOrganizer, requireAdmin };
+module.exports = { requireAuth, requireStudent, requireOrganizer, requireCollege, requireCompany, requireAdmin };

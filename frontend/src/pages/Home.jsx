@@ -217,50 +217,50 @@ export default function Home() {
       <section className="features-section">
         <div className="container">
           <div className="text-center mb-5">
-            <h2 className="section-title-large">Everything You Need</h2>
-            <p className="section-subtitle-large">Powerful tools to accelerate your career journey</p>
+            <h2 className="section-title-large">Everything You Need to Build Your Career</h2>
+            <p className="section-subtitle-large">Real platform capabilities for Students, Colleges, and Companies</p>
           </div>
           <div className="features-grid">
             <div className="feature-card">
-              <div className="feature-icon blue"><i className="bi bi-robot" /></div>
+              <div className="feature-icon blue"><i className="bi bi-shield-check" /></div>
               <div className="feature-text">
-                <h5>AI-Powered Insights</h5>
-                <p>Get profile analysis, career recommendations, and skill gap assessments powered by machine learning.</p>
+                <h5>Career Readiness Score</h5>
+                <p>Track your job readiness from 0-100 with category breakdowns across profile, skills, projects, and resume.</p>
               </div>
             </div>
             <div className="feature-card">
-              <div className="feature-icon green"><i className="bi bi-lightning-fill" /></div>
+              <div className="feature-icon green"><i className="bi bi-diagram-3" /></div>
               <div className="feature-text">
-                <h5>Smart Matching</h5>
-                <p>Receive personalized opportunity recommendations based on your skills, interests, and career goals.</p>
+                <h5>Recruitment Pipeline</h5>
+                <p>Track candidates or applications through 5 transparent stages: Applied, Reviewed, Shortlisted, Interview, and Selected.</p>
               </div>
             </div>
             <div className="feature-card">
-              <div className="feature-icon purple"><i className="bi bi-bell-fill" /></div>
+              <div className="feature-icon purple"><i className="bi bi-person-workspace" /></div>
               <div className="feature-text">
-                <h5>Real-Time Updates</h5>
-                <p>Stay informed with instant notifications for application status, new opportunities, and upcoming events.</p>
+                <h5>Campus Recruitment Drives</h5>
+                <p>Colleges manage company visits, set eligibility CGPA, and track department-wise placement statistics.</p>
               </div>
             </div>
             <div className="feature-card">
-              <div className="feature-icon orange"><i className="bi bi-file-earmark-text-fill" /></div>
+              <div className="feature-icon orange"><i className="bi bi-robot" /></div>
               <div className="feature-text">
-                <h5>Application Tracking</h5>
-                <p>Track all your applications in one place, from submission to shortlisting to final decision.</p>
+                <h5>AI Career Intelligence</h5>
+                <p>ML-driven profile analysis, career role recommendations, skill gap assessments, and learning roadmaps.</p>
               </div>
             </div>
             <div className="feature-card">
-              <div className="feature-icon teal"><i className="bi bi-signpost-2" /></div>
+              <div className="feature-icon teal"><i className="bi bi-file-earmark-person" /></div>
               <div className="feature-text">
-                <h5>Learning Roadmaps</h5>
-                <p>Get personalized learning paths to bridge skill gaps and stay ahead in your chosen domain.</p>
+                <h5>Resume Builder & Profiles</h5>
+                <p>Build professional resumes and showcase verified project portfolios, skills, and academic certifications.</p>
               </div>
             </div>
             <div className="feature-card">
-              <div className="feature-icon pink"><i className="bi bi-people-fill" /></div>
+              <div className="feature-icon pink"><i className="bi bi-calendar-event" /></div>
               <div className="feature-text">
-                <h5>Networking Hub</h5>
-                <p>Connect with recruiters, attend career events, and build professional relationships that matter.</p>
+                <h5>Interview Scheduler</h5>
+                <p>Seamless interview invitation management with Google Meet integration and status tracking.</p>
               </div>
             </div>
           </div>

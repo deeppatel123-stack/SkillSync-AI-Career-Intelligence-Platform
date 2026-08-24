@@ -18,8 +18,8 @@ function StageProgressStepper({ currentStatus }) {
   const currentIndex = STAGE_STEPS.indexOf(currentStatus) !== -1 ? STAGE_STEPS.indexOf(currentStatus) : 0;
 
   return (
-    <div className="py-3 px-2 my-3 bg-light rounded">
-      <div className="d-flex justify-content-between align-items-center position-relative">
+    <div className="py-3 px-3 my-3 bg-body-tertiary rounded border overflow-x-auto">
+      <div className="d-flex justify-content-between align-items-center position-relative" style={{ minWidth: '420px' }}>
         <div className="position-absolute top-50 start-0 end-0 translate-middle-y bg-secondary opacity-25" style={{ height: '4px', zIndex: 1 }} />
         <div
           className="position-absolute top-50 start-0 translate-middle-y bg-success"

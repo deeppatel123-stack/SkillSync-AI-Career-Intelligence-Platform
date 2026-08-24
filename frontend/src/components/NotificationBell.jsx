@@ -68,7 +68,7 @@ export default function NotificationBell() {
         <div className="notification-dropdown">
           <div className="notification-header">
             <strong>Notifications</strong>
-            <button type="button" className="btn btn-sm btn-link p-0" onClick={handleMarkAll}>
+            <button type="button" className="btn btn-sm btn-link p-0 text-nowrap text-decoration-none" onClick={handleMarkAll}>
               Mark all read
             </button>
           </div>

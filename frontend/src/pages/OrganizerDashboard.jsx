@@ -31,7 +31,7 @@ export default function OrganizerDashboard() {
   }, []);
 
   return (
-    <AppLayout role="organizer">
+    <AppLayout role={currentUser.role || 'college'}>
       <div className="container-fluid px-3">
         <div className="row">
           <div className="col-12">

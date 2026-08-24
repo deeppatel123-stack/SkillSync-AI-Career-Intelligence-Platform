@@ -1,12 +1,16 @@
 import { Routes, Route } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminLogin from './pages/AdminLogin';
 import AdminRegister from './pages/AdminRegister';
+
 import StudentDashboard from './pages/StudentDashboard';
-import OrganizerDashboard from './pages/OrganizerDashboard';
+import CollegeDashboard from './pages/CollegeDashboard';
+import CompanyDashboard from './pages/CompanyDashboard';
 import AdminDashboard from './pages/AdminDashboard';
+
 import ViewOpportunities from './pages/ViewOpportunities';
 import AddOpportunity from './pages/AddOpportunity';
 import Applications from './pages/Applications';
@@ -18,13 +22,11 @@ import CareerRoleRecommendation from './pages/CareerRoleRecommendation';
 import SkillGapAnalysis from './pages/SkillGapAnalysis';
 import LearningRoadmap from './pages/LearningRoadmap';
 
-// Student Profile
+// Student Profile & Tools
 import StudentProfile from './pages/StudentProfile';
 import TodoPage from './pages/TodoPage';
 import ResumeBuilder from './pages/ResumeBuilder';
 
-import CollegeDashboard from './pages/CollegeDashboard';
-import CompanyDashboard from './pages/CompanyDashboard';
 import CampusDrives from './pages/CampusDrives';
 import StudentManagement from './pages/StudentManagement';
 import CandidateSearch from './pages/CandidateSearch';
@@ -34,54 +36,215 @@ import SavedOpportunities from './pages/SavedOpportunities';
 export default function App() {
   return (
     <Routes>
+      {/* Public Routes */}
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/admin/register" element={<AdminRegister />} />
 
-      {/* Role Dashboards */}
-      <Route path="/student/dashboard" element={<StudentDashboard />} />
-      <Route path="/college/dashboard" element={<CollegeDashboard />} />
-      <Route path="/company/dashboard" element={<CompanyDashboard />} />
-      <Route path="/organizer/dashboard" element={<CollegeDashboard />} />
-      <Route path="/admin/dashboard" element={<AdminDashboard />} />
+      {/* Student Portal Routes */}
+      <Route
+        path="/student/dashboard"
+        element={
+          <ProtectedRoute allowedRoles={['student']}>
+            <StudentDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/profile"
+        element={
+          <ProtectedRoute allowedRoles={['student']}>
+            <StudentProfile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/interviews"
+        element={
+          <ProtectedRoute allowedRoles={['student']}>
+            <InterviewsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/saved"
+        element={
+          <ProtectedRoute allowedRoles={['student']}>
+            <SavedOpportunities />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/drives"
+        element={
+          <ProtectedRoute allowedRoles={['student']}>
+            <CampusDrives />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ai/profile-analysis"
+        element={
+          <ProtectedRoute allowedRoles={['student']}>
+            <ProfileAnalysis />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ai/career-role"
+        element={
+          <ProtectedRoute allowedRoles={['student']}>
+            <CareerRoleRecommendation />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ai/skill-gap"
+        element={
+          <ProtectedRoute allowedRoles={['student']}>
+            <SkillGapAnalysis />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/learning-hub/roadmap"
+        element={
+          <ProtectedRoute allowedRoles={['student']}>
+            <LearningRoadmap />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/resume"
+        element={
+          <ProtectedRoute allowedRoles={['student']}>
+            <ResumeBuilder />
+          </ProtectedRoute>
+        }
+      />
 
-      {/* Role Specific Routes */}
-      <Route path="/college/drives" element={<CampusDrives />} />
-      <Route path="/college/students" element={<StudentManagement />} />
-      <Route path="/college/events" element={<CampusDrives />} />
+      {/* College Portal Routes */}
+      <Route
+        path="/college/dashboard"
+        element={
+          <ProtectedRoute allowedRoles={['college']}>
+            <CollegeDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/college/drives"
+        element={
+          <ProtectedRoute allowedRoles={['college']}>
+            <CampusDrives />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/college/students"
+        element={
+          <ProtectedRoute allowedRoles={['college']}>
+            <StudentManagement />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/college/events"
+        element={
+          <ProtectedRoute allowedRoles={['college']}>
+            <CampusDrives />
+          </ProtectedRoute>
+        }
+      />
 
-      <Route path="/company/candidates" element={<CandidateSearch />} />
-      <Route path="/company/interviews" element={<InterviewsPage />} />
+      {/* Company Portal Routes */}
+      <Route
+        path="/company/dashboard"
+        element={
+          <ProtectedRoute allowedRoles={['company']}>
+            <CompanyDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/company/candidates"
+        element={
+          <ProtectedRoute allowedRoles={['company']}>
+            <CandidateSearch />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/company/interviews"
+        element={
+          <ProtectedRoute allowedRoles={['company']}>
+            <InterviewsPage />
+          </ProtectedRoute>
+        }
+      />
 
-      <Route path="/student/interviews" element={<InterviewsPage />} />
-      <Route path="/student/saved" element={<SavedOpportunities />} />
-      <Route path="/student/drives" element={<CampusDrives />} />
+      {/* Admin Portal Routes */}
+      <Route
+        path="/admin/dashboard"
+        element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <AdminDashboard />
+          </ProtectedRoute>
+        }
+      />
 
-      {/* Shared Platform Routes */}
-      <Route path="/opportunities" element={<ViewOpportunities />} />
-      <Route path="/opportunities/add" element={<AddOpportunity />} />
-      <Route path="/opportunities/edit/:id" element={<AddOpportunity />} />
-      <Route path="/applications" element={<Applications />} />
-      <Route path="/profile" element={<ProfileSettings />} />
-
-      {/* AI Feature Routes */}
-      <Route path="/ai/profile-analysis" element={<ProfileAnalysis />} />
-      <Route path="/ai/career-role" element={<CareerRoleRecommendation />} />
-      <Route path="/ai/skill-gap" element={<SkillGapAnalysis />} />
-
-      {/* Learning Hub */}
-      <Route path="/learning-hub/roadmap" element={<LearningRoadmap />} />
-
-      {/* Student Profile */}
-      <Route path="/student/profile" element={<StudentProfile />} />
-
-      {/* Resume Builder */}
-      <Route path="/resume" element={<ResumeBuilder />} />
-
-      {/* To-Do List */}
-      <Route path="/todo" element={<TodoPage />} />
+      {/* Shared Authenticated Routes */}
+      <Route
+        path="/opportunities"
+        element={
+          <ProtectedRoute>
+            <ViewOpportunities />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/opportunities/add"
+        element={
+          <ProtectedRoute allowedRoles={['college', 'company']}>
+            <AddOpportunity />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/opportunities/edit/:id"
+        element={
+          <ProtectedRoute allowedRoles={['college', 'company']}>
+            <AddOpportunity />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/applications"
+        element={
+          <ProtectedRoute>
+            <Applications />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <ProfileSettings />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/todo"
+        element={
+          <ProtectedRoute>
+            <TodoPage />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }
+

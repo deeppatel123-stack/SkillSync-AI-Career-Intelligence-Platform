@@ -2,9 +2,12 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AppLayout from '../components/AppLayout';
 import { opportunityApi } from '../utils/api';
+import { getSession, getDashboardPath } from '../utils/userSession';
 
 export default function AddOpportunity() {
   const navigate = useNavigate();
+  const session = getSession();
+  const role = session?.role || 'company';
   const { id } = useParams();
   const isEdit = Boolean(id);
   const today = new Date().toISOString().split('T')[0];
@@ -49,7 +52,7 @@ export default function AddOpportunity() {
       } else {
         await opportunityApi.create(form);
       }
-      navigate('/organizer/dashboard');
+      navigate(getDashboardPath(role));
     } catch (err) {
       setError(err.message);
     } finally {
@@ -59,7 +62,7 @@ export default function AddOpportunity() {
 
   if (fetching) {
     return (
-      <AppLayout role="organizer">
+      <AppLayout role={role}>
         <div className="form-container mt-4">
           <div className="ai-loading"><i className="bi bi-arrow-repeat" /> Loading opportunity...</div>
         </div>
@@ -68,7 +71,7 @@ export default function AddOpportunity() {
   }
 
   return (
-    <AppLayout role="organizer">
+    <AppLayout role={role}>
       <div className="form-container mt-4">
         <div className="post-header">
           <i className={`bi ${isEdit ? 'bi-pencil' : 'bi-plus-circle'}`} />

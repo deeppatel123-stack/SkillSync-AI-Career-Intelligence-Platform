@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { authApi } from '../utils/api';
-import { clearSession } from '../utils/userSession';
+import { clearSession, getSession } from '../utils/userSession';
 
 const studentLinks = [
   { to: '/student/dashboard', icon: 'bi-grid-fill', label: 'Dashboard' },
@@ -11,19 +11,19 @@ const studentLinks = [
   { to: '/student/interviews', icon: 'bi-calendar-event-fill', label: 'Interview Calendar' },
   { to: '/student/drives', icon: 'bi-building-gear', label: 'Campus Drives' },
   // AI & Learning
-  { to: '/ai/profile-analysis', icon: 'bi-file-earmark-text', label: 'Profile Analysis' },
+  { to: '/ai/profile-analysis', icon: 'bi-cpu-fill', label: 'Profile Analysis' },
   { to: '/ai/career-role', icon: 'bi-briefcase-fill', label: 'Career Recommendation' },
-  { to: '/ai/skill-gap', icon: 'bi-exclamation-triangle', label: 'Skill Gap Analysis' },
-  { to: '/learning-hub/roadmap', icon: 'bi-signpost-2', label: 'Learning Hub' },
-  { to: '/resume', icon: 'bi-file-earmark-arrow-down', label: 'Resume Builder' },
+  { to: '/ai/skill-gap', icon: 'bi-exclamation-triangle-fill', label: 'Skill Gap Analysis' },
+  { to: '/learning-hub/roadmap', icon: 'bi-signpost-2-fill', label: 'Learning Hub' },
+  { to: '/resume', icon: 'bi-file-earmark-arrow-down-fill', label: 'Resume Builder' },
 ];
 
 const collegeLinks = [
   { to: '/college/dashboard', icon: 'bi-grid-fill', label: 'Placement Dashboard' },
   { to: '/college/drives', icon: 'bi-building-gear', label: 'Campus Drives' },
   { to: '/college/students', icon: 'bi-people-fill', label: 'Student Directory' },
-  { to: '/college/events', icon: 'bi-calendar-event', label: 'College Events' },
-  { to: '/opportunities', icon: 'bi-list-ul', label: 'Opportunities' },
+  { to: '/college/events', icon: 'bi-calendar-event-fill', label: 'College Events' },
+  { to: '/opportunities', icon: 'bi-list-ul', label: 'Active Opportunities' },
   { to: '/opportunities/add', icon: 'bi-plus-circle-fill', label: 'Post Opportunity' },
   { to: '/applications', icon: 'bi-file-text-fill', label: 'Applications' },
   { to: '/profile', icon: 'bi-person-badge-fill', label: 'College Profile' },
@@ -36,7 +36,7 @@ const companyLinks = [
   { to: '/applications', icon: 'bi-diagram-3-fill', label: 'Recruitment Pipeline' },
   { to: '/company/candidates', icon: 'bi-person-search', label: 'Candidate Search' },
   { to: '/company/interviews', icon: 'bi-calendar-check-fill', label: 'Scheduled Interviews' },
-  { to: '/profile', icon: 'bi-building', label: 'Company Profile' },
+  { to: '/profile', icon: 'bi-building-fill', label: 'Company Profile' },
 ];
 
 const adminLinks = [
@@ -48,75 +48,96 @@ const adminLinks = [
 ];
 
 export default function Sidebar({
-  role = 'student',
+  role,
   active = false,
   adminSection,
   onAdminSectionChange,
   onLogout,
 }) {
   const location = useLocation();
+  const session = getSession();
+  const activeRole = role || session?.role || 'student';
 
-  if (role === 'admin' || role === 'superadmin') {
+  const isDarkAdmin = activeRole === 'admin' || activeRole === 'superadmin';
+
+  if (isDarkAdmin) {
     return (
       <aside className={`sidebar ${active ? 'active' : ''}`} id="sidebar">
-        <h3>
-          <i className="bi bi-shield-lock" /> Admin Panel
-        </h3>
-        {adminLinks.map((link) => (
+        <div className="sidebar-brand">
+          <i className="bi bi-shield-lock-fill me-2 text-primary" /> Admin Panel
+        </div>
+        <div className="sidebar-menu">
+          {adminLinks.map((link) => (
+            <a
+              key={link.key}
+              href="#section"
+              className={`sidebar-link ${adminSection === link.key ? 'active' : ''}`}
+              onClick={(e) => {
+                e.preventDefault();
+                onAdminSectionChange?.(link.key);
+              }}
+            >
+              <i className={`bi ${link.icon}`} /> <span>{link.label}</span>
+            </a>
+          ))}
+        </div>
+        <div className="sidebar-footer">
           <a
-            key={link.key}
-            href="#section"
-            className={adminSection === link.key ? 'active' : ''}
+            href="#logout"
+            className="sidebar-link logout-link"
             onClick={(e) => {
               e.preventDefault();
-              onAdminSectionChange?.(link.key);
+              authApi.logout().catch(() => {});
+              clearSession();
+              onLogout?.();
             }}
           >
-            <i className={`bi ${link.icon}`} /> {link.label}
+            <i className="bi bi-box-arrow-left" /> <span>Logout</span>
           </a>
-        ))}
-        <a
-          href="#logout"
-          className="logout-link"
-          onClick={(e) => {
-            e.preventDefault();
-            onLogout?.();
-          }}
-        >
-          <i className="bi bi-box-arrow-left" /> Logout
-        </a>
+        </div>
       </aside>
     );
   }
 
   let links = studentLinks;
-  if (role === 'college') links = collegeLinks;
-  else if (role === 'company') links = companyLinks;
-  else if (role === 'organizer') links = collegeLinks;
+  if (activeRole === 'college' || activeRole === 'organizer') links = collegeLinks;
+  else if (activeRole === 'company') links = companyLinks;
 
-  const roleTitle = role === 'college' ? 'College Portal' : role === 'company' ? 'Recruiter Suite' : 'SkillSync';
+  const roleTitle = activeRole === 'college' || activeRole === 'organizer' 
+    ? 'College Portal' 
+    : activeRole === 'company' 
+    ? 'Recruiter Suite' 
+    : 'SkillSync';
 
   return (
     <aside className={`sidebar ${active ? 'active' : ''}`} id="sidebar">
-      <h3>
-        <i className="bi bi-bezier2" /> {roleTitle}
-      </h3>
-      {links.map((link) => (
-        <Link key={link.to} to={link.to} className={location.pathname === link.to ? 'active' : ''}>
-          <i className={`bi ${link.icon}`} /> {link.label}
+      <div className="sidebar-brand">
+        <i className="bi bi-bezier2 me-2 text-primary" /> {roleTitle}
+      </div>
+      <div className="sidebar-menu">
+        {links.map((link) => {
+          const isActive = location.pathname === link.to;
+          return (
+            <Link key={link.to} to={link.to} className={`sidebar-link ${isActive ? 'active' : ''}`}>
+              <i className={`bi ${link.icon}`} /> <span>{link.label}</span>
+            </Link>
+          );
+        })}
+      </div>
+      <div className="sidebar-footer">
+        <Link
+          to="/login"
+          className="sidebar-link logout-link"
+          onClick={() => {
+            authApi.logout().catch(() => {});
+            clearSession();
+            onLogout?.();
+          }}
+        >
+          <i className="bi bi-box-arrow-left" /> <span>Logout</span>
         </Link>
-      ))}
-      <Link
-        to="/login"
-        className="logout-link"
-        onClick={() => {
-          authApi.logout().catch(() => { });
-          clearSession();
-          onLogout?.();
-        }}
-      >
-        <i className="bi bi-box-arrow-left" /> Logout
-      </Link>
+      </div>
     </aside>
   );
 }
+

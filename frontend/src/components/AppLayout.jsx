@@ -2,15 +2,23 @@ import { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
 import ThemeToggle from './ThemeToggle';
 import NotificationBell from './NotificationBell';
+import { getSession } from '../utils/userSession';
 
 export default function AppLayout({
   children,
-  role = 'student',
+  role,
   adminSection,
   onAdminSectionChange,
   onLogout,
 }) {
   const [sidebarActive, setSidebarActive] = useState(false);
+  const session = getSession();
+  
+  // Resolve actual role from session if role prop is missing or ambiguous ('organizer')
+  let resolvedRole = role;
+  if (!resolvedRole || resolvedRole === 'organizer') {
+    resolvedRole = session?.role || 'student';
+  }
 
   const toggleSidebar = () => setSidebarActive((prev) => !prev);
   const closeSidebar = () => setSidebarActive(false);
@@ -44,7 +52,7 @@ export default function AppLayout({
 
       <div className="app-layout">
         <Sidebar
-          role={role}
+          role={resolvedRole}
           active={sidebarActive}
           adminSection={adminSection}
           onAdminSectionChange={onAdminSectionChange}
@@ -61,3 +69,4 @@ export default function AppLayout({
     </>
   );
 }
+

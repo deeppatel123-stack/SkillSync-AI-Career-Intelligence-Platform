@@ -98,7 +98,7 @@ export default function ViewOpportunities() {
   const session = getSession();
   const sessionRole = session?.role;
   const isOrganizerView = sessionRole === 'college' || sessionRole === 'company';
-  const layoutRole = isOrganizerView ? 'organizer' : getAppRole(sessionRole || 'student');
+  const layoutRole = sessionRole || 'student';
 
   const [typeFilter, setTypeFilter] = useState('all');
   const [search, setSearch] = useState('');

@@ -90,54 +90,66 @@ export default function StudentDashboard() {
   return (
     <AppLayout role="student">
       <div className="container-fluid px-3">
-        {/* Welcome Header */}
-        <div className="row">
-          <div className="col-12">
-            <div className="welcome-box shadow-sm d-flex justify-content-between align-items-center mb-4 p-4 rounded-3">
-              <div className="welcome-content">
-                <h2 className="fw-bold mb-1">
-                  <i className="bi bi-person-workspace me-2 text-primary" />
-                  Welcome back, {currentUser.name}
-                </h2>
-                <p className="mb-0 text-muted">Your Career Hub & Opportunity Intelligence Dashboard</p>
-              </div>
-              <div className="d-flex gap-2">
-                <Link to="/opportunities" className="btn btn-primary btn-sm fw-semibold px-3">
-                  <i className="bi bi-search me-1" /> Browse Opportunities
-                </Link>
-                <Link to="/resume" className="btn btn-outline-secondary btn-sm fw-semibold px-3">
-                  <i className="bi bi-file-earmark-arrow-down me-1" /> Resume Builder
-                </Link>
-              </div>
-            </div>
+        {/* Clean Page Header */}
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-3 border-bottom">
+          <div>
+            <h3 className="fw-bold mb-1 text-dark">
+              Welcome back, {currentUser.name}
+            </h3>
+            <p className="text-muted mb-0">Career Management Hub & Opportunity Intelligence</p>
+          </div>
+          <div className="d-flex gap-2 mt-3 mt-md-0">
+            <Link to="/opportunities" className="btn btn-primary btn-sm fw-semibold px-3">
+              <i className="bi bi-search me-1" /> Browse Opportunities
+            </Link>
+            <Link to="/resume" className="btn btn-outline-secondary btn-sm fw-semibold px-3">
+              <i className="bi bi-file-earmark-arrow-down me-1" /> Resume Builder
+            </Link>
           </div>
         </div>
 
         {/* Readiness & Profile Completion Row */}
         <div className="row g-4 mb-4">
-          {/* Career Readiness Score */}
+          {/* Career Readiness Score with SVG Ring */}
           <div className="col-lg-5">
             <div className="card-box shadow-sm h-100 p-3">
-              <div className="d-flex justify-content-between align-items-center mb-3">
-                <h5 className="fw-bold mb-0">
-                  <i className="bi bi-shield-check text-primary me-2" />
-                  Career Readiness Score
-                </h5>
-                <span className="badge bg-primary-subtle text-primary fs-6 fw-bold px-3 py-1">{careerReadiness} / 100</span>
-              </div>
-              <div className="progress mb-3" style={{ height: '10px' }}>
-                <div
-                  className={`progress-bar ${careerReadiness >= 75 ? 'bg-success' : careerReadiness >= 50 ? 'bg-primary' : 'bg-warning'}`}
-                  style={{ width: `${careerReadiness}%` }}
-                />
-              </div>
+              <h5 className="fw-bold mb-3 text-dark">
+                <i className="bi bi-shield-check text-primary me-2" />
+                Career Readiness Score
+              </h5>
 
-              <div className="row g-2 small text-muted">
-                <div className="col-6"><i className="bi bi-check2-circle text-primary me-1" />Profile: <strong>{profileScore}/25</strong></div>
-                <div className="col-6"><i className="bi bi-check2-circle text-primary me-1" />Skills: <strong>{skillsScore}/25</strong></div>
-                <div className="col-6"><i className="bi bi-check2-circle text-primary me-1" />Projects: <strong>{projectsScore}/20</strong></div>
-                <div className="col-6"><i className="bi bi-check2-circle text-primary me-1" />Certifications: <strong>{certsScore}/15</strong></div>
-                <div className="col-6"><i className="bi bi-check2-circle text-primary me-1" />Resume: <strong>{resumeScore}/15</strong></div>
+              <div className="d-flex align-items-center gap-3">
+                <div className="position-relative d-inline-flex align-items-center justify-content-center flex-shrink-0" style={{ width: 84, height: 84 }}>
+                  <svg width="84" height="84" viewBox="0 0 84 84">
+                    <circle cx="42" cy="42" r="36" stroke="var(--border)" strokeWidth="7" fill="none" />
+                    <circle
+                      cx="42"
+                      cy="42"
+                      r="36"
+                      stroke="var(--accent)"
+                      strokeWidth="7"
+                      fill="none"
+                      strokeDasharray={2 * Math.PI * 36}
+                      strokeDashoffset={2 * Math.PI * 36 * (1 - careerReadiness / 100)}
+                      strokeLinecap="round"
+                      transform="rotate(-90 42 42)"
+                      style={{ transition: 'stroke-dashoffset 0.5s ease' }}
+                    />
+                  </svg>
+                  <div className="position-absolute text-center">
+                    <span className="fw-bold fs-4 text-primary d-block lh-1">{careerReadiness}</span>
+                    <span className="text-muted" style={{ fontSize: '10px' }}>/ 100</span>
+                  </div>
+                </div>
+
+                <div className="flex-grow-1">
+                  <div className="row g-1 small text-muted">
+                    <div className="col-12"><i className="bi bi-check2-circle text-primary me-1" />Profile: <strong>{profileScore}/25</strong></div>
+                    <div className="col-12"><i className="bi bi-check2-circle text-primary me-1" />Skills: <strong>{skillsScore}/25</strong></div>
+                    <div className="col-12"><i className="bi bi-check2-circle text-primary me-1" />Projects: <strong>{projectsScore}/20</strong></div>
+                    <div className="col-12"><i className="bi bi-check2-circle text-primary me-1" />Resume: <strong>{resumeScore}/15</strong></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -147,7 +159,7 @@ export default function StudentDashboard() {
             <div className="card-box shadow-sm h-100 p-3">
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <div>
-                  <h5 className="fw-bold mb-0">
+                  <h5 className="fw-bold mb-0 text-dark">
                     <i className="bi bi-person-check text-primary me-2" />
                     Profile Completion Checklist
                   </h5>
@@ -156,10 +168,14 @@ export default function StudentDashboard() {
                 <Link to="/student/profile" className="btn btn-sm btn-outline-primary fw-semibold">Update Profile</Link>
               </div>
 
+              <div className="progress mb-3" style={{ height: '8px' }}>
+                <div className="progress-bar bg-primary" role="progressbar" style={{ width: `${completionPct}%` }} />
+              </div>
+
               <div className="row g-2">
                 {completionItems.map((item, idx) => (
                   <div key={idx} className="col-md-6">
-                    <Link to={item.link} className={`d-flex align-items-center justify-content-between p-2 rounded-3 text-decoration-none border ${item.done ? 'bg-body-tertiary text-muted' : 'bg-body-secondary text-body fw-medium'}`}>
+                    <Link to={item.link} className={`d-flex align-items-center justify-content-between p-2 rounded-3 text-decoration-none border ${item.done ? 'bg-light text-muted' : 'bg-white text-dark fw-medium'}`}>
                       <span>
                         <i className={`bi ${item.done ? 'bi-check-circle-fill text-success' : 'bi-dash-circle text-warning'} me-2`} />
                         {item.label}

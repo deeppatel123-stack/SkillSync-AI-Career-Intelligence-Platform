@@ -47,26 +47,21 @@ export default function CompanyDashboard() {
   return (
     <AppLayout role="company">
       <div className="container-fluid px-3">
-        {/* Recruiter Header */}
-        <div className="row">
-          <div className="col-12">
-            <div className="welcome-box shadow-sm d-flex justify-content-between align-items-center mb-4 p-4 rounded-3">
-              <div className="welcome-content">
-                <h2 className="fw-bold mb-1">
-                  <i className="bi bi-building me-2 text-primary" />
-                  {currentUser.name} Recruiter Suite
-                </h2>
-                <p className="mb-0 text-muted">Manage candidate pipelines, search talent, and schedule interviews</p>
-              </div>
-              <div className="d-flex gap-2">
-                <Link to="/opportunities/add" className="btn btn-primary btn-sm fw-semibold px-3">
-                  <i className="bi bi-plus-circle me-1" /> Post New Job
-                </Link>
-                <Link to="/company/candidates" className="btn btn-outline-secondary btn-sm fw-semibold px-3">
-                  <i className="bi bi-person-search me-1" /> Find Candidates
-                </Link>
-              </div>
-            </div>
+        {/* Clean Recruiter Header */}
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-3 border-bottom">
+          <div>
+            <h3 className="fw-bold mb-1 text-dark">
+              {currentUser.name} Recruiter Suite
+            </h3>
+            <p className="text-muted mb-0">Manage candidate pipelines, search talent, and schedule interviews</p>
+          </div>
+          <div className="d-flex gap-2 mt-3 mt-md-0">
+            <Link to="/opportunities/add" className="btn btn-primary btn-sm fw-semibold px-3">
+              <i className="bi bi-plus-circle me-1" /> Post New Job
+            </Link>
+            <Link to="/company/candidates" className="btn btn-outline-secondary btn-sm fw-semibold px-3">
+              <i className="bi bi-person-search me-1" /> Find Candidates
+            </Link>
           </div>
         </div>
 

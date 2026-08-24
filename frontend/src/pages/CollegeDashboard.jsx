@@ -37,25 +37,21 @@ export default function CollegeDashboard() {
     <AppLayout role="college">
       <div className="container-fluid px-3">
         {/* Welcome Header */}
-        <div className="row">
-          <div className="col-12">
-            <div className="welcome-box shadow-sm d-flex justify-content-between align-items-center mb-4 p-4 rounded-3">
-              <div className="welcome-content">
-                <h2 className="fw-bold mb-1">
-                  <i className="bi bi-bank me-2 text-primary" />
-                  {currentUser.organization || currentUser.name} Placement Cell
-                </h2>
-                <p className="mb-0 text-muted">Academic Student Opportunity & Campus Recruitment Portal</p>
-              </div>
-              <div className="d-flex gap-2">
-                <Link to="/college/drives" className="btn btn-primary btn-sm fw-semibold px-3">
-                  <i className="bi bi-plus-lg me-1" /> New Campus Drive
-                </Link>
-                <Link to="/opportunities/add" className="btn btn-outline-secondary btn-sm fw-semibold px-3">
-                  <i className="bi bi-megaphone me-1" /> Post Opportunity
-                </Link>
-              </div>
-            </div>
+        {/* Clean Placement Cell Header */}
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-3 border-bottom">
+          <div>
+            <h3 className="fw-bold mb-1 text-dark">
+              {currentUser.organization || currentUser.name} Placement Cell
+            </h3>
+            <p className="text-muted mb-0">Academic Student Opportunity & Campus Recruitment Portal</p>
+          </div>
+          <div className="d-flex gap-2 mt-3 mt-md-0">
+            <Link to="/college/drives" className="btn btn-primary btn-sm fw-semibold px-3">
+              <i className="bi bi-plus-lg me-1" /> New Campus Drive
+            </Link>
+            <Link to="/opportunities/add" className="btn btn-outline-secondary btn-sm fw-semibold px-3">
+              <i className="bi bi-megaphone me-1" /> Post Opportunity
+            </Link>
           </div>
         </div>
 

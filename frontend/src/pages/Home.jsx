@@ -40,16 +40,16 @@ export default function Home() {
 
               <div className="stats-row">
                 <div className="stat-item">
-                  <h3>5,000+</h3>
-                  <p>Active Students</p>
+                  <h3>{oppCount > 0 ? `${oppCount}` : '0'}</h3>
+                  <p>Active Opportunities</p>
                 </div>
                 <div className="stat-item">
-                  <h3>200+</h3>
-                  <p>Partners</p>
+                  <h3>3 Portals</h3>
+                  <p>Students, Colleges & Companies</p>
                 </div>
                 <div className="stat-item">
-                  <h3>{oppCount > 0 ? `${oppCount}+` : '1,500+'}</h3>
-                  <p>Opportunities</p>
+                  <h3>1 Platform</h3>
+                  <p>Career & Placement Ecosystem</p>
                 </div>
               </div>
             </div>
